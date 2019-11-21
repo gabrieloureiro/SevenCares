@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:flutter_app/feed.dart';
+import 'package:flutter_app/fitness.dart';
+import 'package:flutter_app/newsletter.dart';
+import 'package:flutter_app/profile.dart';
+import 'package:flutter_app/search.dart';
+import 'package:flutter_app/settings.dart';
 //import 'package:url_launcher/url_launcher.dart';
 // ESSA TELA VAI SER A HOME -- FALTA CRIAR UMA MAIN COM LOGIN
 void main() => runApp(Home());
@@ -16,21 +22,25 @@ class Home extends StatelessWidget {
   }
 }
 
-// _launchURL(String url) async {
-//   String url1 = url;
-//   if (await canLaunch(url1)) {
-//     await launch(url1);
-//   } else {
-//     throw 'Could not launch $url1';
-//   }
-// }
-
 class HomeScreen extends StatefulWidget {
   @override
   _HomeState createState() => _HomeState();
 }
 
-class _HomeState extends State<HomeScreen> {
+class _HomeState extends State<HomeScreen> 
+  with SingleTickerProviderStateMixin {
+
+  TabController _tabController;
+  @override
+  void initState(){
+    super.initState();
+    _tabController = TabController(
+      length: 5, 
+      vsync: this,
+      initialIndex: 2
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,135 +49,154 @@ class _HomeState extends State<HomeScreen> {
               "images/logo-s7.png",
               width: 108,
             ),
-
             backgroundColor: Colors.black87,
             centerTitle: true,
-      
           actions: <Widget>[
-          IconButton(
-            icon: Icon(MdiIcons.settings),
-            tooltip: "Settings",
-            iconSize: 38,
-            color: Colors.grey,
-            alignment: Alignment.centerRight,
-            onPressed: (){
-              // Navigator.push(context,
-              //   MaterialPageRoute(
-              //     builder: (context) => Settings()
-              //   ),
-              // );
-              print("Settings active");
-                },
-              ),
-        ],
-          ),
+            // IconButton(
+            //   icon: Icon(MdiIcons.settings),
+            //   tooltip: "Settings",
+            //   iconSize: 33,
+            //   color: Colors.grey,
+            //   alignment: Alignment.centerRight,
+            //   onPressed: (){
+            //     Navigator.push(context,
+            //       MaterialPageRoute(
+            //         builder: (context) => Settings()
+            //       ),
+            //     );
+            //     print("Settings active");
+            //   },
+            // ),
 
-//CONTEÚDO DA TELA
-          body: Stack(
-            alignment: Alignment.center,
+          ],
+        ),
+        endDrawer: Drawer(
+          child: ListView(
             children: <Widget>[
-              Container(
+              UserAccountsDrawerHeader(
+                accountEmail: Text("Aluno SevenCares há 27 dias",),
+                accountName: Text("Gabriel Loureiro",),
+                currentAccountPicture: CircleAvatar(
+                  child: Image.asset(
+                    "images/seven-small.png",
+                    alignment: Alignment.center,
+                    width: 45,
+                    height: 45,
+                  ),
+                  backgroundColor: Colors.black54,
+                ),
+                otherAccountsPictures: <Widget>[
+                  CircleAvatar(
+                    child: Image.asset(
+                      "images/seven-small.png",
+                      alignment: Alignment.center,
+                      width: 20,
+                      height: 20,
+                    ),
+                  backgroundColor: Colors.black54,
+                  ),
+                ],
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                     colors: [Colors.black87, Colors.grey],
-                  )
+                  ) 
                 ),
-                alignment: Alignment.topCenter,
-              )
+              ),
+              ListTile(
+                title: Text("Configurações"),
+                trailing: Icon(MdiIcons.settingsOutline),
+                onTap: (){
+                  Navigator.push(context,
+                  MaterialPageRoute(
+                    builder: (context) => Settings()
+                  ),
+                );
+                print("Settings active");
+                },
+              ),
+              ListTile(
+                title: Text("Suporte"),
+                trailing: Icon(Icons.help_outline),
+                onTap: (){
+                  Navigator.push(context,
+                  MaterialPageRoute(
+                    builder: (context) => Settings()
+                  ),
+                );
+                print("Help active");
+                },
+              ),
+              ListTile(
+                title: Text("Desenvolvedor"),
+                trailing: Icon(MdiIcons.githubCircle),
+                onTap: (){
+                  Navigator.push(context,
+                  MaterialPageRoute(
+                    builder: (context) => Settings()
+                  ),
+                );
+                print("Developer active");
+                },
+              ),
+              ListTile(
+                title: Text("Sair"),
+                trailing: Icon(MdiIcons.logoutVariant),
+                onTap: (){
+                  Navigator.push(context,
+                  MaterialPageRoute(
+                    builder: (context) => Settings()
+                  ),
+                );
+                print("Logout active");
+                },
+              ),
             ],
-          ),
+          )
+        ),
+
+//CONTEÚDO DA TELA
+        body: TabBarView(
+                controller: _tabController,
+                children: <Widget>[
+                  Newsletter(),
+                  Search(),
+                  Feed(),
+                  Fitness(),
+                  Profile(),
+                ],
+              ),
      
 // BARRA DE NAVEGAÇÃO INFERIOR
           bottomNavigationBar: BottomAppBar(
             color: Colors.black87,
-            child: Row(
-              children: <Widget>[
-                IconButton(
-                  padding: EdgeInsets.fromLTRB(32, 10, 0, 5),
-                  icon: Icon(Icons.library_books),
-                  iconSize: 38,
-                  color: Colors.grey,
-                  tooltip: "Newsletter",
-                  onPressed: () {
-                    // Navigator.push(context,
-                    //   MaterialPageRoute(
-                    //     builder: (context) => Newsletter()
-                  //   ),
-                  // );
-                    
-                    print("Newsletter active");
-                  },
+            child: TabBar(
+                    controller: _tabController,
+                    tabs: <Widget>[
+                      Tab(
+                        icon: Icon(Icons.library_books),
+                      ),
+                      Tab(
+                        icon: Icon(Icons.search),
+                      ),
+                      Tab(
+                        icon: Image.asset(
+                          "images/seven-small.png",
+                          width: 40,
+                          height: 40,
+                        ),
+                      ),
+                      Tab(
+                        icon: Icon(Icons.fitness_center),
+                      ),
+                      Tab(
+                        icon: Icon(MdiIcons.accountSettings),
+                      ),
+                    ],
                 ),
-                IconButton(
-                  padding: EdgeInsets.fromLTRB(37, 10, 0, 5),
-                  icon: Icon(Icons.search),
-                  iconSize: 38,
-                  color: Colors.grey,
-                  tooltip: "Search",
-                  onPressed: () {
-                    // Navigator.push(context,
-                    //   MaterialPageRoute(
-                    //     builder: (context) => Search()
-                  //   ),
-                  // );                   
-                    print("Search active");
-                  },
-                ),
-                IconButton(
-                  padding: EdgeInsets.fromLTRB(37, 10, 0, 5),
-                  icon: Image.asset(
-                    "images/seven-small.png",
-                    width: 60,
-                    height: 60,
-                  ),
-                  iconSize: 48,
-                  color: Colors.grey,
-                  tooltip: "Feed Seven Cares active",
-                  onPressed: () {
-                    // Navigator.push(context,
-                    //   MaterialPageRoute(
-                    //     builder: (context) => Feed()
-                  //   ),
-                  // );
-                    print("Feed Seven Cares active");
-                  },
-                ),
-                IconButton(
-                  padding: EdgeInsets.fromLTRB(37, 10, 0, 5),
-                  icon: Icon(Icons.fitness_center),
-                  iconSize: 38,
-                  color: Colors.grey,
-                  tooltip: "Record Training active",
-                  onPressed: () {
-                    // Navigator.push(context,
-                    //   MaterialPageRoute(
-                    //     builder: (context) => Fitness()
-                  //   ),
-                  // );
-                    print("Record Training active");
-                  },
-                ),
-                IconButton(
-                  padding: EdgeInsets.fromLTRB(40, 10, 27.4, 5),
-                  icon: Icon(MdiIcons.accountSettings),
-                  iconSize: 39,
-                  color: Colors.grey,
-                  tooltip: "Profile",
-                  onPressed: () {
-                    // Navigator.push(context,
-                    //   MaterialPageRoute(
-                    //     builder: (context) => Profile()
-                  //   ),
-                  // );
-                    print("Profile active");
-                  },
-                ),
-              ],
-          ),
-        )
-    );
+          )
+      );
   }
 }
  
