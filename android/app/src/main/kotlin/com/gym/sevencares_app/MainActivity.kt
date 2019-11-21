@@ -1,4 +1,4 @@
-package com.example.flutter_app
+package com.gym.sevencares_app
 
 import android.os.Bundle
 
