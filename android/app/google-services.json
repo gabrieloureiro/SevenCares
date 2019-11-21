@@ -1,42 +1,42 @@
 {
   "project_info": {
-    "project_number": "1076385854208",
-    "firebase_url": "https://sevencaresbr.firebaseio.com",
-    "project_id": "sevencaresbr",
-    "storage_bucket": "sevencaresbr.appspot.com"
+    "project_number": "401665548673",
+    "firebase_url": "https://seven7cares.firebaseio.com",
+    "project_id": "seven7cares",
+    "storage_bucket": "seven7cares.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1076385854208:android:76b7065a42dc6fb10339e5",
+        "mobilesdk_app_id": "1:401665548673:android:468d49b4ab16a88bad4880",
         "android_client_info": {
-          "package_name": "com.gym.sevencares"
+          "package_name": "com.gym.sevencares_app"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1076385854208-1dr1349ldc3causthsc6fkff221s2qiu.apps.googleusercontent.com",
+          "client_id": "401665548673-thr4s96b813ea3e5bn4f9m00ae2f9n91.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.gym.sevencares",
+            "package_name": "com.gym.sevencares_app",
             "certificate_hash": "c797536d05212a0f6baea36242c6e82025a2d2d1"
           }
         },
         {
-          "client_id": "1076385854208-s27f8j3ur0lfbls1mfpi3r7gppmonbe7.apps.googleusercontent.com",
+          "client_id": "401665548673-gvkh032iptq26oikk11esprji4pf67fm.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAjv6cPyiTwn2WVEbYFEjZM0WdQgY_AVyM"
+          "current_key": "AIzaSyCDlEffJNiWsiI4Ixe69_QZ-ekTmhNYm_c"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "1076385854208-s27f8j3ur0lfbls1mfpi3r7gppmonbe7.apps.googleusercontent.com",
+              "client_id": "401665548673-gvkh032iptq26oikk11esprji4pf67fm.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

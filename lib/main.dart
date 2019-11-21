@@ -6,6 +6,7 @@ import 'package:flutter_app/newsletter.dart';
 import 'package:flutter_app/profile.dart';
 import 'package:flutter_app/search.dart';
 import 'package:flutter_app/settings.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 //import 'package:url_launcher/url_launcher.dart';
 // ESSA TELA VAI SER A HOME -- FALTA CRIAR UMA MAIN COM LOGIN
 void main() => runApp(Home());
@@ -14,6 +15,10 @@ class Home extends StatelessWidget {
   Home({Key key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    Firestore.instance
+      .collection("users")
+      .document("shape")
+      .setData({"Gabriel": "Fitness"});
     return MaterialApp(
       title: "Seven Cares",
       debugShowCheckedModeBanner: false,
