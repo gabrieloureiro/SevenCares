@@ -1,6 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'developers.dart';
 import 'feed.dart';
 import 'fitness.dart';
 import 'newsletter.dart';
@@ -241,10 +241,10 @@ class _HomeState extends State<HomeScreen>
                     controller: _tabController,
                     tabs: <Widget>[
                       Tab(
-                        icon: Icon(Icons.library_books),
+                        icon: Icon(CupertinoIcons.news_solid),
                       ),
                       Tab(
-                        icon: Icon(Icons.search),
+                        icon: Icon(MdiIcons.accountSearch),
                       ),
                       Tab(
                         icon: Image.asset(
@@ -257,7 +257,7 @@ class _HomeState extends State<HomeScreen>
                         icon: Icon(Icons.fitness_center),
                       ),
                       Tab(
-                        icon: Icon(MdiIcons.accountSettings),
+                        icon: Icon(CupertinoIcons.profile_circled),
                       ),
                     ],
                 ),

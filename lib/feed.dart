@@ -24,7 +24,7 @@ class _FeedState extends State<Feed> {
                 alignment: Alignment.topCenter,
               ),
               Image.asset(
-                "images/bg.jpg",
+                "images/bg-7.jpg",
                 fit: BoxFit.cover,
                 height: double.maxFinite,
                 width: double.maxFinite,
