@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert' as JSON;
+
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+
 class Profile extends StatefulWidget {
   Profile({Key key}) : super(key: key);
  
@@ -51,31 +54,77 @@ class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
-        body: Center(
-            child: _isLoggedIn
-                ? Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Image.network(userProfile["picture"]["data"]["url"], height: 50.0, width: 50.0,),
-                      Text(userProfile["name"]),
-                      OutlineButton( child: Text("Logout"), onPressed: (){
-                        _logout();
-                      },)
-                    ],
-                  )
-                : Center(
-                    child: OutlineButton(
-                      child: Text("Login with Facebook",
-                      style: TextStyle(
-                        color: Colors.blueAccent
-                      ),),
-                      onPressed: () {
-                        _loginWithFB();
-                      },
+        body: Stack(
+            children: <Widget>[ 
+              _isLoggedIn ? Container(
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                ),
+                child: Column(
+                  children: <Widget>[
+                    Image.network(
+                      userProfile["picture"]["data"]["url"], 
+                      height: 50.0, 
+                      width: 50.0,
                     ),
-                  )),
-      ),
+                    Text(
+                      userProfile["name"]
+                    ),
+                    OutlineButton( 
+                      child: Text("Logout"), 
+                      onPressed: (){
+                      _logout();
+                      },
+                    )
+                  ],
+                ),
+              )
+              : Stack(
+                children: <Widget>[
+                  Container(
+                    
+                  ),
+                  Container(
+                    
+                  alignment: Alignment.bottomCenter,
+                  padding: EdgeInsets.fromLTRB(123,0,0,40),
+                    child: Row( 
+                      children: <Widget>[
+                        IconButton(
+                          icon: Icon(MdiIcons.facebookBox),
+                          iconSize: 40,
+                          color: Colors.blueAccent,
+                          onPressed: () {
+                            _loginWithFB();
+                          },
+                        ),
+                        IconButton(
+                          icon: Icon(MdiIcons.instagram),
+                          iconSize: 40,
+                          color: Colors.pinkAccent,
+                          onPressed: () {
+                            // _loginWithFB();
+                          },
+                        ),
+                        IconButton(
+                          icon: Icon(MdiIcons.google),
+                          iconSize: 40,
+                          color: Colors.red,
+                          onPressed: () {
+                            // _loginWithFB();
+                          },
+                        ),
+                      ],
+                    ),
+                  )
+              ],
+            )
+          ],
+        ),
+      )
     );
   }
 }
