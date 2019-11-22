@@ -66,7 +66,10 @@ class _ProfileState extends State<Profile> {
                   )
                 : Center(
                     child: OutlineButton(
-                      child: Text("Login with Facebook"),
+                      child: Text("Login with Facebook",
+                      style: TextStyle(
+                        color: Colors.blueAccent
+                      ),),
                       onPressed: () {
                         _loginWithFB();
                       },
