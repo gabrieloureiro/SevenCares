@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'developers.dart';
 import 'feed.dart';
 import 'fitness.dart';
 import 'newsletter.dart';
@@ -8,6 +9,7 @@ import 'search.dart';
 import 'settings.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:url_launcher/url_launcher.dart';
+//import 'package:url_launcher/url_launcher.dart';
 // ESSA TELA VAI SER A HOME -- FALTA CRIAR UMA MAIN COM LOGIN
 void main() => runApp(Home());
 
