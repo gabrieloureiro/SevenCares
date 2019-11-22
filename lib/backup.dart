@@ -9,24 +9,11 @@ import 'search.dart';
 import 'settings.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:url_launcher/url_launcher.dart';
-//import 'package:url_launcher/url_launcher.dart';
-// ESSA TELA VAI SER A HOME -- FALTA CRIAR UMA MAIN COM LOGIN
-void main() => runApp(Home());
 
-class Home extends StatelessWidget {
-  Home({Key key}) : super(key: key);
+class teste extends StatefulWidget {
+  teste({Key key}) : super(key: key);
   @override
-  Widget build(BuildContext context) {
-    Firestore.instance
-      .collection("users")
-      .document("shape")
-      .setData({"Gabriel": "Fitness"});
-    return MaterialApp(
-      title: "Seven Cares",
-      debugShowCheckedModeBanner: false,
-      home: HomeScreen(),
-    );
-  }
+  _testeState createState() => _testeState();
 }
 
 _launchURL(String url) async {
@@ -38,12 +25,7 @@ _launchURL(String url) async {
   }
 }
 
-class HomeScreen extends StatefulWidget {
-  @override
-  _HomeState createState() => _HomeState();
-}
-
-class _HomeState extends State<HomeScreen> 
+class _testeState extends State<teste> 
   with SingleTickerProviderStateMixin {
 
   TabController _tabController;
@@ -67,9 +49,11 @@ class _HomeState extends State<HomeScreen>
             ),
             backgroundColor: Colors.black87,
             centerTitle: true,
+
           actions: <Widget>[
           ],
         ),
+
         endDrawer: Drawer(
           child: ListView(
             children: <Widget>[
@@ -136,20 +120,17 @@ class _HomeState extends State<HomeScreen>
                     context : context,
                     builder: (BuildContext context) {
                       return AlertDialog(
-                        title: Text("DESENVOLVEDORES"),
+                        title: Text("Desenvolvedores"),
                         titleTextStyle: TextStyle(
-                          color : Colors.lightBlue,
+                          color : Colors.red,
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
                         ),
                         content: SingleChildScrollView(
-                          child: ListBody(
+                          child: new ListBody(
                             children: <Widget>[
                               Row(
                                 children: <Widget>[
-                                  Padding(
-                                    padding: EdgeInsets.only(left:10),
-                                  ),
                                   GestureDetector(
                                     onTap: () {
                                       _launchURL("https://www.linkedin.com/in/gabrieloureiro/");
@@ -163,7 +144,7 @@ class _HomeState extends State<HomeScreen>
                                     ),
                                   ),
                                   Padding(
-                                    padding: EdgeInsets.fromLTRB(35,50,0,0),
+                                    padding: EdgeInsets.only(top: 30),
                                   ),
                                   GestureDetector(
                                     onTap: () {
@@ -187,7 +168,6 @@ class _HomeState extends State<HomeScreen>
                               "FECHAR",
                               style: TextStyle(
                                 color: Colors.grey,
-                                fontWeight: FontWeight.bold,
                               ),
                               ),
                             onPressed: () {
@@ -222,7 +202,6 @@ class _HomeState extends State<HomeScreen>
           )
         ),
 
-//CONTEÚDO DA TELA
         body: TabBarView(
                 controller: _tabController,
                 children: <Widget>[
@@ -234,7 +213,6 @@ class _HomeState extends State<HomeScreen>
                 ],
               ),
      
-// BARRA DE NAVEGAÇÃO INFERIOR
           bottomNavigationBar: BottomAppBar(
             color: Colors.black87,
             child: TabBar(
