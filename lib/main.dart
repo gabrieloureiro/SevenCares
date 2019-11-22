@@ -203,7 +203,7 @@ class _HomeState extends State<HomeScreen>
                 title: Text("Website"),
                 trailing: Icon(MdiIcons.web),
                 onTap: (){
-                  _launchURL("https://sevencares.com.br");
+                  _launchURL("http://sevencares.com.br");
                 },
               ),
               ListTile(
