@@ -1,12 +1,12 @@
 buildscript {
-    ext.kotlin_version = '1.2.71'
+    ext.kotlin_version = '1.3.0'
     repositories {
         google()
         jcenter()
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.2.1'
+        classpath 'com.android.tools.build:gradle:3.3.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath 'com.google.gms:google-services:4.2.0'
     }
@@ -42,6 +42,20 @@ buildscript {
                         && !details.requested.name.contains('androidx') ) {
                     details.useVersion "1.0.0"
                 }
+                if (details.requested.group == 'com.androidx.appcompat'
+                        && !details.requested.name.contains('multidex') ) {
+                    details.useVersion "1.0.0-rc01"
+                }
+                if (details.requested.group == 'com.androidx.appcompat'
+                        && !details.requested.name.contains('multidex') ) {
+                    details.useVersion "1.1.0"
+                }
+             
+                if (details.requested.group == 'com.androidx.vectordrawable'
+                        && !details.requested.name.contains('multidex') ) {
+                    details.useVersion "1.0.0-rc01"
+                }
+                
             }
         }
     }

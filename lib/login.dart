@@ -24,8 +24,16 @@ class _LoginState extends State<Login> {
                 ),
                 alignment: Alignment.topCenter,
               ),
-              // >>> CONTEÚDO
-              Text("Login test"),
+              // RaisedButton(
+              //   onPressed:(){
+              //     Navigator.push(context,
+              //     MaterialPageRoute(
+              //       builder: (context) => Profile()
+              //     ),
+              //   );
+              //   print("Settings active");
+              //   },
+              // ),
             ],            
     );
   }
