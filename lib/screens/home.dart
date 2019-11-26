@@ -10,7 +10,6 @@ import 'profile.dart';
 import 'search.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
 class Home extends StatelessWidget {
   Home({Key key}) : super(key: key);
   @override
@@ -51,6 +50,8 @@ class _HomeState extends State<HomeScreen>
       initialIndex: 2
     );
   }
+
+
   _logOutUser() async{
     FirebaseAuth auth = FirebaseAuth.instance;
     await auth.signOut();

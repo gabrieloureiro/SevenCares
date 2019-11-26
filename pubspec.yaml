@@ -29,7 +29,7 @@ dependencies:
   firebase_analytics: ^5.0.6
   firebase_core: ^0.4.2
   firebase_auth: ^0.14.0+5
-  firebase_messaging: ^5.1.5
+  firebase_messaging: ^6.0.1
   cloud_firestore: ^0.12.9+3
   firebase_storage: ^3.0.6
   image_picker: ^0.6.1+4
