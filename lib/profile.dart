@@ -348,6 +348,7 @@ class _ProfileState extends State<Profile> {
                                   icon: Icon(MdiIcons.instagram),
                                   iconSize: 40,
                                   color: Colors.pinkAccent,
+                                  splashColor: Colors.blueAccent,
                                   onPressed: () {
                                     // _loginWithFB();
                                   },
@@ -356,6 +357,7 @@ class _ProfileState extends State<Profile> {
                                   icon: Icon(MdiIcons.google),
                                   iconSize: 40,
                                   color: Colors.red,
+                                  splashColor: Colors.blueAccent,
                                   onPressed: () {
                                     // _loginWithFB();
                                   },
@@ -381,23 +383,23 @@ class _ProfileState extends State<Profile> {
                   Padding(
                     padding: EdgeInsets.only(bottom:410),
                   ),
-                  IconButton(
-                    icon: Icon(MdiIcons.alphaICircleOutline),
-                    iconSize: 70,
-                    tooltip: "Icon1",
-                    color: Colors.grey,
-                    splashColor: Colors.blueAccent,
-                    onPressed: () {
-                      // _loginWithFB();
-                    },
-                  ),
-                  Text("Icon1",
-                    style: TextStyle(
-                    color: Colors.black54,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 14
+                    IconButton(
+                      icon: Icon(MdiIcons.alphaICircleOutline),
+                      iconSize: 70,
+                      tooltip: "Icon1",
+                      color: Colors.grey,
+                      splashColor: Colors.blueAccent,
+                      onPressed: () {
+                        // _loginWithFB();
+                      },
                     ),
-                  ),
+                    Text("Icon1",
+                      style: TextStyle(
+                      color: Colors.black54,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 14
+                      ),
+                    ),
                   Padding(
                     padding: EdgeInsets.only(bottom:15),
                   ),
@@ -406,6 +408,7 @@ class _ProfileState extends State<Profile> {
                     iconSize: 70,
                     tooltip: "Icon2",
                     color: Colors.grey,
+                    splashColor: Colors.blueAccent,
                     onPressed: () {
                       // _loginWithFB();
                     },
@@ -437,6 +440,7 @@ class _ProfileState extends State<Profile> {
                     iconSize: 70,
                     tooltip: "Icon3",
                     color: Colors.grey,
+                    splashColor: Colors.blueAccent,
                     onPressed: () {
                       // _loginWithFB();
                     },
@@ -456,6 +460,7 @@ class _ProfileState extends State<Profile> {
                     iconSize: 70,
                     tooltip: "Icon4",
                     color: Colors.grey,
+                    splashColor: Colors.blueAccent,
                     onPressed: () {
                       // _loginWithFB();
                     },
@@ -483,6 +488,7 @@ class _ProfileState extends State<Profile> {
                         icon: Icon(MdiIcons.alphaICircleOutline),
                         iconSize: 70,
                         tooltip: "Icon5",
+                        splashColor: Colors.blueAccent,
                         color: Colors.grey,
                         onPressed: () {
                           // _loginWithFB();
@@ -502,6 +508,7 @@ class _ProfileState extends State<Profile> {
                         icon: Icon(MdiIcons.alphaICircleOutline),
                         iconSize: 70,
                         tooltip: "Icon6",
+                        splashColor: Colors.blueAccent,
                         color: Colors.grey,
                         onPressed: () {
                           // _loginWithFB();
