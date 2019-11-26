@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import '../settings.dart';
 import 'feed.dart';
 import 'fitness.dart';
 import 'newsletter.dart';
 import 'profile.dart';
 import 'search.dart';
-import 'settings.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
