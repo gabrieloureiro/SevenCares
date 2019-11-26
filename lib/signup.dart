@@ -22,7 +22,7 @@ class _SingUpState extends State<SingUp> {
     //VALIDACAO DOS CAMPOS
      if( name.isNotEmpty ){
 
-      if( email.isNotEmpty ){
+      if( email.isNotEmpty && email.contains("@")){
 
         if( password.isNotEmpty ){
 

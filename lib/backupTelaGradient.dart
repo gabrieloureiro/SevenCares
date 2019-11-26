@@ -1,14 +1,14 @@
 // import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-class Login extends StatefulWidget {
-  Login({Key key}) : super(key: key);
+class Login2 extends StatefulWidget {
+  Login2({Key key}) : super(key: key);
  
   @override
-  _LoginState createState() => _LoginState();
+  _Login2State createState() => _Login2State();
 }
  
-class _LoginState extends State<Login> {
+class _Login2State extends State<Login2> {
   @override
   Widget build(BuildContext context) {
     return Stack(
