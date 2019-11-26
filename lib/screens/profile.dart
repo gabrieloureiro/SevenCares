@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
@@ -14,19 +15,20 @@ class Profile extends StatefulWidget {
 }
  
 class _ProfileState extends State<Profile> {
-  
+  FirebaseAuth _auth = FirebaseAuth.instance;
   bool _isLoggedIn = false;
   Map userProfile;
   
   final facebookLogin = FacebookLogin();
   
-  _loginWithFB() async{
+  Future<FirebaseUser> _loginWithFB() async{
     
     final result = await facebookLogin.logInWithReadPermissions(['email']);
 
     switch (result.status) {
       case FacebookLoginStatus.loggedIn:
         final token = result.accessToken.token;
+        //FirebaseUser user = await _auth.signInWith
         final graphResponse = await http.get('https://graph.facebook.com/v2.12/me?fields=name,picture.height(200),email&access_token=$token');
         final profile = JSON.jsonDecode(graphResponse.body);
         print(profile);
@@ -275,7 +277,7 @@ class _ProfileState extends State<Profile> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     SizedBox(
-                      width: SizeConfig.blockSizeVertical*3,
+                      width: SizeConfig.blockSizeHorizontal*3,
                     ),
                     Column(
                       children: <Widget>[                 
@@ -295,8 +297,8 @@ class _ProfileState extends State<Profile> {
                         ),
                       ],
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(right: 40),
+                    SizedBox(
+                      width: SizeConfig.blockSizeHorizontal*10,
                     ),
                     Container(
                       alignment: Alignment.center,
@@ -423,9 +425,9 @@ class _ProfileState extends State<Profile> {
                 ),
                 ],
               ),
-              SizedBox(
-                height: SizeConfig.blockSizeVertical*3,
-              ),
+              // SizedBox(
+              //   height: SizeConfig.blockSizeVertical*3,
+              // ),
             ],  
           ),
         ),
