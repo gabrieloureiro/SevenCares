@@ -109,7 +109,7 @@ class _ProfileState extends State<Profile> {
                                       IconButton(
                                         splashColor: Colors.blueAccent,
                                         icon: Icon(MdiIcons.camera),
-                                        iconSize: 50,
+                                        iconSize: 70,
                                         color: Colors.black87,
                                         onPressed: (){
                                           // Navigator.push(context,
@@ -126,7 +126,7 @@ class _ProfileState extends State<Profile> {
                                       IconButton(
                                         splashColor: Colors.blueAccent,
                                         icon: Icon(MdiIcons.folderImage),
-                                        iconSize: 50,
+                                        iconSize: 70,
                                         color: Colors.black87,
                                         onPressed: (){
                                           // Navigator.push(context,
@@ -193,7 +193,7 @@ class _ProfileState extends State<Profile> {
                                       ),
                                       IconButton(
                                         icon: Icon(MdiIcons.camera),
-                                        iconSize: 50,
+                                        iconSize: 70,
                                         color: Colors.black87,
                                         splashColor: Colors.blueAccent,
                                         onPressed: (){
@@ -210,7 +210,7 @@ class _ProfileState extends State<Profile> {
                                       ),
                                       IconButton(
                                         icon: Icon(MdiIcons.folderImage),
-                                        iconSize: 50,
+                                        iconSize: 70,
                                         color: Colors.black87,
                                         splashColor: Colors.blueAccent,
                                         onPressed: (){
@@ -383,9 +383,10 @@ class _ProfileState extends State<Profile> {
                   ),
                   IconButton(
                     icon: Icon(MdiIcons.alphaICircleOutline),
-                    iconSize: 50,
+                    iconSize: 70,
                     tooltip: "Icon1",
                     color: Colors.grey,
+                    splashColor: Colors.blueAccent,
                     onPressed: () {
                       // _loginWithFB();
                     },
@@ -398,11 +399,11 @@ class _ProfileState extends State<Profile> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(bottom:40),
+                    padding: EdgeInsets.only(bottom:15),
                   ),
                   IconButton(
                     icon: Icon(MdiIcons.alphaICircleOutline),
-                    iconSize: 50,
+                    iconSize: 70,
                     tooltip: "Icon2",
                     color: Colors.grey,
                     onPressed: () {
@@ -424,7 +425,7 @@ class _ProfileState extends State<Profile> {
         Row(
             children: <Widget>[
               Padding(
-                padding: EdgeInsets.only(left:120),
+                padding: EdgeInsets.only(left:165),
               ),
               Column(
                 children: <Widget>[
@@ -433,7 +434,7 @@ class _ProfileState extends State<Profile> {
                   ),
                   IconButton(
                     icon: Icon(MdiIcons.alphaICircleOutline),
-                    iconSize: 50,
+                    iconSize: 70,
                     tooltip: "Icon3",
                     color: Colors.grey,
                     onPressed: () {
@@ -448,11 +449,11 @@ class _ProfileState extends State<Profile> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(bottom:40),
+                    padding: EdgeInsets.only(bottom:15),
                   ),
                   IconButton(
                     icon: Icon(MdiIcons.alphaICircleOutline),
-                    iconSize: 50,
+                    iconSize: 70,
                     tooltip: "Icon4",
                     color: Colors.grey,
                     onPressed: () {
@@ -471,7 +472,7 @@ class _ProfileState extends State<Profile> {
               Row(
                 children: <Widget>[
                   Padding(
-                    padding: EdgeInsets.only(left:30),
+                    padding: EdgeInsets.only(left:40),
                   ),
                   Column(
                     children: <Widget>[
@@ -480,7 +481,7 @@ class _ProfileState extends State<Profile> {
                       ),
                       IconButton(
                         icon: Icon(MdiIcons.alphaICircleOutline),
-                        iconSize: 50,
+                        iconSize: 70,
                         tooltip: "Icon5",
                         color: Colors.grey,
                         onPressed: () {
@@ -495,11 +496,11 @@ class _ProfileState extends State<Profile> {
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsets.only(bottom:40),
+                        padding: EdgeInsets.only(bottom:15),
                       ),
                       IconButton(
                         icon: Icon(MdiIcons.alphaICircleOutline),
-                        iconSize: 50,
+                        iconSize: 70,
                         tooltip: "Icon6",
                         color: Colors.grey,
                         onPressed: () {
@@ -507,55 +508,6 @@ class _ProfileState extends State<Profile> {
                         },
                       ),
                       Text("Icon6",
-                        style: TextStyle(
-                        color: Colors.black54,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 14
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-              Row(
-                children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.only(left:30),
-                  ),
-                  Column(
-                    children: <Widget>[
-                      Padding(
-                        padding: EdgeInsets.only(bottom:410),
-                      ),
-                      IconButton(
-                        icon: Icon(MdiIcons.alphaICircleOutline),
-                        iconSize: 50,
-                        tooltip: "Icon7",
-                        color: Colors.grey,
-                        onPressed: () {
-                          // _loginWithFB();
-                        },
-                      ),
-                      Text("Icon7",
-                        style: TextStyle(
-                        color: Colors.black54,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 14
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(bottom:40),
-                      ),
-                      IconButton(
-                        icon: Icon(MdiIcons.alphaICircleOutline),
-                        iconSize: 50,
-                        tooltip: "Icon8",
-                        color: Colors.grey,
-                        onPressed: () {
-                          // _loginWithFB();
-                        },
-                      ),
-                      Text("Icon8",
                         style: TextStyle(
                         color: Colors.black54,
                         fontWeight: FontWeight.bold,
