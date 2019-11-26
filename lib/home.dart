@@ -129,6 +129,11 @@ class _HomeState extends State<HomeScreen>
                 },
               ),
               ListTile(
+                title: Text("Compartilhar"),
+                trailing: Icon(Icons.share),
+                onTap: () => _launchURL('url')
+              ),
+              ListTile(
                 title: Text("Desenvolvedores"),
                 trailing: Icon(MdiIcons.githubCircle),
                 onTap: (){
