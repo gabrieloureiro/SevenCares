@@ -73,11 +73,12 @@ class _ProfileState extends State<Profile> {
             ),
             alignment: Alignment.topCenter,
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Padding(
                   padding: EdgeInsets.only(top:40),
                 ),
-                _isLoggedIn ? CircleAvatar(
+                _isLoggedIn ? CircleAvatar( //SE ESTIVER LOGADO NO FACEBOOK
                   foregroundColor: Colors.blueAccent.shade400,
                   backgroundColor: Colors.lightBlueAccent,
                   backgroundImage: NetworkImage(userProfile["picture"]["data"]["url"]),
@@ -162,7 +163,7 @@ class _ProfileState extends State<Profile> {
                     }
                   ),
                 )
-                : CircleAvatar(
+                : CircleAvatar( // SE ESTIVER DESCONECTADO DO FACEBOOK
                   foregroundColor: Colors.lightBlueAccent.shade400,
                   backgroundColor: Colors.lightBlueAccent,
                   backgroundImage: ExactAssetImage('images/maleuser.png'),
@@ -248,16 +249,16 @@ class _ProfileState extends State<Profile> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(top:20),
+                  padding: const EdgeInsets.only(bottom:10),
                 ),
-                _isLoggedIn ? Text(userProfile["name"],
+                _isLoggedIn ? Text(userProfile["name"], // SE ESTIVER LOGADO NO FACEBOOK
                 style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
                   fontSize: 17
                   ),
                 )
-                : Text("Seven Cares User",
+                : Text("Seven Cares User", // SE NÃO ESTIVER LOGADO NO FACEBOOK
                 style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
@@ -265,197 +266,196 @@ class _ProfileState extends State<Profile> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(top:22),
+                  padding: const EdgeInsets.only(bottom:10),
                 ),
-                Row(children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.only(left:25),
-                  ),
-                  Text("Nível",
-                    style: TextStyle(
-                      color : Colors.white,
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.only(left: 20),
                     ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(left:55),
-                  ),
-                  Container(
-                    width: 180,
-                    height: 55,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.all(Radius.circular(15))
+                    Column(
+                      children: <Widget>[                 
+                        Text("Nível",
+                          style: TextStyle(
+                            color : Colors.white,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text("7",//CONTATOR DE EXPERIENCIA
+                          style: TextStyle(
+                            color : Colors.white,
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
                     ),
-                    child: Row(
-                      children: <Widget>[
-                        Container(                   
-                          alignment: Alignment.bottomCenter,
-                          padding: EdgeInsets.fromLTRB(6,0,0,0),
-                            child: Row( 
-                              children: <Widget>[
-                              _isLoggedIn ? IconButton(
-                                  icon: Icon(MdiIcons.logout),
-                                  iconSize: 40,
-                                  color: Colors.blueAccent.shade400,
-                                  splashColor: Colors.blueAccent.shade400,
-                                  onPressed: (){
-                                    showDialog(
-                                      context : context,
-                                        builder: (BuildContext context) {
-                                          return AlertDialog(
-                                            title: Text("Deseja sair do Facebook?"),
-                                            titleTextStyle: TextStyle(
-                                              color : Colors.lightBlue,
-                                              fontSize: 15,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                            actions: <Widget>[
-                                              FlatButton(
-                                                splashColor: Colors.lightBlueAccent.shade400,
-                                                child: Text(
-                                                  "DESCONECTAR",
-                                                  style: TextStyle(
-                                                    color: Colors.grey,
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
-                                                  ),
-                                                onPressed: () { 
-                                                  _logout();
-                                                  Navigator.of(context).pop();
-                                                  }
-                                              ),
-                                              Padding(
-                                                padding: EdgeInsets.only(left:20),
-                                              ),
-                                              FlatButton(
-                                                splashColor: Colors.lightBlueAccent.shade400,
-                                                child: Text(
-                                                  "CANCELAR",
-                                                  style: TextStyle(
-                                                    color: Colors.grey,
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
-                                                ),
-                                                onPressed: () {
-                                                  Navigator.of(context).pop();
-                                                },
-                                              ),
-                                              Padding(
-                                                padding: EdgeInsets.only(right:10),
-                                              ),
-                                            ],
-                                          );
-                                        }
-                                    );
-                                  }
-                                )
-                                  :IconButton(
-                                    icon: Icon(MdiIcons.facebookBox),
+                    Padding(
+                      padding: const EdgeInsets.only(right: 40),
+                    ),
+                    Container(
+                      alignment: Alignment.center,
+                      width: 180,
+                      height: 55,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(Radius.circular(15))
+                      ),
+                      child: Row(
+                        children: <Widget>[
+                          Container(                   
+                            alignment: Alignment.bottomCenter,
+                            padding: EdgeInsets.fromLTRB(6,0,0,0),
+                              child: Row( 
+                                children: <Widget>[
+                                _isLoggedIn ? IconButton(
+                                    icon: Icon(MdiIcons.logout),
                                     iconSize: 40,
                                     color: Colors.blueAccent.shade400,
                                     splashColor: Colors.blueAccent.shade400,
-                                    onPressed: ()=> _loginWithFB(),
-                                  ),
-                                  IconButton(
-                                    icon: Icon(MdiIcons.instagram),
-                                    iconSize: 40,
-                                    color: Colors.pinkAccent,
-                                    splashColor: Colors.lightBlueAccent.shade400,
-                                    onPressed: () {
-                                      // _loginWithFB();
-                                    },
-                                  ),
-                                  IconButton(
-                                    icon: Image.asset("images/google.png"),
-                                    iconSize: 40,
-                                    color: Colors.red,
-                                    splashColor: Colors.lightBlueAccent.shade400,
-                                    onPressed: () {
-                                      // _loginWithFB();
-                                    },
+                                    onPressed: (){
+                                      showDialog(
+                                        context : context,
+                                          builder: (BuildContext context) {
+                                            return AlertDialog(
+                                              title: Text("Deseja sair do Facebook?"),
+                                              titleTextStyle: TextStyle(
+                                                color : Colors.lightBlue,
+                                                fontSize: 15,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                              actions: <Widget>[
+                                                FlatButton(
+                                                  splashColor: Colors.lightBlueAccent.shade400,
+                                                  child: Text(
+                                                    "DESCONECTAR",
+                                                    style: TextStyle(
+                                                      color: Colors.grey,
+                                                      fontWeight: FontWeight.bold,
+                                                    ),
+                                                    ),
+                                                  onPressed: () { 
+                                                    _logout();
+                                                    Navigator.of(context).pop();
+                                                    }
+                                                ),
+                                                Padding(
+                                                  padding: EdgeInsets.only(left:20),
+                                                ),
+                                                FlatButton(
+                                                  splashColor: Colors.lightBlueAccent.shade400,
+                                                  child: Text(
+                                                    "CANCELAR",
+                                                    style: TextStyle(
+                                                      color: Colors.grey,
+                                                      fontWeight: FontWeight.bold,
+                                                    ),
+                                                  ),
+                                                  onPressed: () {
+                                                    Navigator.of(context).pop();
+                                                  },
+                                                ),
+                                                Padding(
+                                                  padding: EdgeInsets.only(right:10),
+                                                ),
+                                              ],
+                                            );
+                                          }
+                                      );
+                                    }
                                   )
-                                ],
+                                    :IconButton(
+                                      icon: Icon(MdiIcons.facebookBox),
+                                      iconSize: 40,
+                                      color: Colors.blueAccent.shade400,
+                                      splashColor: Colors.blueAccent.shade400,
+                                      onPressed: ()=> _loginWithFB(),
+                                    ),
+                                    IconButton(
+                                      icon: Icon(MdiIcons.instagram),
+                                      iconSize: 40,
+                                      color: Colors.pinkAccent,
+                                      splashColor: Colors.lightBlueAccent.shade400,
+                                      onPressed: () {
+                                        // _loginWithFB();
+                                      },
+                                    ),
+                                    IconButton(
+                                      icon: Image.asset("images/google.png"),
+                                      iconSize: 40,
+                                      color: Colors.red,
+                                      splashColor: Colors.lightBlueAccent.shade400,
+                                      onPressed: () {
+                                        // _loginWithFB();
+                                      },
+                                    )
+                                  ],
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(left:27),
+                  padding: const EdgeInsets.only(left: 20),
                 ),
-                Text("Medalhas",
-                    style: TextStyle(
-                      color : Colors.white,
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold,
+                Column(
+                  children: <Widget>[ 
+                    Text("Medalhas",
+                      style: TextStyle(
+                        color : Colors.white,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  ),
-                ],
-              ),
-              Row(
-                children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.only(left:38),
-                  ),
-                  Text("7",//CONTATOR DE EXPERIENCIA
-                    style: TextStyle(
-                      color : Colors.white,
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold,
+                    Text("77",//CONTATOR DE EXPERIENCIA
+                      style: TextStyle(
+                        color : Colors.white,
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(left:302),
-                  ),
-                  Text("77",//CONTADOR DE MEDALHAS
-                    style: TextStyle(
-                      color : Colors.white,
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+                  ],
+                ),
                 ],
               ),
             ],
           ),
         ),
         Container(
-          alignment: Alignment.bottomLeft,
+          alignment: Alignment.center,
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Padding(
-                padding: EdgeInsets.only(left:30),
-              ),
+
               Column(
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.only(bottom:410),
+                  IconButton(
+                    icon: Image.asset("images/chart.png"),
+                    iconSize: 60,
+                    tooltip: "Avaliação Física",
+                    color: Colors.blueGrey.shade400,
+                    splashColor: Colors.lightBlueAccent.shade400,
+                    onPressed: () {
+                      // _loginWithFB();
+                    },
                   ),
-                    IconButton(
-                      icon: Image.asset("images/chart.png"),
-                      iconSize: 60,
-                      tooltip: "Avaliação Física",
-                      color: Colors.blueGrey.shade400,
-                      splashColor: Colors.lightBlueAccent.shade400,
-                      onPressed: () {
-                        // _loginWithFB();
-                      },
+                  Text("Avaliação Física",
+                    style: TextStyle(
+                    color: Colors.black54,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14
                     ),
-                    Text("Avaliação Física",
-                      style: TextStyle(
-                      color: Colors.black54,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 14
-                      ),
-                    ),
+                  ),
                   Padding(
-                    padding: EdgeInsets.only(bottom:15),
+                    padding: EdgeInsets.only(bottom:20),
                   ),
                   IconButton(
                     icon: Image.asset("images/checkin.png"),
-                    iconSize: 65,
+                    iconSize: 60,
                     tooltip: "Check-in",
                     color: Colors.grey,
                     splashColor: Colors.lightBlueAccent.shade400,
@@ -470,24 +470,17 @@ class _ProfileState extends State<Profile> {
                     fontSize: 14
                     ),
                   ),
+                  Padding(
+                    padding: EdgeInsets.only(bottom:20),
+                  ),
                 ],
               ),
-            ],
-          ),
-        ),
-        Row(
-            children: <Widget>[
-              Padding(
-                padding: EdgeInsets.only(left:171),
-              ),
               Column(
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.only(bottom:410),
-                  ),
                   IconButton(
                     icon: Image.asset("images/goal2.png"),
-                    iconSize: 61.5,
+                    iconSize: 60,
                     tooltip: "Metas",
                     color: Colors.grey,
                     splashColor: Colors.lightBlueAccent.shade400,
@@ -503,11 +496,11 @@ class _ProfileState extends State<Profile> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(bottom:15),
-                  ),
+                    padding: EdgeInsets.only(bottom:20),
+                  ),                 
                   IconButton(
                     icon: Image.asset("images/medal.png"),
-                    iconSize: 65,
+                    iconSize: 60,
                     tooltip: "Conquistas",
                     color: Colors.grey,
                     splashColor: Colors.lightBlueAccent.shade400,
@@ -522,61 +515,59 @@ class _ProfileState extends State<Profile> {
                     fontSize: 14
                     ),
                   ),
+                  Padding(
+                    padding: EdgeInsets.only(bottom:20),
+                  ),
                 ],
               ),
-              Row(
+              Column(
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.only(left:30),
+                  IconButton(
+                    icon: Image.asset("images/ribbon.png"),
+                    iconSize: 60,
+                    tooltip: "Itens Salvos",
+                    splashColor: Colors.lightBlueAccent.shade400,
+                    color: Colors.grey,
+                    onPressed: () {
+                      // _loginWithFB();
+                    },
                   ),
-                  Column(
-                    children: <Widget>[
-                      Padding(
-                        padding: EdgeInsets.only(bottom:412),
-                      ),
-                      IconButton(
-                        icon: Image.asset("images/ribbon.png"),
-                        iconSize: 60,
-                        tooltip: "Itens Salvos",
-                        splashColor: Colors.lightBlueAccent.shade400,
-                        color: Colors.grey,
-                        onPressed: () {
-                          // _loginWithFB();
-                        },
-                      ),
-                      Text("Itens Salvos",
-                        style: TextStyle(
-                        color: Colors.black54,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 14
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(bottom:20),
-                      ),
-                      IconButton(
-                        icon: Image.asset("images/car.png"),
-                        iconSize: 60,
-                        tooltip: "Estacionamento",
-                        splashColor: Colors.lightBlueAccent.shade400,
-                        color: Colors.grey,
-                        onPressed: () {
-                          // _loginWithFB();
-                        },
-                      ),
-                      Text("Estacionamento",
-                        style: TextStyle(
-                        color: Colors.black54,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 14
-                        ),
-                      ),
-                    ],
+                  Text("Itens Salvos",
+                    style: TextStyle(
+                    color: Colors.black54,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(bottom:20),
+                  ),
+                  IconButton(
+                    icon: Image.asset("images/car.png"),
+                    iconSize: 60,
+                    tooltip: "Estacionamento",
+                    splashColor: Colors.lightBlueAccent.shade400,
+                    color: Colors.grey,
+                    onPressed: () {
+                      // _loginWithFB();
+                    },
+                  ),
+                  Text("Estacionamento",
+                    style: TextStyle(
+                    color: Colors.black54,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(left:20,bottom:20),
                   ),
                 ],
               ),
             ],
           ),
+        ),
       ],
     );
   }
