@@ -258,47 +258,109 @@ class _ProfileState extends State<Profile> {
                       fontSize: 17
                       ),
                     ),
+                    Padding(
+                      padding: EdgeInsets.only(top:22),
+                    ),
+                    Container(
+                      width: 180,
+                      height: 55,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(Radius.circular(15))
+                      ),
+                      child: Row(
+                        children: <Widget>[
+                          Container(                   
+                            alignment: Alignment.bottomCenter,
+                            padding: EdgeInsets.fromLTRB(6,0,0,0),
+                              child: Row( 
+                                children: <Widget>[
+                                _isLoggedIn ? IconButton(
+                                    icon: Icon(MdiIcons.logout),
+                                    iconSize: 40,
+                                    color: Colors.blueAccent,
+                                    onPressed: (){
+                                      showDialog(
+                                        context : context,
+                                          builder: (BuildContext context) {
+                                            return AlertDialog(
+                                              title: Text("Deseja sair do Facebook?"),
+                                              titleTextStyle: TextStyle(
+                                                color : Colors.lightBlue,
+                                                fontSize: 15,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                              actions: <Widget>[
+                                                FlatButton(
+                                                  child: Text(
+                                                    "DESCONECTAR",
+                                                    style: TextStyle(
+                                                      color: Colors.grey,
+                                                      fontWeight: FontWeight.bold,
+                                                    ),
+                                                    ),
+                                                  onPressed: () { 
+                                                    _logout();
+                                                    Navigator.of(context).pop();
+                                                    }
+                                                ),
+                                                Padding(
+                                                  padding: EdgeInsets.only(left:20),
+                                                ),
+                                                FlatButton(
+                                                  child: Text(
+                                                    "CANCELAR",
+                                                    style: TextStyle(
+                                                      color: Colors.grey,
+                                                      fontWeight: FontWeight.bold,
+                                                    ),
+                                                  ),
+                                                  onPressed: () {
+                                                    Navigator.of(context).pop();
+                                                  },
+                                                ),
+                                                Padding(
+                                                  padding: EdgeInsets.only(right:10),
+                                                ),
+                                              ],
+                                            );
+                                          }
+                                      );
+                                    }
+                                  )
+                                    :IconButton(
+                                      icon: Icon(MdiIcons.facebookBox),
+                                      iconSize: 40,
+                                      color: Colors.blueAccent,
+                                      onPressed: ()=> _loginWithFB(),
+                                    ),
+                                    IconButton(
+                                      icon: Icon(MdiIcons.instagram),
+                                      iconSize: 40,
+                                      color: Colors.pinkAccent,
+                                      onPressed: () {
+                                        // _loginWithFB();
+                                      },
+                                    ),
+                                    IconButton(
+                                      icon: Icon(MdiIcons.google),
+                                      iconSize: 40,
+                                      color: Colors.red,
+                                      onPressed: () {
+                                        // _loginWithFB();
+                                      },
+                                    )
+                                  ],
+                      ),
+                    ),
                     //CONTINUAÇÃO DO PERFIL
                   ],
                 ),
               ),
-              Container(                   
-                  alignment: Alignment.bottomCenter,
-                  padding: EdgeInsets.fromLTRB(123,0,0,40),
-                    child: Row( 
-                      children: <Widget>[
-                       _isLoggedIn ? IconButton(
-                          icon: Icon(MdiIcons.logout),
-                          iconSize: 40,
-                          color: Colors.blueAccent,
-                          onPressed: ()=> _logout(),
-                        )
-                          :IconButton(
-                            icon: Icon(MdiIcons.facebookBox),
-                            iconSize: 40,
-                            color: Colors.blueAccent,
-                            onPressed: ()=> _loginWithFB(),
-                          ),
-                          IconButton(
-                            icon: Icon(MdiIcons.instagram),
-                            iconSize: 40,
-                            color: Colors.pinkAccent,
-                            onPressed: () {
-                              // _loginWithFB();
-                            },
-                          ),
-                          IconButton(
-                            icon: Icon(MdiIcons.google),
-                            iconSize: 40,
-                            color: Colors.red,
-                            onPressed: () {
-                              // _loginWithFB();
-                            },
-                          ),
-                        ],
-                      ),
-                    ),
           ],            
+        )
+      )
+      ]
     );
   }
 }
