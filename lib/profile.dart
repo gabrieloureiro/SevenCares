@@ -56,311 +56,519 @@ class _ProfileState extends State<Profile> {
   Widget build(BuildContext context) {
     return Stack(
       alignment: Alignment.topCenter,
-            children: <Widget>[
-              Container(
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height/2,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                    bottomRight: Radius.circular(30),
-                    bottomLeft: Radius.circular(30)
-                  ),
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [Colors.black87, Colors.grey],
-                  )
+        children: <Widget>[
+          Container(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height/2,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.only(
+                bottomRight: Radius.circular(30),
+                bottomLeft: Radius.circular(30)
+              ),
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [Colors.black87, Colors.grey],
+              )
+            ),
+            alignment: Alignment.topCenter,
+            child: Column(
+              children: <Widget>[
+                Padding(
+                  padding: EdgeInsets.only(top:40),
                 ),
-                alignment: Alignment.topCenter,
-                child: Column(
-                  children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.only(top:40),
-                    ),
-                    _isLoggedIn ? CircleAvatar(
-                      foregroundColor: Colors.blueAccent,
-                      backgroundColor: Colors.lightBlueAccent,
-                      backgroundImage: NetworkImage(userProfile["picture"]["data"]["url"]),
-                        minRadius: 100,
-                        maxRadius: 100,
-                      child: GestureDetector(
-                        onTap: (){
-                          showDialog(
-                            context : context,
-                              builder: (BuildContext context) {
-                                return AlertDialog(
-                                  title: Text("Alterar imagem de perfil"),
-                                  titleTextStyle: TextStyle(
-                                    color : Colors.lightBlue,
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                  content: SingleChildScrollView(
-                                  child: ListBody(
-                                    children: <Widget>[
-                                      Padding(
-                                        padding: EdgeInsets.only(top:25)
-                                      ),
-                                      Row(
-                                        children: <Widget>[
-                                          Padding(
-                                            padding: EdgeInsets.only(left:30)
-                                          ),
-                                          IconButton(
-                                            icon: Icon(MdiIcons.camera),
-                                            iconSize: 50,
-                                            color: Colors.black87,
-                                            onPressed: (){
-                                              // Navigator.push(context,
-                                              //   MaterialPageRoute(
-                                              //     builder: (context) => CameraMethod()
-                                              //   ),
-                                              // );
-                                              print("Change image profile active [camera]");
-                                            },
-                                          ),
-                                          Padding(
-                                            padding: EdgeInsets.only(left:35),
-                                          ),
-                                          IconButton(
-                                            icon: Icon(MdiIcons.folderImage),
-                                            iconSize: 50,
-                                            color: Colors.black87,
-                                            onPressed: (){
-                                              // Navigator.push(context,
-                                              //   MaterialPageRoute(
-                                              //     builder: (context) => GalleryMethod()
-                                              //   ),
-                                              // );
-                                              print("Change image profile active [gallery]");
-                                            },
-                                          ),
-                                        ],
-                                      )
-                                    ],
-                                  ),),
-                                  actions: <Widget>[
-                                    FlatButton(
-                                      child: Text(
-                                        "FECHAR",
-                                        style: TextStyle(
-                                          color: Colors.grey,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                        ),
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                      },
-                                    ),
-                                  ],
-                                );
-                              }
-                          );
-                        }
-                      ),
-                    )
-                    : CircleAvatar(
-                      foregroundColor: Colors.blueAccent,
-                      backgroundColor: Colors.lightBlueAccent,
-                      backgroundImage: ExactAssetImage('images/maleuser.png'),
-                        minRadius: 100,
-                        maxRadius: 100,
-                      child: GestureDetector(
-                        onTap: (){
-                          showDialog(
-                            context : context,
-                              builder: (BuildContext context) {
-                                return AlertDialog(
-                                  title: Text("Alterar imagem de perfil"),
-                                  titleTextStyle: TextStyle(
-                                    color : Colors.lightBlue,
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                  content: SingleChildScrollView(
-                                  child: ListBody(
-                                    children: <Widget>[
-                                      Padding(
-                                        padding: EdgeInsets.only(top:25)
-                                      ),
-                                      Row(
-                                        children: <Widget>[
-                                          Padding(
-                                            padding: EdgeInsets.only(left:30)
-                                          ),
-                                          IconButton(
-                                            icon: Icon(MdiIcons.camera),
-                                            iconSize: 50,
-                                            color: Colors.black87,
-                                            onPressed: (){
-                                              // Navigator.push(context,
-                                              //   MaterialPageRoute(
-                                              //     builder: (context) => CameraMethod()
-                                              //   ),
-                                              // );
-                                              print("Change image profile active [camera]");
-                                            },
-                                          ),
-                                          Padding(
-                                            padding: EdgeInsets.only(left:35),
-                                          ),
-                                          IconButton(
-                                            icon: Icon(MdiIcons.folderImage),
-                                            iconSize: 50,
-                                            color: Colors.black87,
-                                            onPressed: (){
-                                              // Navigator.push(context,
-                                              //   MaterialPageRoute(
-                                              //     builder: (context) => GalleryMethod()
-                                              //   ),
-                                              // );
-                                              print("Change image profile active [gallery]");
-                                            },
-                                          ),
-                                        ],
-                                      )
-                                    ],
-                                  ),),
-                                  actions: <Widget>[
-                                    FlatButton(
-                                      child: Text(
-                                        "FECHAR",
-                                        style: TextStyle(
-                                          color: Colors.grey,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                        ),
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                      },
-                                    ),
-                                  ],
-                                );
-                              }
-                          );
-                        }
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(top:20),
-                    ),
-                    _isLoggedIn ? Text(userProfile["name"],
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 17
-                      ),
-                    )
-                    : Text("Seven Cares User",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 17
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(top:22),
-                    ),
-                    Container(
-                      width: 180,
-                      height: 55,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.all(Radius.circular(15))
-                      ),
-                      child: Row(
-                        children: <Widget>[
-                          Container(                   
-                            alignment: Alignment.bottomCenter,
-                            padding: EdgeInsets.fromLTRB(6,0,0,0),
-                              child: Row( 
+                _isLoggedIn ? CircleAvatar(
+                  foregroundColor: Colors.blueAccent,
+                  backgroundColor: Colors.lightBlueAccent,
+                  backgroundImage: NetworkImage(userProfile["picture"]["data"]["url"]),
+                    minRadius: 100,
+                    maxRadius: 100,
+                  child: GestureDetector(
+                    onTap: (){
+                      showDialog(
+                        context : context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: Text("Alterar imagem de perfil"),
+                              titleTextStyle: TextStyle(
+                                color : Colors.lightBlue,
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              content: SingleChildScrollView(
+                              child: ListBody(
                                 children: <Widget>[
-                                _isLoggedIn ? IconButton(
-                                    icon: Icon(MdiIcons.logout),
-                                    iconSize: 40,
-                                    color: Colors.blueAccent,
-                                    onPressed: (){
-                                      showDialog(
-                                        context : context,
-                                          builder: (BuildContext context) {
-                                            return AlertDialog(
-                                              title: Text("Deseja sair do Facebook?"),
-                                              titleTextStyle: TextStyle(
-                                                color : Colors.lightBlue,
-                                                fontSize: 15,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                              actions: <Widget>[
-                                                FlatButton(
-                                                  child: Text(
-                                                    "DESCONECTAR",
-                                                    style: TextStyle(
-                                                      color: Colors.grey,
-                                                      fontWeight: FontWeight.bold,
-                                                    ),
-                                                    ),
-                                                  onPressed: () { 
-                                                    _logout();
-                                                    Navigator.of(context).pop();
-                                                    }
-                                                ),
-                                                Padding(
-                                                  padding: EdgeInsets.only(left:20),
-                                                ),
-                                                FlatButton(
-                                                  child: Text(
-                                                    "CANCELAR",
-                                                    style: TextStyle(
-                                                      color: Colors.grey,
-                                                      fontWeight: FontWeight.bold,
-                                                    ),
-                                                  ),
-                                                  onPressed: () {
-                                                    Navigator.of(context).pop();
-                                                  },
-                                                ),
-                                                Padding(
-                                                  padding: EdgeInsets.only(right:10),
-                                                ),
-                                              ],
-                                            );
-                                          }
-                                      );
-                                    }
+                                  Padding(
+                                    padding: EdgeInsets.only(top:25)
+                                  ),
+                                  Row(
+                                    children: <Widget>[
+                                      Padding(
+                                        padding: EdgeInsets.only(left:30)
+                                      ),
+                                      IconButton(
+                                        splashColor: Colors.blueAccent,
+                                        icon: Icon(MdiIcons.camera),
+                                        iconSize: 50,
+                                        color: Colors.black87,
+                                        onPressed: (){
+                                          // Navigator.push(context,
+                                          //   MaterialPageRoute(
+                                          //     builder: (context) => CameraMethod()
+                                          //   ),
+                                          // );
+                                          print("Change image profile active [camera]");
+                                        },
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsets.only(left:35),
+                                      ),
+                                      IconButton(
+                                        splashColor: Colors.blueAccent,
+                                        icon: Icon(MdiIcons.folderImage),
+                                        iconSize: 50,
+                                        color: Colors.black87,
+                                        onPressed: (){
+                                          // Navigator.push(context,
+                                          //   MaterialPageRoute(
+                                          //     builder: (context) => GalleryMethod()
+                                          //   ),
+                                          // );
+                                          print("Change image profile active [gallery]");
+                                        },
+                                      ),
+                                    ],
                                   )
-                                    :IconButton(
-                                      icon: Icon(MdiIcons.facebookBox),
-                                      iconSize: 40,
-                                      color: Colors.blueAccent,
-                                      onPressed: ()=> _loginWithFB(),
+                                ],
+                              ),),
+                              actions: <Widget>[
+                                FlatButton(
+                                  splashColor: Colors.blueAccent,
+                                  child: Text(
+                                    "FECHAR",
+                                    style: TextStyle(
+                                      color: Colors.grey,
+                                      fontWeight: FontWeight.bold,
                                     ),
-                                    IconButton(
-                                      icon: Icon(MdiIcons.instagram),
-                                      iconSize: 40,
-                                      color: Colors.pinkAccent,
-                                      onPressed: () {
-                                        // _loginWithFB();
-                                      },
                                     ),
-                                    IconButton(
-                                      icon: Icon(MdiIcons.google),
-                                      iconSize: 40,
-                                      color: Colors.red,
-                                      onPressed: () {
-                                        // _loginWithFB();
-                                      },
-                                    )
-                                  ],
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                              ],
+                            );
+                          }
+                      );
+                    }
+                  ),
+                )
+                : CircleAvatar(
+                  foregroundColor: Colors.blueAccent,
+                  backgroundColor: Colors.lightBlueAccent,
+                  backgroundImage: ExactAssetImage('images/maleuser.png'),
+                    minRadius: 100,
+                    maxRadius: 100,
+                  child: GestureDetector(
+                    onTap: (){
+                      showDialog(
+                        context : context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: Text("Alterar imagem de perfil"),
+                              titleTextStyle: TextStyle(
+                                color : Colors.lightBlue,
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              content: SingleChildScrollView(
+                              child: ListBody(
+                                children: <Widget>[
+                                  Padding(
+                                    padding: EdgeInsets.only(top:25)
+                                  ),
+                                  Row(
+                                    children: <Widget>[
+                                      Padding(
+                                        padding: EdgeInsets.only(left:30)
+                                      ),
+                                      IconButton(
+                                        icon: Icon(MdiIcons.camera),
+                                        iconSize: 50,
+                                        color: Colors.black87,
+                                        splashColor: Colors.blueAccent,
+                                        onPressed: (){
+                                          // Navigator.push(context,
+                                          //   MaterialPageRoute(
+                                          //     builder: (context) => CameraMethod()
+                                          //   ),
+                                          // );
+                                          print("Change image profile active [camera]");
+                                        },
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsets.only(left:35),
+                                      ),
+                                      IconButton(
+                                        icon: Icon(MdiIcons.folderImage),
+                                        iconSize: 50,
+                                        color: Colors.black87,
+                                        splashColor: Colors.blueAccent,
+                                        onPressed: (){
+                                          // Navigator.push(context,
+                                          //   MaterialPageRoute(
+                                          //     builder: (context) => GalleryMethod()
+                                          //   ),
+                                          // );
+                                          print("Change image profile active [gallery]");
+                                        },
+                                      ),
+                                    ],
+                                  )
+                                ],
+                              ),),
+                              actions: <Widget>[
+                                FlatButton(
+                                  splashColor: Colors.blueAccent,
+                                  child: Text(
+                                    "FECHAR",
+                                    style: TextStyle(
+                                      color: Colors.grey,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                    ),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                              ],
+                            );
+                          }
+                      );
+                    }
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(top:20),
+                ),
+                _isLoggedIn ? Text(userProfile["name"],
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 17
+                  ),
+                )
+                : Text("Seven Cares User",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 17
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(top:22),
+                ),
+                Container(
+                  width: 180,
+                  height: 55,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.all(Radius.circular(15))
+                  ),
+                  child: Row(
+                    children: <Widget>[
+                      Container(                   
+                        alignment: Alignment.bottomCenter,
+                        padding: EdgeInsets.fromLTRB(6,0,0,0),
+                          child: Row( 
+                            children: <Widget>[
+                            _isLoggedIn ? IconButton(
+                                icon: Icon(MdiIcons.logout),
+                                iconSize: 40,
+                                color: Colors.blueAccent,
+                                splashColor: Colors.blueAccent,
+                                onPressed: (){
+                                  showDialog(
+                                    context : context,
+                                      builder: (BuildContext context) {
+                                        return AlertDialog(
+                                          title: Text("Deseja sair do Facebook?"),
+                                          titleTextStyle: TextStyle(
+                                            color : Colors.lightBlue,
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                          actions: <Widget>[
+                                            FlatButton(
+                                              splashColor: Colors.blueAccent,
+                                              child: Text(
+                                                "DESCONECTAR",
+                                                style: TextStyle(
+                                                  color: Colors.grey,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                                ),
+                                              onPressed: () { 
+                                                _logout();
+                                                Navigator.of(context).pop();
+                                                }
+                                            ),
+                                            Padding(
+                                              padding: EdgeInsets.only(left:20),
+                                            ),
+                                            FlatButton(
+                                              splashColor: Colors.blueAccent,
+                                              child: Text(
+                                                "CANCELAR",
+                                                style: TextStyle(
+                                                  color: Colors.grey,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                              onPressed: () {
+                                                Navigator.of(context).pop();
+                                              },
+                                            ),
+                                            Padding(
+                                              padding: EdgeInsets.only(right:10),
+                                            ),
+                                          ],
+                                        );
+                                      }
+                                  );
+                                }
+                              )
+                                :IconButton(
+                                  icon: Icon(MdiIcons.facebookBox),
+                                  iconSize: 40,
+                                  color: Colors.blueAccent,
+                                  splashColor: Colors.blueAccent,
+                                  onPressed: ()=> _loginWithFB(),
+                                ),
+                                IconButton(
+                                  icon: Icon(MdiIcons.instagram),
+                                  iconSize: 40,
+                                  color: Colors.pinkAccent,
+                                  onPressed: () {
+                                    // _loginWithFB();
+                                  },
+                                ),
+                                IconButton(
+                                  icon: Icon(MdiIcons.google),
+                                  iconSize: 40,
+                                  color: Colors.red,
+                                  onPressed: () {
+                                    // _loginWithFB();
+                                  },
+                                )
+                              ],
                       ),
                     ),
-                    //CONTINUAÇÃO DO PERFIL
                   ],
                 ),
               ),
-          ],            
-        )
-      )
-      ]
+            ],
+          ),
+        ),
+        Container(
+          alignment: Alignment.bottomLeft,
+          child: Row(
+            children: <Widget>[
+              Padding(
+                padding: EdgeInsets.only(left:30),
+              ),
+              Column(
+                children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.only(bottom:410),
+                  ),
+                  IconButton(
+                    icon: Icon(MdiIcons.alphaICircleOutline),
+                    iconSize: 50,
+                    tooltip: "Icon1",
+                    color: Colors.grey,
+                    onPressed: () {
+                      // _loginWithFB();
+                    },
+                  ),
+                  Text("Icon1",
+                    style: TextStyle(
+                    color: Colors.black54,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(bottom:40),
+                  ),
+                  IconButton(
+                    icon: Icon(MdiIcons.alphaICircleOutline),
+                    iconSize: 50,
+                    tooltip: "Icon2",
+                    color: Colors.grey,
+                    onPressed: () {
+                      // _loginWithFB();
+                    },
+                  ),
+                  Text("Icon2",
+                    style: TextStyle(
+                    color: Colors.black54,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+        Row(
+            children: <Widget>[
+              Padding(
+                padding: EdgeInsets.only(left:120),
+              ),
+              Column(
+                children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.only(bottom:410),
+                  ),
+                  IconButton(
+                    icon: Icon(MdiIcons.alphaICircleOutline),
+                    iconSize: 50,
+                    tooltip: "Icon3",
+                    color: Colors.grey,
+                    onPressed: () {
+                      // _loginWithFB();
+                    },
+                  ),
+                  Text("Icon3",
+                    style: TextStyle(
+                    color: Colors.black54,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(bottom:40),
+                  ),
+                  IconButton(
+                    icon: Icon(MdiIcons.alphaICircleOutline),
+                    iconSize: 50,
+                    tooltip: "Icon4",
+                    color: Colors.grey,
+                    onPressed: () {
+                      // _loginWithFB();
+                    },
+                  ),
+                  Text("Icon4",
+                    style: TextStyle(
+                    color: Colors.black54,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.only(left:30),
+                  ),
+                  Column(
+                    children: <Widget>[
+                      Padding(
+                        padding: EdgeInsets.only(bottom:410),
+                      ),
+                      IconButton(
+                        icon: Icon(MdiIcons.alphaICircleOutline),
+                        iconSize: 50,
+                        tooltip: "Icon5",
+                        color: Colors.grey,
+                        onPressed: () {
+                          // _loginWithFB();
+                        },
+                      ),
+                      Text("Icon5",
+                        style: TextStyle(
+                        color: Colors.black54,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(bottom:40),
+                      ),
+                      IconButton(
+                        icon: Icon(MdiIcons.alphaICircleOutline),
+                        iconSize: 50,
+                        tooltip: "Icon6",
+                        color: Colors.grey,
+                        onPressed: () {
+                          // _loginWithFB();
+                        },
+                      ),
+                      Text("Icon6",
+                        style: TextStyle(
+                        color: Colors.black54,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              Row(
+                children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.only(left:30),
+                  ),
+                  Column(
+                    children: <Widget>[
+                      Padding(
+                        padding: EdgeInsets.only(bottom:410),
+                      ),
+                      IconButton(
+                        icon: Icon(MdiIcons.alphaICircleOutline),
+                        iconSize: 50,
+                        tooltip: "Icon7",
+                        color: Colors.grey,
+                        onPressed: () {
+                          // _loginWithFB();
+                        },
+                      ),
+                      Text("Icon7",
+                        style: TextStyle(
+                        color: Colors.black54,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(bottom:40),
+                      ),
+                      IconButton(
+                        icon: Icon(MdiIcons.alphaICircleOutline),
+                        iconSize: 50,
+                        tooltip: "Icon8",
+                        color: Colors.grey,
+                        onPressed: () {
+                          // _loginWithFB();
+                        },
+                      ),
+                      Text("Icon8",
+                        style: TextStyle(
+                        color: Colors.black54,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ],
+          ),
+      ],
     );
   }
 }

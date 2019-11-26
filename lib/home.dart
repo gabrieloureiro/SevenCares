@@ -228,33 +228,33 @@ class _HomeState extends State<HomeScreen>
               ),
      
 // BARRA DE NAVEGAÇÃO INFERIOR
-          bottomNavigationBar: BottomAppBar(
-            color: Colors.black87,
-            child: TabBar(
-                    controller: _tabController,
-                    tabs: <Widget>[
-                      Tab(
-                        icon: Icon(CupertinoIcons.news_solid),
+        bottomNavigationBar: BottomAppBar(
+          color: Colors.black87,
+          child: TabBar(
+                  controller: _tabController,
+                  tabs: <Widget>[
+                    Tab(
+                      icon: Icon(CupertinoIcons.news_solid),
+                    ),
+                    Tab(
+                      icon: Icon(MdiIcons.accountSearch),
+                    ),
+                    Tab(
+                      icon: Image.asset(
+                        "images/seven-small.png",
+                        width: 40,
+                        height: 40,
                       ),
-                      Tab(
-                        icon: Icon(MdiIcons.accountSearch),
-                      ),
-                      Tab(
-                        icon: Image.asset(
-                          "images/seven-small.png",
-                          width: 40,
-                          height: 40,
-                        ),
-                      ),
-                      Tab(
-                        icon: Icon(Icons.fitness_center),
-                      ),
-                      Tab(
-                        icon: Icon(CupertinoIcons.profile_circled),
-                      ),
-                    ],
-                ),
-          )
+                    ),
+                    Tab(
+                      icon: Icon(Icons.fitness_center),
+                    ),
+                    Tab(
+                      icon: Icon(CupertinoIcons.profile_circled),
+                    ),
+                  ],
+          ),
+        )
       );
   }
 }
