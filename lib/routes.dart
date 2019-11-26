@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/home.dart';
+import 'package:flutter_app/screens/home.dart';
 import 'package:flutter_app/signup.dart';
 import 'package:flutter_app/login.dart';
 class Routes {
