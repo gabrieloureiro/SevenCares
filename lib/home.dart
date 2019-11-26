@@ -9,8 +9,6 @@ import 'search.dart';
 import 'settings.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-//import 'package:url_launcher/url_launcher.dart';
-// ESSA TELA VAI SER A HOME -- FALTA CRIAR UMA MAIN COM LOGIN
 
 class Home extends StatelessWidget {
   Home({Key key}) : super(key: key);
@@ -56,7 +54,7 @@ class _HomeState extends State<HomeScreen>
     FirebaseAuth auth = FirebaseAuth.instance;
     await auth.signOut();
     Navigator.pushReplacementNamed(context, "/");
-    //TODO fix logout button
+    
   }  
   @override
   Widget build(BuildContext context) {
@@ -75,37 +73,37 @@ class _HomeState extends State<HomeScreen>
         endDrawer: Drawer(
           child: ListView(
             children: <Widget>[
-              UserAccountsDrawerHeader(
-                accountEmail: Text("Aluno SevenCares há 27 dias",),
-                accountName: Text("Gabriel Loureiro",),
-                currentAccountPicture: CircleAvatar(
-                  child: Image.asset(
-                    "images/seven-small.png",
-                    alignment: Alignment.center,
-                    width: 45,
-                    height: 45,
-                  ),
-                  backgroundColor: Colors.black54,
-                ),
-                otherAccountsPictures: <Widget>[
-                  CircleAvatar(
-                    child: Image.asset(
-                      "images/seven-small.png",
-                      alignment: Alignment.center,
-                      width: 20,
-                      height: 20,
-                    ),
-                  backgroundColor: Colors.black54,
-                  ),
-                ],
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [Colors.black87, Colors.grey],
-                  ) 
-                ),
-              ),
+              // UserAccountsDrawerHeader(
+              //   accountEmail: Text("Aluno SevenCares há 27 dias",),
+              //   accountName: Text("Gabriel Loureiro",),
+              //   currentAccountPicture: CircleAvatar(
+              //     child: Image.asset(
+              //       "images/seven-small.png",
+              //       alignment: Alignment.center,
+              //       width: 45,
+              //       height: 45,
+              //     ),
+              //     backgroundColor: Colors.black54,
+              //   ),
+              //   otherAccountsPictures: <Widget>[
+              //     CircleAvatar(
+              //       child: Image.asset(
+              //         "images/seven-small.png",
+              //         alignment: Alignment.center,
+              //         width: 20,
+              //         height: 20,
+              //       ),
+              //     backgroundColor: Colors.black54,
+              //     ),
+              //   ],
+              //   decoration: BoxDecoration(
+              //     gradient: LinearGradient(
+              //       begin: Alignment.topCenter,
+              //       end: Alignment.bottomCenter,
+              //       colors: [Colors.black87, Colors.grey],
+              //     ) 
+              //   ),
+              // ),
               ListTile(
                 title: Text("Configurações"),
                 trailing: Icon(MdiIcons.settingsOutline),
@@ -138,7 +136,7 @@ class _HomeState extends State<HomeScreen>
                     context : context,
                     builder: (BuildContext context) {
                       return AlertDialog(
-                        title: Text("DESENVOLVEDORES"),
+                        title: Text("Desenvolvedores"),
                         titleTextStyle: TextStyle(
                           color : Colors.lightBlue,
                           fontSize: 20,
@@ -211,9 +209,7 @@ class _HomeState extends State<HomeScreen>
               ListTile(
                 title: Text("Sair"),
                 trailing: Icon(MdiIcons.logoutVariant),
-                onTap: (){
-                  _logOutUser();
-                },
+                onTap: () => _logOutUser()
               ),
             ],
           )
