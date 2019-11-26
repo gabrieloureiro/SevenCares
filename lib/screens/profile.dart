@@ -4,6 +4,7 @@ import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert' as JSON;
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:flutter_app/model/size_config.dart';
 
 class Profile extends StatefulWidget {
   Profile({Key key}) : super(key: key);
@@ -54,6 +55,7 @@ class _ProfileState extends State<Profile> {
 
 
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     return Stack(
       alignment: Alignment.topCenter,
         children: <Widget>[
@@ -421,7 +423,10 @@ class _ProfileState extends State<Profile> {
                 ),
                 ],
               ),
-            ],
+              SizedBox(
+                height: SizeConfig.blockSizeVertical*3,
+              ),
+            ],  
           ),
         ),
         Container(
@@ -429,13 +434,12 @@ class _ProfileState extends State<Profile> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-
               Column(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
                   IconButton(
                     icon: Image.asset("images/chart.png"),
-                    iconSize: 60,
+                    iconSize: SizeConfig.blockSizeHorizontal*10,
                     tooltip: "Avaliação Física",
                     color: Colors.blueGrey.shade400,
                     splashColor: Colors.lightBlueAccent.shade400,
@@ -447,15 +451,15 @@ class _ProfileState extends State<Profile> {
                     style: TextStyle(
                     color: Colors.black54,
                     fontWeight: FontWeight.bold,
-                    fontSize: 14
+                    fontSize: SizeConfig.blockSizeHorizontal*3,
                     ),
                   ),
-                  Padding(
-                    padding: EdgeInsets.only(bottom:20),
+                  SizedBox(
+                    height: SizeConfig.blockSizeVertical*4.5,
                   ),
                   IconButton(
                     icon: Image.asset("images/checkin.png"),
-                    iconSize: 60,
+                    iconSize: SizeConfig.blockSizeHorizontal*10,
                     tooltip: "Check-in",
                     color: Colors.grey,
                     splashColor: Colors.lightBlueAccent.shade400,
@@ -467,24 +471,23 @@ class _ProfileState extends State<Profile> {
                     style: TextStyle(
                     color: Colors.black54,
                     fontWeight: FontWeight.bold,
-                    fontSize: 14
+                    fontSize: SizeConfig.blockSizeHorizontal*3
                     ),
                   ),
-                  Padding(
-                    padding: EdgeInsets.only(bottom:20),
+                  SizedBox(
+                    height: SizeConfig.blockSizeVertical*4.5,
                   ),
                 ],
               ),
               SizedBox(
-                height: 0,
-                width: 40,
+                width: SizeConfig.blockSizeHorizontal*10,
               ),
               Column(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
                   IconButton(
                     icon: Image.asset("images/goal2.png"),
-                    iconSize: 60,
+                    iconSize: SizeConfig.blockSizeHorizontal*10,
                     tooltip: "Metas",
                     color: Colors.grey,
                     splashColor: Colors.lightBlueAccent.shade400,
@@ -496,15 +499,15 @@ class _ProfileState extends State<Profile> {
                     style: TextStyle(
                     color: Colors.black54,
                     fontWeight: FontWeight.bold,
-                    fontSize: 14
+                    fontSize: SizeConfig.blockSizeHorizontal*3
                     ),
                   ),
-                  Padding(
-                    padding: EdgeInsets.only(bottom:20),
-                  ),                 
+                  SizedBox(
+                    height: SizeConfig.blockSizeVertical*4.5,
+                  ),                
                   IconButton(
                     icon: Image.asset("images/medal.png"),
-                    iconSize: 60,
+                    iconSize: SizeConfig.blockSizeHorizontal*10,
                     tooltip: "Conquistas",
                     color: Colors.grey,
                     splashColor: Colors.lightBlueAccent.shade400,
@@ -516,24 +519,23 @@ class _ProfileState extends State<Profile> {
                     style: TextStyle(
                     color: Colors.black54,
                     fontWeight: FontWeight.bold,
-                    fontSize: 14
+                    fontSize: SizeConfig.blockSizeHorizontal*3
                     ),
                   ),
-                  Padding(
-                    padding: EdgeInsets.only(bottom:20),
+                  SizedBox(
+                    height: SizeConfig.blockSizeVertical*4.5,
                   ),
                 ],
               ),
               SizedBox(
-                height: 0,
-                width: 40,
+                width: SizeConfig.blockSizeHorizontal*10,
               ),
               Column(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
                   IconButton(
                     icon: Image.asset("images/ribbon.png"),
-                    iconSize: 60,
+                    iconSize: SizeConfig.blockSizeHorizontal*10,
                     tooltip: "Itens Salvos",
                     splashColor: Colors.lightBlueAccent.shade400,
                     color: Colors.grey,
@@ -545,15 +547,15 @@ class _ProfileState extends State<Profile> {
                     style: TextStyle(
                     color: Colors.black54,
                     fontWeight: FontWeight.bold,
-                    fontSize: 14
+                    fontSize: SizeConfig.blockSizeHorizontal*3
                     ),
                   ),
-                  Padding(
-                    padding: EdgeInsets.only(bottom:20),
+                  SizedBox(
+                    height: SizeConfig.blockSizeVertical*4.5,
                   ),
                   IconButton(
                     icon: Image.asset("images/car.png"),
-                    iconSize: 60,
+                    iconSize: SizeConfig.blockSizeHorizontal*10,
                     tooltip: "Estacionamento",
                     splashColor: Colors.lightBlueAccent.shade400,
                     color: Colors.grey,
@@ -565,11 +567,12 @@ class _ProfileState extends State<Profile> {
                     style: TextStyle(
                     color: Colors.black54,
                     fontWeight: FontWeight.bold,
-                    fontSize: 14
+                    fontSize: SizeConfig.blockSizeHorizontal*3
                     ),
                   ),
-                  Padding(
-                    padding: EdgeInsets.only(left:20,bottom:20),
+                  SizedBox(
+                    height: SizeConfig.blockSizeVertical*4.5,
+                    width: SizeConfig.blockSizeHorizontal*5,
                   ),
                 ],
               ),
