@@ -475,6 +475,10 @@ class _ProfileState extends State<Profile> {
                   ),
                 ],
               ),
+              SizedBox(
+                height: 0,
+                width: 40,
+              ),
               Column(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
@@ -519,6 +523,10 @@ class _ProfileState extends State<Profile> {
                     padding: EdgeInsets.only(bottom:20),
                   ),
                 ],
+              ),
+              SizedBox(
+                height: 0,
+                width: 40,
               ),
               Column(
                 mainAxisAlignment: MainAxisAlignment.end,
