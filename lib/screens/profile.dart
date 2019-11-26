@@ -77,8 +77,8 @@ class _ProfileState extends State<Profile> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.only(top:40),
+                SizedBox(
+                  height: SizeConfig.blockSizeVertical*2.5,
                 ),
                 _isLoggedIn ? CircleAvatar( //SE ESTIVER LOGADO NO FACEBOOK
                   foregroundColor: Colors.blueAccent.shade400,
@@ -250,8 +250,8 @@ class _ProfileState extends State<Profile> {
                     }
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom:10),
+                SizedBox(
+                  height: SizeConfig.blockSizeVertical*2.5,
                 ),
                 _isLoggedIn ? Text(userProfile["name"], // SE ESTIVER LOGADO NO FACEBOOK
                 style: TextStyle(
@@ -267,15 +267,15 @@ class _ProfileState extends State<Profile> {
                   fontSize: 17
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom:10),
+                SizedBox(
+                  height: SizeConfig.blockSizeVertical*2.5,
                 ),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.only(left: 20),
+                    SizedBox(
+                      width: SizeConfig.blockSizeVertical*3,
                     ),
                     Column(
                       children: <Widget>[                 
@@ -400,8 +400,8 @@ class _ProfileState extends State<Profile> {
                       ],
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 20),
+                SizedBox(
+                width: SizeConfig.blockSizeVertical*3,
                 ),
                 Column(
                   children: <Widget>[ 
