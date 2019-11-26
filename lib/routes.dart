@@ -19,6 +19,10 @@ class Routes {
         return MaterialPageRoute(
             builder: (_) => Home()
         );
+      case "/login" : 
+        return MaterialPageRoute(
+          builder: (_) => Login()
+        );
       default:
         _routeError();
     }
