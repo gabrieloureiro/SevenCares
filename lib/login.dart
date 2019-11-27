@@ -18,9 +18,9 @@ class _LoginState extends State<Login> {
     String password = _controllerSenha.text;
 
     //VALIDACAO DOS CAMPOS
-     if( email.isNotEmpty ){
+     if( email.isNotEmpty && email.contains("@")){
 
-        if(password.isNotEmpty ){
+        if(password.isNotEmpty){
 
           User user = User();
           user.email = email;
@@ -93,6 +93,9 @@ class _LoginState extends State<Login> {
                           borderRadius: BorderRadius.circular(6)
                       )
                   ),
+                ),
+                SizedBox(
+                  height: 10,
                 ),
                 TextField(
                   controller: _controllerSenha,

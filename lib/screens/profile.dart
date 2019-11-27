@@ -1,5 +1,3 @@
-import 'package:flutter_app/signup.dart';
-import 'package:flutter_app/login.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
