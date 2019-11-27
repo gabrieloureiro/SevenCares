@@ -3,6 +3,7 @@ import 'package:flutter_app/model/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_app/model/size_config.dart';
+
 class SingUp extends StatefulWidget {
   SingUp({Key key}) : super(key: key);
 
@@ -21,7 +22,7 @@ class _SingUpState extends State<SingUp> {
   bool _isSelectedM = false;
   bool _isSelectedF = false;
 
-  void toogle(){
+  void _passwordText(){
     setState(() {
       _obscureText = ! _obscureText;
     });
@@ -32,13 +33,13 @@ class _SingUpState extends State<SingUp> {
     String email = _controllerEmail.text;
     String password = _controllerSenha.text;
     String confirmPassword = _controllerConfirmarsenha.text;
-    String genre = "";
+    String gender = "";
     //VALIDACAO DOS CAMPOS
     if(_isSelectedM == true){
-      genre = "Masculino";
+      gender = "Masculino";
     }
     else if(_isSelectedF == true){
-      genre = "Feminino";
+      gender = "Feminino";
     }
 
     if( name.isNotEmpty){
@@ -49,13 +50,13 @@ class _SingUpState extends State<SingUp> {
 
           if(password == confirmPassword){
 
-          User usuario = User();
-          usuario.name = name;
-          usuario.email = email;
-          usuario.password = password;
-          usuario.userType = genre;
+          User user = User();
+          user.name = name;
+          user.email = email;
+          user.password = password;
+          user.userType = gender;
 
-          _userSignUp( usuario );
+          _userSignUp( user );
           _erroMessage = '';
           }else{
             setState(() {
@@ -192,7 +193,7 @@ class _SingUpState extends State<SingUp> {
                 Padding(
                   padding : EdgeInsets.only(left: 70,right: 70),
                   child: FlatButton(
-                  onPressed: toogle,
+                  onPressed: _passwordText,
                   child: Text(_obscureText ? "Mostrar senha" : "Esconder senha"),
                 ),
                 ),

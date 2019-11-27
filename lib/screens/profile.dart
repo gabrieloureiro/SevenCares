@@ -2,8 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:flutter_app/model/size_config.dart';
-// import 'package:cloud_firestore/cloud_firestore.dart';
-// import 'package:firebase_auth/firebase_auth.dart';
 
 
 class Profile extends StatefulWidget {
@@ -13,8 +11,7 @@ class Profile extends StatefulWidget {
   _ProfileState createState() => _ProfileState();
 }
 
-class _ProfileState extends State<Profile> {
-
+class _ProfileState extends State<Profile>{
 
   Widget build(BuildContext context){
     SizeConfig().init(context);
@@ -41,7 +38,7 @@ class _ProfileState extends State<Profile> {
               children: <Widget>[
                 SizedBox(
                   height: SizeConfig.blockSizeVertical*2.5,
-                ),
+                ), 
                 CircleAvatar(
                   foregroundColor: Colors.lightBlueAccent.shade400,
                   backgroundColor: Colors.lightBlueAccent,
@@ -389,6 +386,7 @@ class _ProfileState extends State<Profile> {
                     height: SizeConfig.blockSizeVertical*4.5,
                     width: SizeConfig.blockSizeHorizontal*5,
                   ),
+                 
                 ],
               ),
             ],
