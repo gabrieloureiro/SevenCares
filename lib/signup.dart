@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/model/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_app/model/size_config.dart';
 class SingUp extends StatefulWidget {
   SingUp({Key key}) : super(key: key);
 
@@ -15,12 +16,23 @@ class _SingUpState extends State<SingUp> {
   TextEditingController _controllerSenha = TextEditingController();
   String _erroMessage = '';
 
+  bool _isSelectedM = false;
+  bool _isSelectedF = false;
+
   _validateFields(){
     String name = _controllerNome.text;
     String email = _controllerEmail.text;
     String password = _controllerSenha.text;
+    String genre = "";
     //VALIDACAO DOS CAMPOS
-     if( name.isNotEmpty ){
+    if(_isSelectedM == true){
+      genre = "Masculino";
+    }
+    else if(_isSelectedF == true){
+      genre = "Feminino";
+    }
+
+    if( name.isNotEmpty ){
 
       if( email.isNotEmpty && email.contains("@")){
 
@@ -30,6 +42,7 @@ class _SingUpState extends State<SingUp> {
           usuario.name = name;
           usuario.email = email;
           usuario.password = password;
+          usuario.userType = genre;
 
           _userSignUp( usuario );
           _erroMessage = '';
@@ -66,7 +79,7 @@ class _SingUpState extends State<SingUp> {
         setData(user.toMap()); //setdata -> dados que quero salvar
         Navigator.pushNamedAndRemoveUntil(
               context, 
-              'inicio', 
+              '/inicio', 
               (_) => false);
         
 
@@ -77,9 +90,11 @@ class _SingUpState extends State<SingUp> {
   
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     return Scaffold(
       appBar: AppBar(
         title: Text("Cadastro"),
+        backgroundColor: Colors.black87,
       ),
       body: Container(
         padding: EdgeInsets.all(16),
@@ -89,12 +104,13 @@ class _SingUpState extends State<SingUp> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 TextField(
-                  controller: _controllerEmail,
-                  keyboardType: TextInputType.emailAddress,
-                  style: TextStyle(fontSize: 20),
+                  controller: _controllerNome,
+                  autofocus: true,
+                  keyboardType: TextInputType.text,
+                  style: TextStyle(fontSize: SizeConfig.blockSizeHorizontal*3.3),
                   decoration: InputDecoration(
-                      contentPadding: EdgeInsets.fromLTRB(32, 16, 32, 16),
-                      hintText: "e-mail",
+                      contentPadding: EdgeInsets.fromLTRB(15, 16, 32, 16),
+                      hintText: "Nome",
                       filled: true,
                       fillColor: Colors.white,
                       border: OutlineInputBorder(
@@ -104,13 +120,13 @@ class _SingUpState extends State<SingUp> {
                 ),
                 //NOME
                 TextField(
-                  controller: _controllerNome,
-                  autofocus: true,
-                  keyboardType: TextInputType.text,
-                  style: TextStyle(fontSize: 20),
+                  controller: _controllerEmail,
+                  autofocus: false,
+                  keyboardType: TextInputType.emailAddress,
+                  style: TextStyle(fontSize: SizeConfig.blockSizeHorizontal*3.3),
                   decoration: InputDecoration(
-                      contentPadding: EdgeInsets.fromLTRB(32, 16, 32, 16),
-                      hintText: "Nome completo",
+                      contentPadding: EdgeInsets.fromLTRB(15, 16, 32, 16),
+                      hintText: "E-mail",
                       filled: true,
                       fillColor: Colors.white,
                       border: OutlineInputBorder(
@@ -122,16 +138,51 @@ class _SingUpState extends State<SingUp> {
                   controller: _controllerSenha,
                   obscureText: true,
                   keyboardType: TextInputType.emailAddress,
-                  style: TextStyle(fontSize: 20),
+                  style: TextStyle(fontSize: SizeConfig.blockSizeHorizontal*3.3),
                   decoration: InputDecoration(
-                      contentPadding: EdgeInsets.fromLTRB(32, 16, 32, 16),
-                      hintText: "senha",
+                      contentPadding: EdgeInsets.fromLTRB(15, 16, 32, 16),
+                      hintText: "Senha",
                       filled: true,
                       fillColor: Colors.white,
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(6)
                       )
                   ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Checkbox(
+                      activeColor: Colors.lightBlueAccent,
+                      value: _isSelectedM, 
+                      onChanged: (bool value){
+                        setState(() {
+                          _isSelectedM = value;
+                          _isSelectedF = false;
+                        });
+                      },
+                    ),
+                    Text("Masculino",
+                      style: TextStyle(
+                        fontSize: SizeConfig.blockSizeHorizontal*3.3
+                      ),
+                    ),
+                    Checkbox(
+                      activeColor: Colors.lightBlueAccent,
+                      value: _isSelectedF, 
+                      onChanged: (bool value){
+                        setState(() {
+                          _isSelectedF = value;
+                          _isSelectedM = false;
+                        });
+                      },
+                    ),
+                    Text("Feminino",
+                      style: TextStyle(
+                        fontSize: SizeConfig.blockSizeHorizontal*3.3
+                      ),
+                    ),
+                  ],
                 ),
                 Padding(
                   padding: EdgeInsets.only(top: 16, bottom: 10),
@@ -155,7 +206,7 @@ class _SingUpState extends State<SingUp> {
                       style: TextStyle(color: Colors.red, fontSize: 20),
                     ),
                   ),
-                )
+                ),
               ],
             ),
           ),

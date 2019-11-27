@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/login.dart';
 import 'package:flutter_app/routes.dart';
 import 'package:flutter_app/screens/home.dart';
 
@@ -9,7 +10,7 @@ final ThemeData temaPadrao = ThemeData(
 
 void main() => runApp(MaterialApp(
   title: "Seven Cares",
-  home: Home(),
+  home: Login(),
   theme: temaPadrao,
   initialRoute: "/",
   onGenerateRoute: Routes.generateRoutes,

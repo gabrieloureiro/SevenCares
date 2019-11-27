@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/model/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_app/model/size_config.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -8,7 +9,6 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-
   TextEditingController _controllerEmail = TextEditingController();
   TextEditingController _controllerSenha = TextEditingController();
   String _erroMessage = '';
@@ -20,7 +20,7 @@ class _LoginState extends State<Login> {
     //VALIDACAO DOS CAMPOS
      if( email.isNotEmpty ){
 
-        if( password.isNotEmpty ){
+        if(password.isNotEmpty ){
 
           User user = User();
           user.email = email;
@@ -30,13 +30,13 @@ class _LoginState extends State<Login> {
           _erroMessage = '';
         }else{
           setState(() {
-            _erroMessage = "Preencha a senha! digite mais de 6 caracteres";
+            _erroMessage = "A senha deve conter 6 caracteres ou mais";
           });
         }
 
       }else{
         setState(() {
-          _erroMessage = "Preencha o E-mail válido";
+          _erroMessage = "Preencha com um E-mail válido";
         });
       }
     //LOGANDO USUARIO NO FIREBASE
@@ -49,22 +49,25 @@ class _LoginState extends State<Login> {
         email: user.email,
         password: user.password,
       ).then((firebaseUser){
-       Navigator.pushReplacementNamed(context, "inicio"); 
+       Navigator.pushReplacementNamed(context, "/inicio"); 
       }).catchError((e){
-        _erroMessage = "Erro ao autenticar usuario verifique email e senha";
+        _erroMessage = "Erro ao autenticar usuário! Verifique o e-mail e a senha";
       });
     }
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
-          image: DecorationImage(
-              image: AssetImage("images/fundo.png"),
-              fit: BoxFit.cover
-          )
-        ),
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [Colors.black87, Colors.grey],
+            )
+          ),
+        alignment: Alignment.topCenter,
         padding: EdgeInsets.all(16),
         child: Center(
           child: SingleChildScrollView(
@@ -74,19 +77,16 @@ class _LoginState extends State<Login> {
                 Padding(
                   padding: EdgeInsets.only(bottom: 32),
                   child: Image.asset(
-                      "images/logo-s7.png",
-                    width: 200,
-                    height: 150,
-                  ),
+                      "images/logo-s7.png",),
                 ),
                 TextField(
                   controller: _controllerEmail,
                   autofocus: false,
                   keyboardType: TextInputType.emailAddress,
-                  style: TextStyle(fontSize: 20),
+                  style: TextStyle(fontSize: SizeConfig.blockSizeHorizontal*3.3),
                   decoration: InputDecoration(
-                      contentPadding: EdgeInsets.fromLTRB(32, 16, 32, 16),
-                      hintText: "e-mail",
+                      contentPadding: EdgeInsets.fromLTRB(15, 16, 32, 16),
+                      hintText: "E-mail",
                       filled: true,
                       fillColor: Colors.white,
                       border: OutlineInputBorder(
@@ -98,10 +98,10 @@ class _LoginState extends State<Login> {
                   controller: _controllerSenha,
                   obscureText: true,
                   keyboardType: TextInputType.emailAddress,
-                  style: TextStyle(fontSize: 20),
+                  style: TextStyle(fontSize: SizeConfig.blockSizeHorizontal*3.3),
                   decoration: InputDecoration(
-                      contentPadding: EdgeInsets.fromLTRB(32, 16, 32, 16),
-                      hintText: "senha",
+                      contentPadding: EdgeInsets.fromLTRB(15, 16, 32, 16),
+                      hintText: "Senha",
                       filled: true,
                       fillColor: Colors.white,
                       border: OutlineInputBorder(
@@ -119,29 +119,38 @@ class _LoginState extends State<Login> {
                       color: Color(0xff1ebbd8),
                       padding: EdgeInsets.fromLTRB(32, 16, 32, 16),
                       onPressed: (){
-
+                        _validateFields();
                       }
                   ),
                 ),
-                Center(
-                  child: GestureDetector(
-                    child: Text(
-                        "Não tem conta? cadastre-se!",
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text(
+                        "Não possui conta?\t",
                       style: TextStyle(color: Colors.white),
                     ),
+                    GestureDetector(
+                      child: Text("Cadastre-se!",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),  
+                      ),
                     onTap: (){
                       Navigator.pushNamed(context, "/signup");
                     },
                   ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(top: 16),
-                  child: Center(
-                    child: Text(
-                        _erroMessage,
-                      style: TextStyle(color: Colors.red, fontSize: 20),
+                  Padding(
+                    padding: EdgeInsets.only(top: 16),
+                    child: Center(
+                      child: Text(
+                          _erroMessage,
+                        style: TextStyle(color: Colors.red, fontSize: 20),
+                      ),
                     ),
-                  ),
+                  )
+                  ],
                 )
               ],
             ),

@@ -1,4 +1,5 @@
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_app/signup.dart';
+import 'package:flutter_app/login.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
@@ -7,28 +8,30 @@ import 'dart:convert' as JSON;
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:flutter_app/model/size_config.dart';
 
+
 class Profile extends StatefulWidget {
   Profile({Key key}) : super(key: key);
  
   @override
   _ProfileState createState() => _ProfileState();
 }
+
  
 class _ProfileState extends State<Profile> {
-  FirebaseAuth _auth = FirebaseAuth.instance;
+
   bool _isLoggedIn = false;
   Map userProfile;
   
   final facebookLogin = FacebookLogin();
   
-  Future<FirebaseUser> _loginWithFB() async{
+  _loginWithFB() async{
     
     final result = await facebookLogin.logInWithReadPermissions(['email']);
 
     switch (result.status) {
       case FacebookLoginStatus.loggedIn:
         final token = result.accessToken.token;
-        //FirebaseUser user = await _auth.signInWith
+
         final graphResponse = await http.get('https://graph.facebook.com/v2.12/me?fields=name,picture.height(200),email&access_token=$token');
         final profile = JSON.jsonDecode(graphResponse.body);
         print(profile);
@@ -48,8 +51,9 @@ class _ProfileState extends State<Profile> {
 
   }
 
-  _logout(){
-    facebookLogin.logOut();
+  _logout() async{
+
+    await facebookLogin.logOut();
     setState(() {
       _isLoggedIn = false;
     });
