@@ -2,6 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:flutter_app/model/size_config.dart';
+import 'package:image_picker/image_picker.dart';
+import 'dart:io';
+import 'package:firebase_storage/firebase_storage.dart';
 // import 'package:cloud_firestore/cloud_firestore.dart';
 // import 'package:firebase_auth/firebase_auth.dart';
 
@@ -15,7 +18,42 @@ class Profile extends StatefulWidget {
 
 class _ProfileState extends State<Profile> {
 
+  File _image;
 
+  Future _recuperarImagem(bool ofCamera) async {
+
+    File _selectedImage;
+
+    if(ofCamera == true){ //Imagem da camera
+      _selectedImage = await ImagePicker.pickImage(
+        source: ImageSource.camera,
+      );
+    }
+    else { //Imagem da galeria
+      _selectedImage = await ImagePicker.pickImage(
+        source: ImageSource.gallery,
+      );
+    }
+
+    setState(() {
+      _image = _selectedImage;
+    });
+  }
+
+  Future _uploadImage() async {
+
+    FirebaseStorage storage = FirebaseStorage.instance;
+
+    StorageReference root = storage.ref();
+    StorageReference file = root
+    .child('profile_pictures')
+    .child("profile1.jfif");
+
+    file.putFile(_image);
+
+  }
+
+  @override
   Widget build(BuildContext context){
     SizeConfig().init(context);
     return Stack(
@@ -42,7 +80,8 @@ class _ProfileState extends State<Profile> {
                 SizedBox(
                   height: SizeConfig.blockSizeVertical*2.5,
                 ),
-                CircleAvatar(
+                _image == null               
+                ? CircleAvatar(
                   foregroundColor: Colors.lightBlueAccent.shade400,
                   backgroundColor: Colors.lightBlueAccent,
                   backgroundImage: ExactAssetImage('images/maleuser.png'),
@@ -77,11 +116,86 @@ class _ProfileState extends State<Profile> {
                                         color: Colors.black87,
                                         splashColor: Colors.lightBlueAccent.shade400,
                                         onPressed: (){
-                                          // Navigator.push(context,
-                                          //   MaterialPageRoute(
-                                          //     builder: (context) => CameraMethod()
-                                          //   ),
-                                          // );
+                                          _recuperarImagem(true);
+                                          print("Change image profile active [camera]");
+                                          _uploadImage();
+                                        },
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsets.only(left:35),
+                                      ),
+                                      IconButton(
+                                        icon: Icon(MdiIcons.folderImage),
+                                        iconSize: 70,
+                                        color: Colors.black87,
+                                        splashColor: Colors.lightBlueAccent.shade400,
+                                        onPressed: (){
+                                          _recuperarImagem(false);
+                                          print("Change image profile active [gallery]");
+                                          _uploadImage();
+                                        },
+                                      ),
+                                    ],
+                                  )
+                                ],
+                              ),),
+                              actions: <Widget>[
+                                FlatButton(
+                                  splashColor: Colors.lightBlueAccent.shade400,
+                                  child: Text(
+                                    "FECHAR",
+                                    style: TextStyle(
+                                      color: Colors.grey,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                    ),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                              ],
+                            );
+                          }
+                      );
+                    }
+                  ),
+                )
+                : CircleAvatar(
+                  foregroundColor: Colors.lightBlueAccent.shade400,
+                  backgroundColor: Colors.lightBlueAccent,
+                  backgroundImage: FileImage(_image),
+                    minRadius: 100,
+                    maxRadius: 100,
+                  child: GestureDetector(
+                    onTap: (){
+                      showDialog(
+                        context : context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: Text("Alterar imagem de perfil"),
+                              titleTextStyle: TextStyle(
+                                color : Colors.lightBlue,
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              content: SingleChildScrollView(
+                              child: ListBody(
+                                children: <Widget>[
+                                  Padding(
+                                    padding: EdgeInsets.only(top:25)
+                                  ),
+                                  Row(
+                                    children: <Widget>[
+                                      Padding(
+                                        padding: EdgeInsets.only(left:30)
+                                      ),
+                                      IconButton(
+                                        icon: Icon(MdiIcons.camera),
+                                        iconSize: 70,
+                                        color: Colors.black87,
+                                        splashColor: Colors.lightBlueAccent.shade400,
+                                        onPressed: (){
+                                          _recuperarImagem(true);
                                           print("Change image profile active [camera]");
                                         },
                                       ),
@@ -94,11 +208,7 @@ class _ProfileState extends State<Profile> {
                                         color: Colors.black87,
                                         splashColor: Colors.lightBlueAccent.shade400,
                                         onPressed: (){
-                                          // Navigator.push(context,
-                                          //   MaterialPageRoute(
-                                          //     builder: (context) => GalleryMethod()
-                                          //   ),
-                                          // );
+                                          _recuperarImagem(false);
                                           print("Change image profile active [gallery]");
                                         },
                                       ),
@@ -168,53 +278,71 @@ class _ProfileState extends State<Profile> {
                     SizedBox(
                       width: SizeConfig.blockSizeHorizontal*10,
                     ),
-                    Container(
-                      alignment: Alignment.center,
-                      width: 180,
-                      height: 55,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.all(Radius.circular(15))
-                      ),
-                      child: Row(
-                        children: <Widget>[
-                          Container(                   
-                            alignment: Alignment.bottomCenter,
-                            padding: EdgeInsets.fromLTRB(6,0,0,0),
-                              child: Row( 
-                                children: <Widget>[
-                                IconButton(
-                                      icon: Icon(MdiIcons.facebookBox),
-                                      iconSize: 40,
-                                      color: Colors.blueAccent.shade400,
-                                      splashColor: Colors.blueAccent.shade400,
-                                      onPressed: (){}
-                                      //=> _loginWithFB(),
-                                    ),
-                                    IconButton(
-                                      icon: Icon(MdiIcons.instagram),
-                                      iconSize: 40,
-                                      color: Colors.pinkAccent,
-                                      splashColor: Colors.lightBlueAccent.shade400,
-                                      onPressed: () {
-                                        // _loginWithFB();
-                                      },
-                                    ),
-                                    IconButton(
-                                      icon: Image.asset("images/google.png"),
-                                      iconSize: 40,
-                                      color: Colors.red,
-                                      splashColor: Colors.lightBlueAccent.shade400,
-                                      onPressed: () {
-                                        // _loginWithFB();
-                                      },
-                                    )
-                                  ],
+                    Column(
+                      children: <Widget>[                 
+                        Text("Check-ins",
+                          style: TextStyle(
+                            color : Colors.white,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text("777",//CONTATOR DE EXPERIENCIA
+                          style: TextStyle(
+                            color : Colors.white,
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                       ],
-                  ),
-                ),
+                    ), 
+                    // Container(
+                    //   alignment: Alignment.center,
+                    //   width: 180,
+                    //   height: 55,
+                    //   decoration: BoxDecoration(
+                    //     color: Colors.white,
+                    //     borderRadius: BorderRadius.all(Radius.circular(15))
+                    //   ),
+                    //   child: Row(
+                    //     children: <Widget>[
+                    //       Container(                   
+                    //         alignment: Alignment.bottomCenter,
+                    //         padding: EdgeInsets.fromLTRB(6,0,0,0),
+                    //           child: Row( 
+                    //             children: <Widget>[
+                    //             IconButton(
+                    //                   icon: Icon(MdiIcons.facebookBox),
+                    //                   iconSize: 40,
+                    //                   color: Colors.blueAccent.shade400,
+                    //                   splashColor: Colors.blueAccent.shade400,
+                    //                   onPressed: (){}
+                    //                   //=> _loginWithFB(),
+                    //                 ),
+                    //                 IconButton(
+                    //                   icon: Icon(MdiIcons.instagram),
+                    //                   iconSize: 40,
+                    //                   color: Colors.pinkAccent,
+                    //                   splashColor: Colors.lightBlueAccent.shade400,
+                    //                   onPressed: () {
+                    //                     // _loginWithFB();
+                    //                   },
+                    //                 ),
+                    //                 IconButton(
+                    //                   icon: Image.asset("images/google.png"),
+                    //                   iconSize: 40,
+                    //                   color: Colors.red,
+                    //                   splashColor: Colors.lightBlueAccent.shade400,
+                    //                   onPressed: () {
+                    //                     // _loginWithFB();
+                    //                   },
+                    //                 )
+                    //               ],
+                    //       ),
+                    //     ),
+                    //  ],
+                //   ),
+                // ),
                 SizedBox(
                 width: SizeConfig.blockSizeVertical*3,
                 ),

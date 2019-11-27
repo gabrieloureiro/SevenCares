@@ -18,7 +18,7 @@ class _LoginState extends State<Login> {
     String password = _controllerSenha.text;
 
     //VALIDACAO DOS CAMPOS
-     if( email.isNotEmpty && email.contains("@")){
+     if(email.isNotEmpty && email.contains("@") && !email.contains(" ")){
 
         if(password.isNotEmpty){
 
@@ -30,13 +30,13 @@ class _LoginState extends State<Login> {
           _erroMessage = '';
         }else{
           setState(() {
-            _erroMessage = "A senha deve conter 6 caracteres ou mais";
+            _erroMessage = "A senha deve conter 6 ou mais caracteres";
           });
         }
 
       }else{
         setState(() {
-          _erroMessage = "Preencha com um E-mail válido";
+          _erroMessage = "Endereço de e-mail inválido ou já utilizado";
         });
       }
     //LOGANDO USUARIO NO FIREBASE
@@ -81,16 +81,16 @@ class _LoginState extends State<Login> {
                 ),
                 TextField(
                   controller: _controllerEmail,
-                  autofocus: false,
+                  autofocus: true,
                   keyboardType: TextInputType.emailAddress,
                   style: TextStyle(fontSize: SizeConfig.blockSizeHorizontal*3.3),
                   decoration: InputDecoration(
-                      contentPadding: EdgeInsets.fromLTRB(15, 16, 32, 16),
+                      contentPadding: EdgeInsets.fromLTRB(25, 16, 32, 16),
                       hintText: "E-mail",
                       filled: true,
                       fillColor: Colors.white,
                       border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(6)
+                          borderRadius: BorderRadius.circular(32),
                       )
                   ),
                 ),
@@ -103,12 +103,12 @@ class _LoginState extends State<Login> {
                   keyboardType: TextInputType.emailAddress,
                   style: TextStyle(fontSize: SizeConfig.blockSizeHorizontal*3.3),
                   decoration: InputDecoration(
-                      contentPadding: EdgeInsets.fromLTRB(15, 16, 32, 16),
+                      contentPadding: EdgeInsets.fromLTRB(25, 16, 32, 16),
                       hintText: "Senha",
                       filled: true,
                       fillColor: Colors.white,
                       border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(6)
+                          borderRadius: BorderRadius.circular(32)
                       )
                   ),
                 ),
@@ -117,10 +117,14 @@ class _LoginState extends State<Login> {
                   child: RaisedButton(
                     child: Text(
                         "Entrar",
-                      style: TextStyle(color: Colors.white, fontSize: 20),
+                      style: TextStyle(color: Colors.white, 
+                      fontSize: SizeConfig.blockSizeHorizontal*4),
                     ),
                       color: Color(0xff1ebbd8),
                       padding: EdgeInsets.fromLTRB(32, 16, 32, 16),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(32),
+                      ),
                       onPressed: (){
                         _validateFields();
                       }
@@ -144,15 +148,6 @@ class _LoginState extends State<Login> {
                       Navigator.pushNamed(context, "/signup");
                     },
                   ),
-                  Padding(
-                    padding: EdgeInsets.only(top: 16),
-                    child: Center(
-                      child: Text(
-                          _erroMessage,
-                        style: TextStyle(color: Colors.red, fontSize: 20),
-                      ),
-                    ),
-                  )
                   ],
                 )
               ],
