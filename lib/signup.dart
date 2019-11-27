@@ -14,15 +14,24 @@ class _SingUpState extends State<SingUp> {
   TextEditingController _controllerNome = TextEditingController();
   TextEditingController _controllerEmail = TextEditingController();
   TextEditingController _controllerSenha = TextEditingController();
-  String _erroMessage = '';
+  TextEditingController _controllerConfirmarsenha = TextEditingController();
 
+  String _erroMessage = '';
+  bool _obscureText = true;
   bool _isSelectedM = false;
   bool _isSelectedF = false;
+
+  void toogle(){
+    setState(() {
+      _obscureText = ! _obscureText;
+    });
+  }
 
   _validateFields(){
     String name = _controllerNome.text;
     String email = _controllerEmail.text;
     String password = _controllerSenha.text;
+    String confirmPassword = _controllerConfirmarsenha.text;
     String genre = "";
     //VALIDACAO DOS CAMPOS
     if(_isSelectedM == true){
@@ -32,11 +41,13 @@ class _SingUpState extends State<SingUp> {
       genre = "Feminino";
     }
 
-    if( name.isNotEmpty ){
+    if( name.isNotEmpty){
 
       if( email.isNotEmpty && email.contains("@")){
 
-        if( password.isNotEmpty ){
+        if( password.isNotEmpty && password.length > 6 )  {
+
+          if(password == confirmPassword){
 
           User usuario = User();
           usuario.name = name;
@@ -46,15 +57,20 @@ class _SingUpState extends State<SingUp> {
 
           _userSignUp( usuario );
           _erroMessage = '';
+          }else{
+            setState(() {
+              _erroMessage = "Senhas não compatíveis";
+            });
+          }
         }else{
           setState(() {
-            _erroMessage = "Preencha a senha! digite mais de 6 caracteres";
+            _erroMessage = "A senha deve conter mais de 6 caracteres";
           });
         }
 
       }else{
         setState(() {
-          _erroMessage = "Preencha o E-mail válido";
+          _erroMessage = "Utilize um e-mail válido";
         });
       }
 
@@ -118,6 +134,9 @@ class _SingUpState extends State<SingUp> {
                       )
                   ),
                 ),
+                SizedBox(
+                  height: 10,
+                ),
                 //NOME
                 TextField(
                   controller: _controllerEmail,
@@ -134,9 +153,11 @@ class _SingUpState extends State<SingUp> {
                       )
                   ),
                 ),
+                SizedBox(
+                  height: 10,
+                ),
                 TextField(
                   controller: _controllerSenha,
-                  obscureText: true,
                   keyboardType: TextInputType.emailAddress,
                   style: TextStyle(fontSize: SizeConfig.blockSizeHorizontal*3.3),
                   decoration: InputDecoration(
@@ -148,7 +169,35 @@ class _SingUpState extends State<SingUp> {
                           borderRadius: BorderRadius.circular(6)
                       )
                   ),
+                  obscureText: _obscureText,
                 ),
+                SizedBox(
+                  height: 10,
+                ),
+                TextField(
+                  controller: _controllerConfirmarsenha,
+                  keyboardType: TextInputType.emailAddress,
+                  style: TextStyle(fontSize: SizeConfig.blockSizeHorizontal*3.3),
+                  decoration: InputDecoration(
+                      contentPadding: EdgeInsets.fromLTRB(15, 16, 32, 16),
+                      hintText: "Confirmar senha",
+                      filled: true,
+                      fillColor: Colors.white,
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(6)
+                      )
+                  ),
+                  obscureText: _obscureText,
+                ),
+                Padding(
+                  padding : EdgeInsets.only(left: 70,right: 70),
+                  child: FlatButton(
+                  onPressed: toogle,
+                  child: Text(_obscureText ? "Mostrar senha" : "Esconder senha"),
+                ),
+                ),
+                
+                
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
