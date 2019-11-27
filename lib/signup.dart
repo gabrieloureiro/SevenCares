@@ -22,7 +22,7 @@ class _SingUpState extends State<SingUp> {
   bool _isSelectedM = false;
   bool _isSelectedF = false;
 
-  void toogle(){
+  void _passwordText(){
     setState(() {
       _obscureText = ! _obscureText;
     });
@@ -33,14 +33,14 @@ class _SingUpState extends State<SingUp> {
     String email = _controllerEmail.text;
     String password = _controllerSenha.text;
     String confirmPassword = _controllerConfirmarsenha.text;
-    String genre = "";
+    String gender = "";
 
     //VALIDACAO DOS CAMPOS
     if(_isSelectedM == true){
-      genre = "Masculino";
+      gender = "Masculino";
     }
     else if(_isSelectedF == true){
-      genre = "Feminino";
+      gender = "Feminino";
     }
 
     if(name.isNotEmpty){
@@ -51,15 +51,15 @@ class _SingUpState extends State<SingUp> {
 
           if(password == confirmPassword){
 
-            if(genre.isNotEmpty){
+            if(gender.isNotEmpty){
 
-              User usuario = User();
-              usuario.name = name;
-              usuario.email = email;
-              usuario.password = password;
-              usuario.userType = genre;
+              User user = User();
+              user.name = name;
+              user.email = email;
+              user.password = password;
+              user.userType = gender;
 
-            _userSignUp( usuario );
+            _userSignUp( user );
             _erroMessage = '';
             }else{
               setState(() {
@@ -88,7 +88,7 @@ class _SingUpState extends State<SingUp> {
         _erroMessage = "Insira o seu nome";
       });
     }
-    //CADASTRANDO USUARIO NO FIREBASE
+    //CADASTRANDO user NO FIREBASE
     
 
   }
@@ -100,7 +100,7 @@ class _SingUpState extends State<SingUp> {
         email: user.email,
         password: user.password,
       ).then((firebaseUser){ //.then para caso salvemos o user, salvar no bd
-        db.collection('user').document(firebaseUser.user.uid). //colecao com usuarios
+        db.collection('user').document(firebaseUser.user.uid). //colecao com users
         setData(user.toMap()); //setdata -> dados que quero salvar
         Navigator.pushNamedAndRemoveUntil(
               context, 
@@ -109,7 +109,7 @@ class _SingUpState extends State<SingUp> {
         
 
       }).catchError((e){
-        _erroMessage = "Erro ao cadastrar usuario, verifique o email e a senha";
+        _erroMessage = "Erro ao cadastrar user, verifique o email e a senha";
       });
     }
   
@@ -141,7 +141,7 @@ class _SingUpState extends State<SingUp> {
                   children: <Widget>[
                     Padding(
                       padding: EdgeInsets.only(bottom:32),
-                      child: Image.asset("images/usuario.png",
+                      child: Image.asset("images/user.png",
                         width: SizeConfig.blockSizeHorizontal*15,
                         height: SizeConfig.blockSizeVertical*15,
                         color: Colors.lightBlueAccent,
@@ -223,7 +223,7 @@ class _SingUpState extends State<SingUp> {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(32),
                         ),
-                      onPressed: toogle,
+                      onPressed: _passwordText,
                       child: Text(_obscureText ? "Mostrar senha" : "Esconder senha"),
                       ),
                     ),                 
