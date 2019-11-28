@@ -12,6 +12,12 @@ class _LoginState extends State<Login> {
   TextEditingController _controllerEmail = TextEditingController();
   TextEditingController _controllerSenha = TextEditingController();
   String _erroMessage = '';
+  bool _obscureText = true;
+   void _passwordText(){
+    setState(() {
+      _obscureText = ! _obscureText;
+    });
+  }
   
   _validateFields(){
     String email = _controllerEmail.text;
@@ -91,6 +97,11 @@ class _LoginState extends State<Login> {
                       fillColor: Colors.white,
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(32),
+                          
+                      ),
+                      prefixIcon: const Icon(
+                        Icons.alternate_email,
+                        color: Colors.black54,
                       )
                   ),
                 ),
@@ -99,7 +110,7 @@ class _LoginState extends State<Login> {
                 ),
                 TextField(
                   controller: _controllerSenha,
-                  obscureText: true,
+                  obscureText: _obscureText,
                   keyboardType: TextInputType.emailAddress,
                   style: TextStyle(fontSize: SizeConfig.blockSizeHorizontal*3.3),
                   decoration: InputDecoration(
@@ -109,7 +120,12 @@ class _LoginState extends State<Login> {
                       fillColor: Colors.white,
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(32)
-                      )
+                      ),
+                      prefixIcon: IconButton(
+                            icon : Icon(_obscureText ? Icons.remove_red_eye : Icons.panorama_fish_eye),
+                            color: Colors.black45,
+                            onPressed: _passwordText,
+                      ),
                   ),
                 ),
                 Padding(

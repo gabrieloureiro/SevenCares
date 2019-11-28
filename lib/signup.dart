@@ -63,7 +63,7 @@ class _SingUpState extends State<SingUp> {
             _erroMessage = '';
             }else{
               setState(() {
-                _erroMessage = "Insira o seu gênero";
+                _erroMessage = "Marque uma das opções";
               });
             }
           }else{
@@ -159,6 +159,10 @@ class _SingUpState extends State<SingUp> {
                           fillColor: Colors.white,
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(32)
+                          ),
+                          prefixIcon: Icon(
+                            Icons.account_circle,
+                            color: Colors.black54
                           )
                       ),
                     ),
@@ -178,6 +182,10 @@ class _SingUpState extends State<SingUp> {
                           fillColor: Colors.white,
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(32)
+                          ),
+                          prefixIcon: Icon(
+                            Icons.alternate_email,
+                            color: Colors.black54
                           )
                       ),
                     ),
@@ -195,7 +203,12 @@ class _SingUpState extends State<SingUp> {
                           fillColor: Colors.white,
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(32)
-                          )
+                          ),
+                          prefixIcon: IconButton(
+                            icon : Icon(_obscureText ? Icons.remove_red_eye : Icons.panorama_fish_eye),
+                            color: Colors.black45,
+                            onPressed: _passwordText,
+                          ),
                       ),
                       obscureText: _obscureText,
                     ),
@@ -213,21 +226,25 @@ class _SingUpState extends State<SingUp> {
                           fillColor: Colors.white,
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(32)
-                          )
+                          ),
+                          prefixIcon: IconButton(
+                            icon : Icon(_obscureText ? Icons.remove_red_eye : Icons.panorama_fish_eye),
+                            color: Colors.black45,
+                            onPressed: _passwordText,
+                          ),
                       ),
                       obscureText: _obscureText,
                     ),
-                    Padding(
-                      padding : EdgeInsets.only(left: 70,right: 70),
-                      child: FlatButton(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(32),
-                        ),
-                      onPressed: _passwordText,
-                      child: Text(_obscureText ? "Mostrar senha" : "Esconder senha"),
-                      ),
+                    SizedBox(
+                      height: 15,
                     ),                 
-                    Row(
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white60,
+                        borderRadius: BorderRadius.circular(32),
+                        
+                      ),
+                      child:Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Checkbox(
@@ -245,7 +262,8 @@ class _SingUpState extends State<SingUp> {
                         ),
                         Text("Masculino",
                           style: TextStyle(
-                            fontSize: SizeConfig.blockSizeHorizontal*3.3
+                            fontSize: SizeConfig.blockSizeHorizontal*3.3,
+                            fontWeight: FontWeight.w700
                           ),
                         ),
                         Checkbox(
@@ -263,10 +281,14 @@ class _SingUpState extends State<SingUp> {
                         ),
                         Text("Feminino",
                           style: TextStyle(
-                            fontSize: SizeConfig.blockSizeHorizontal*3.3
+                            fontSize: SizeConfig.blockSizeHorizontal*3.3,
+                            fontWeight: FontWeight.w700
+
                           ),
                         ),
                       ],
+                    ),
+                  
                     ),
                     Padding(
                       padding: EdgeInsets.only(top: 16, bottom: 10),
