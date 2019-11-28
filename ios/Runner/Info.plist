@@ -21,6 +21,8 @@
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>
+	<key>NSAppTransportSecurity</key>
+	<key>NSAllowsArbitraryLoads</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
@@ -52,6 +54,7 @@
 
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Permitir que o aplicativo acesse o microfone?</string>
+
 
 </dict>
 </plist>
