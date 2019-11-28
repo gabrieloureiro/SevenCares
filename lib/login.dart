@@ -3,7 +3,7 @@ import 'package:flutter_app/model/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_app/model/size_config.dart';
 import 'package:video_player/video_player.dart';
-
+import 'package:line_awesome_icons/line_awesome_icons.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -152,9 +152,9 @@ class _LoginState extends State<Login> {
                                 borderRadius: BorderRadius.circular(32)
                             ),
                             prefixIcon: IconButton(
-                                  icon : Icon(_obscureText ? Icons.remove_red_eye : Icons.panorama_fish_eye),
-                                  color: Colors.black45,
+                                  icon : Icon(_obscureText ? LineAwesomeIcons.eye : LineAwesomeIcons.eye_slash),
                                   onPressed: _passwordText,
+                                  color: Colors.black54,
                             ),
                         ),
                       ),

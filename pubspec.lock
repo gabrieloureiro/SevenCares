@@ -165,6 +165,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.6.2+1"
+  line_awesome_icons:
+    dependency: "direct main"
+    description:
+      name: line_awesome_icons
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.4+2"
   link:
     dependency: "direct dev"
     description:
@@ -303,7 +310,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.8"
-<<<<<<< HEAD
   video_player:
     dependency: "direct main"
     description:
@@ -311,15 +317,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.10.3+3"
-  xml:
-    dependency: transitive
-    description:
-      name: xml
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "3.5.0"
-=======
->>>>>>> 944d8ed28708b995dcdd0cc07953ffe2f7084818
 sdks:
   dart: ">=2.2.2 <3.0.0"
   flutter: ">=1.9.1+hotfix.5 <2.0.0"

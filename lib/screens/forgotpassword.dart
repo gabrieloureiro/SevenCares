@@ -1,8 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/model/user.dart';
-
-import 'model/size_config.dart';
+import 'package:flutter_app/model/user.dart'; 
+import '../model/size_config.dart';
 class ForgotPassword extends StatefulWidget {
   ForgotPassword({Key key}) : super(key: key);
 
@@ -14,13 +13,15 @@ class _ForgotPasswordState extends State<ForgotPassword> {
   TextEditingController _controllerEmail = TextEditingController();
   String _erroMessage = "";
 
+  
+
   _forgotPassword(User user){
       FirebaseAuth auth = FirebaseAuth.instance;
       auth.sendPasswordResetEmail(
         email: user.email,
       ).then((firebaseUser){
         Navigator.pushNamed(context, "/login");
-
+        
       }).catchError((e){
         _erroMessage = "E-mail invalido";
       });

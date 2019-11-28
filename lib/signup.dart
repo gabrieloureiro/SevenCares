@@ -3,8 +3,8 @@ import 'package:flutter_app/model/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_app/model/size_config.dart';
-import 'package:material_design_icons_flutter/icon_map.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:line_awesome_icons/line_awesome_icons.dart';
+
 class SingUp extends StatefulWidget {
   SingUp({Key key}) : super(key: key);
 
@@ -118,7 +118,7 @@ class _SingUpState extends State<SingUp> {
     SizeConfig().init(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text("Cadastro"),
+        title: Text(""),
         backgroundColor: Colors.black87,
       ),
       body: Stack(
@@ -205,7 +205,7 @@ class _SingUpState extends State<SingUp> {
                               borderRadius: BorderRadius.circular(32)
                           ),
                           prefixIcon: IconButton(
-                            icon : Icon(_obscureText ? Icons.remove_red_eye : Icons.panorama_fish_eye),
+                            icon : Icon(_obscureText ? LineAwesomeIcons.eye : LineAwesomeIcons.eye_slash),
                             color: Colors.black45,
                             onPressed: _passwordText,
                           ),
@@ -228,7 +228,7 @@ class _SingUpState extends State<SingUp> {
                               borderRadius: BorderRadius.circular(32)
                           ),
                           prefixIcon: IconButton(
-                            icon : Icon(_obscureText ? Icons.remove_red_eye : Icons.panorama_fish_eye),
+                            icon : Icon(_obscureText ? LineAwesomeIcons.eye : LineAwesomeIcons.eye_slash),
                             color: Colors.black45,
                             onPressed: _passwordText,
                           ),
