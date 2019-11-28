@@ -69,7 +69,7 @@ class _LoginState extends State<Login> {
     void initState() {
     super.initState();
     _controllerVideo = VideoPlayerController.network(
-        'https://firebasestorage.googleapis.com/v0/b/seven7cares.appspot.com/o/background%2FACADEMIA-SEVEN-CARE_2.mp4?alt=media&token=da30e3ee-1dbb-4723-b798-ff047576894e')
+        'https://firebasestorage.googleapis.com/v0/b/data-7-1b8b7.appspot.com/o/ACADEMIA-SEVEN-CARE_2.mp4?alt=media&token=3239ba64-4b69-453b-bcab-649f5d0b69fd')
       ..initialize().then((_) {
         _controllerVideo.play();
         _controllerVideo.setLooping(true);
