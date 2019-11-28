@@ -26,7 +26,7 @@ class _LoginState extends State<Login> {
     //VALIDACAO DOS CAMPOS
      if(email.isNotEmpty && email.contains("@") && !email.contains(" ")){
 
-        if(password.isNotEmpty){
+        if(password.isNotEmpty && !password.contains(" ")){
 
           User user = User();
           user.email = email;
@@ -45,7 +45,6 @@ class _LoginState extends State<Login> {
           _erroMessage = "Endereço de e-mail inválido ou já utilizado";
         });
       }
-    //LOGANDO USUARIO NO FIREBASE
    
 
   }
@@ -60,117 +59,141 @@ class _LoginState extends State<Login> {
         _erroMessage = "Erro ao autenticar usuário! Verifique o e-mail e a senha";
       });
     }
+  
+
 
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-    return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [Colors.black87, Colors.grey],
-            )
-          ),
-        alignment: Alignment.topCenter,
-        padding: EdgeInsets.all(16),
-        child: Center(
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.only(bottom: 32),
-                  child: Image.asset(
-                      "images/logo-s7.png",),
-                ),
-                TextField(
-                  controller: _controllerEmail,
-                  autofocus: true,
-                  keyboardType: TextInputType.emailAddress,
-                  style: TextStyle(fontSize: SizeConfig.blockSizeHorizontal*3.3),
-                  decoration: InputDecoration(
-                      contentPadding: EdgeInsets.fromLTRB(25, 16, 32, 16),
-                      hintText: "E-mail",
-                      filled: true,
-                      fillColor: Colors.white,
-                      border: OutlineInputBorder(
+    return Stack(
+      children: <Widget>[
+      Image.asset(
+        "images/bglogin.gif",
+          fit: BoxFit.cover,
+          height: double.maxFinite,
+          width: double.maxFinite,
+          alignment: Alignment.center,
+      ),
+     
+      Scaffold(
+        backgroundColor: Colors.transparent,
+        body: Container(
+          alignment: Alignment.topCenter,
+          padding: EdgeInsets.all(16),
+          child: Center(
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: <Widget>[
+                  
+                  TextField(
+                    controller: _controllerEmail,
+                    autofocus: true,
+                    keyboardType: TextInputType.emailAddress,
+                    style: TextStyle(fontSize: SizeConfig.blockSizeHorizontal*3.3),
+                    decoration: InputDecoration(
+                        contentPadding: EdgeInsets.fromLTRB(25, 16, 32, 16),
+                        hintText: "E-mail",
+                        filled: true,
+                        fillColor: Colors.white,
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(32),
+                            
+                        ),
+                        prefixIcon: const Icon(
+                          Icons.alternate_email,
+                          color: Colors.black54,
+                        )
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  TextField(
+                    controller: _controllerSenha,
+                    obscureText: _obscureText,
+                    keyboardType: TextInputType.emailAddress,
+                    style: TextStyle(fontSize: SizeConfig.blockSizeHorizontal*3.3),
+                    decoration: InputDecoration(
+                        contentPadding: EdgeInsets.fromLTRB(25, 16, 32, 16),
+                        hintText: "Senha",
+                        filled: true,
+                        fillColor: Colors.white,
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(32)
+                        ),
+                        prefixIcon: IconButton(
+                              icon : Icon(_obscureText ? Icons.remove_red_eye : Icons.panorama_fish_eye),
+                              color: Colors.black45,
+                              onPressed: _passwordText,
+                        ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: 16, bottom: 10),
+                    child: RaisedButton(
+                      child: Text(
+                          "Entrar",
+                        style: TextStyle(color: Colors.white, 
+                        fontSize: SizeConfig.blockSizeHorizontal*4),
+                      ),
+                        color: Color(0xff1ebbd8),
+                        padding: EdgeInsets.fromLTRB(32, 16, 32, 16),
+                        shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(32),
-                          
-                      ),
-                      prefixIcon: const Icon(
-                        Icons.alternate_email,
-                        color: Colors.black54,
-                      )
-                  ),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                TextField(
-                  controller: _controllerSenha,
-                  obscureText: _obscureText,
-                  keyboardType: TextInputType.emailAddress,
-                  style: TextStyle(fontSize: SizeConfig.blockSizeHorizontal*3.3),
-                  decoration: InputDecoration(
-                      contentPadding: EdgeInsets.fromLTRB(25, 16, 32, 16),
-                      hintText: "Senha",
-                      filled: true,
-                      fillColor: Colors.white,
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(32)
-                      ),
-                      prefixIcon: IconButton(
-                            icon : Icon(_obscureText ? Icons.remove_red_eye : Icons.panorama_fish_eye),
-                            color: Colors.black45,
-                            onPressed: _passwordText,
-                      ),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(top: 16, bottom: 10),
-                  child: RaisedButton(
-                    child: Text(
-                        "Entrar",
-                      style: TextStyle(color: Colors.white, 
-                      fontSize: SizeConfig.blockSizeHorizontal*4),
+                        ),
+                        onPressed: (){
+                          _validateFields();
+                        }
                     ),
-                      color: Color(0xff1ebbd8),
-                      padding: EdgeInsets.fromLTRB(32, 16, 32, 16),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(32),
-                      ),
-                      onPressed: (){
-                        _validateFields();
-                      }
                   ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Text(
-                        "Não possui conta?\t",
-                      style: TextStyle(color: Colors.white),
+                
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Text(
+                          "Não possui conta?\t",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      GestureDetector(
+                        child: Text("Cadastre-se!",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),  
+                        ),
+                      onTap: (){
+                        Navigator.pushNamed(context, "/signup");
+                      },
                     ),
-                    GestureDetector(
-                      child: Text("Cadastre-se!",
+                    
+                    ],
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Align(
+                    alignment: Alignment.center,
+                      child: GestureDetector(
+                        child: Text("Esqueci a senha",
                         style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                        ),  
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold
+                        ),
                       ),
-                    onTap: (){
-                      Navigator.pushNamed(context, "/signup");
-                    },
-                  ),
-                  ],
-                )
-              ],
+                      onTap: (){
+                        Navigator.pushNamed(context, "/forgot");
+                      },
+                      )
+                    )
+                ],
+              ),
             ),
           ),
         ),
-      ),
-    );
+      )
+        ],
+      );
+    }
+  
   }
-}

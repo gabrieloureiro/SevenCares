@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/forgotpassword.dart';
 import 'package:flutter_app/screens/home.dart';
 import 'package:flutter_app/signup.dart';
 import 'package:flutter_app/login.dart';
@@ -22,6 +23,10 @@ class Routes {
       case "/login" : 
         return MaterialPageRoute(
           builder: (_) => Login()
+        );
+      case "/forgot" : 
+        return MaterialPageRoute(
+          builder: (_) => ForgotPassword()
         );
       default:
         _routeError();
