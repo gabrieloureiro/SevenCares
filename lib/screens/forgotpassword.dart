@@ -63,7 +63,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
         ),
         Scaffold(
           appBar: AppBar(
-            title: Text("Recuperar Senha"),
+            title: Text("Recuperar Senha",),
             backgroundColor: Colors.black87,
           ),
           body: Container( 
@@ -105,7 +105,8 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                   child: Text(
                       "Recuperar",
                     style: TextStyle(color: Colors.white, 
-                    fontSize: SizeConfig.blockSizeHorizontal*4),
+                    fontSize: SizeConfig.blockSizeHorizontal*4,
+                    fontFamily: "TitilliumWeb"),
                   ),
                     color: Color(0xff1ebbd8),
                     padding: EdgeInsets.fromLTRB(32, 16, 32, 16),

@@ -145,7 +145,7 @@ class _LoginState extends State<Login> {
                         style: TextStyle(fontSize: SizeConfig.blockSizeHorizontal*3.3),
                         decoration: InputDecoration(
                             contentPadding: EdgeInsets.fromLTRB(25, 16, 32, 16),
-                            hintText: "Senha",
+                            hintText: "Senha",                            
                             filled: true,
                             fillColor: Colors.white,
                             border: OutlineInputBorder(
@@ -164,7 +164,8 @@ class _LoginState extends State<Login> {
                           child: Text(
                               "Entrar",
                             style: TextStyle(color: Colors.white, 
-                            fontSize: SizeConfig.blockSizeHorizontal*4),
+                            fontSize: SizeConfig.blockSizeHorizontal*4,
+                            ),
                           ),
                             color: Color(0xff1ebbd8),
                             padding: EdgeInsets.fromLTRB(32, 16, 32, 16),
@@ -181,14 +182,16 @@ class _LoginState extends State<Login> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           Text(
-                              "Não possui conta?\t",
-                            style: TextStyle(color: Colors.white),
+                              "Não possui conta ?\t",
+                            style: TextStyle(color: Colors.white,
+                            ),
                           ),
                           GestureDetector(
-                            child: Text("Cadastre-se!",
+                            child: Text("Cadastre-se !",
                               style: TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
+                                
                               ),  
                             ),
                           onTap: (){
@@ -204,10 +207,10 @@ class _LoginState extends State<Login> {
                       Align(
                         alignment: Alignment.center,
                           child: GestureDetector(
-                            child: Text("Esqueci a senha",
+                            child: Text("Esqueceu a senha ?",
                             style: TextStyle(
                             color: Colors.white,
-                            fontWeight: FontWeight.bold
+                            fontWeight: FontWeight.bold,
                             ),
                           ),
                           onTap: (){
