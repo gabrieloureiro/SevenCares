@@ -1,9 +1,13 @@
+import 'package:circular_check_box/circular_check_box.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_app/model/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_app/model/size_config.dart';
 import 'package:video_player/video_player.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
+
+
 
 class Login extends StatefulWidget {
   @override
@@ -16,6 +20,7 @@ class _LoginState extends State<Login> {
   VideoPlayerController _controllerVideo;
   String _erroMessage = '';
   bool _obscureText = true;
+  bool _rememberMe = false;
 
 
    void _passwordText(){
@@ -85,146 +90,317 @@ class _LoginState extends State<Login> {
     super.dispose();
   }
 
-  @override
-  Widget build(BuildContext context) {
-    SizeConfig().init(context);
-    return Scaffold(
-        backgroundColor: Colors.transparent,
-        body: Stack(
-          alignment: Alignment.topCenter,
+  Widget _signInWithText(){
+      return Column(
+        children: <Widget>[
+          Text(
+            '- OU -',
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.w400,
+            ),
+          ),
+          SizedBox(height: 10.0),
+          Text(
+            'Você também pode se cadastrar com:',
+            style: TextStyle(
+              color: Colors.white
+            ),
+          ),
+        ],
+      );
+    }
+
+    Widget _socialButton(Function onTap, AssetImage logo) {
+      return GestureDetector(
+        onTap: onTap,
+        child: Container(
+          height: 60.0,
+          width: 60.0,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: Colors.white,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black26,
+                offset: Offset(0, 2),
+                blurRadius: 6.0,
+              ),
+            ],
+            image: DecorationImage(
+              image: logo,
+            ),
+          ),
+        ),
+      );
+    }
+    Widget _socialButtonRow() {
+      return Padding(
+        padding: EdgeInsets.symmetric(vertical: 20.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
-            SizedBox.expand(
-              child: FittedBox(
-                fit: BoxFit.cover,
-                child: SizedBox(
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height,
-                  child: VideoPlayer(_controllerVideo),
-                ),
+            _socialButton(
+              () => print('Login with Facebook'),
+              AssetImage(
+                'images/facebook.png',
               ),
             ),
-            Padding(
-              padding: EdgeInsets.all(16),
-              child: Center(
-                child: SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: <Widget>[
-                      Padding(
-                      padding: EdgeInsets.only(bottom: 32),
-                      child: Image.asset(
-                          "images/logo-s7.png",),
-                      ),
-                      TextField(
-                        controller: _controllerEmail,
-                        autofocus: false,
-                        keyboardType: TextInputType.emailAddress,
-                        style: TextStyle(fontSize: SizeConfig.blockSizeHorizontal*3.3),
-                        decoration: InputDecoration(
-                            contentPadding: EdgeInsets.fromLTRB(25, 16, 32, 16),
-                            hintText: "E-mail",
-                            filled: true,
-                            fillColor: Colors.white,
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(32),
-                                
-                            ),
-                            prefixIcon: const Icon(
-                              Icons.alternate_email,
-                              color: Colors.black54,
-                            )
-                        ),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      TextField(
-                        controller: _controllerSenha,
-                        obscureText: _obscureText,
-                        keyboardType: TextInputType.emailAddress,
-                        style: TextStyle(fontSize: SizeConfig.blockSizeHorizontal*3.3),
-                        decoration: InputDecoration(
-                            contentPadding: EdgeInsets.fromLTRB(25, 16, 32, 16),
-                            hintText: "Senha",                            
-                            filled: true,
-                            fillColor: Colors.white,
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(32)
-                            ),
-                            prefixIcon: IconButton(
-                                  icon : Icon(_obscureText ? LineAwesomeIcons.eye : LineAwesomeIcons.eye_slash),
-                                  onPressed: _passwordText,
-                                  color: Colors.black54,
-                            ),
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(top: 16, bottom: 10),
-                        child: RaisedButton(
-                          child: Text(
-                              "Entrar",
-                            style: TextStyle(color: Colors.white, 
-                            fontSize: SizeConfig.blockSizeHorizontal*4,
-                            ),
-                          ),
-                            color: Color(0xff1ebbd8),
-                            padding: EdgeInsets.fromLTRB(32, 16, 32, 16),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(32),
-                            ),
-                            onPressed: (){
-                              _validateFields();
-                            }
-                        ),
-                      ),
-                    
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Text(
-                              "Não possui conta ?\t",
-                            style: TextStyle(color: Colors.white,
-                            ),
-                          ),
-                          GestureDetector(
-                            child: Text("Cadastre-se !",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                
-                              ),  
-                            ),
-                          onTap: (){
-                            Navigator.pushNamed(context, "/signup");
-                          },
-                        ),
-                        
-                        ],
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Align(
-                        alignment: Alignment.center,
-                          child: GestureDetector(
-                            child: Text("Esqueceu a senha ?",
-                            style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          onTap: (){
-                            Navigator.pushNamed(context, "/forgot");
-                          },
-                          )
-                        )
-                    ],
-                  ),
-                ),
+            _socialButton(
+              () => print('Login with Google'),
+              AssetImage(
+                'images/google.png',
               ),
             ),
           ],
         ),
       );
     }
+
+    Widget _signUpButton()
+    {
+      return GestureDetector(
+        onTap: (){
+            Navigator.pushNamed(context, "/signup");
+          },
+        child:  RichText(
+            text: TextSpan(
+              children: [
+                TextSpan(
+                  text: "Não possui conta ?",
+                  style: TextStyle(color: Colors.white,
+                  fontSize: 15.0
+   
+                  ) 
+                ),
+                TextSpan(
+                  text: " Cadastre-se !",
+                  style: TextStyle(color: Colors.white,
+                  fontSize: 15.0,
+                  fontWeight: FontWeight.bold                  
+                  )
+                )
+              ],
+            ),
+          ),
+      );
+    }
+  Widget _forgotPassword()
+  {
+     return Container(
+      alignment: Alignment.centerRight,
+        child: FlatButton(
+          padding: EdgeInsets.only(right: 0),
+          child: Text(
+            "Esqueceu a senha ?",                               
+          style: TextStyle(
+          fontSize: 13,
+          color: Colors.white,
+          fontWeight: FontWeight.bold,
+          ),
+        ),
+        onPressed: (){
+          Navigator.pushNamed(context, "/forgot");
+        },
+        )
+    );
+                  
   }
+  Widget _rememberMeCheckbox() {
+    return Container(
+      alignment: Alignment.centerRight,
+      height: 20.0,
+      child: Row(
+        children: <Widget>[
+          Theme(
+            data: ThemeData(unselectedWidgetColor: Colors.white),
+            child: CircularCheckBox(
+              value: _rememberMe,
+              activeColor: Colors.blueGrey,
+              onChanged: (value) {
+                setState(() {
+                  _rememberMe = value;
+                });
+              },
+            ),
+          ),
+          //TODO implementar rememberME
+          Text(
+            'Lembre-se de mim',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 13,
+              fontWeight: FontWeight.bold,
+                        ),
+          ),
+        ],
+      ),
+    );
+  }
+  Widget _loginButton(){
+    return Container(
+      width: double.infinity,
+        child: RaisedButton(
+          child: Text(
+              "ENTRAR",
+            style: TextStyle(
+            color: Color(0xFF527DAA), 
+            fontSize: SizeConfig.blockSizeHorizontal*4,
+            letterSpacing: 1.5,
+            fontWeight: FontWeight.bold
+            ),
+          ),
+          color: Colors.white,
+          padding: EdgeInsets.fromLTRB(32, 16, 32, 16),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(32),
+          ),
+          onPressed: (){
+            _validateFields();
+          }
+      ),
+    );
+  }
+  Widget _emailField(){
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Text("E-mail",
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold
+          ),
+        ),
+        SizedBox(height: 10,),
+        TextField(
+          controller: _controllerEmail,
+          autofocus: false,
+          keyboardType: TextInputType.emailAddress,
+          style: TextStyle(fontSize: SizeConfig.blockSizeHorizontal*3.3),
+          decoration: InputDecoration(
+              contentPadding: EdgeInsets.fromLTRB(25, 16, 32, 16),
+              hintText: "Insira seu e-mail aqui",
+              filled: true,
+              fillColor: Colors.white,
+              border:OutlineInputBorder(
+                borderRadius: BorderRadius.circular(20)
+              ),                                                                                      
+              prefixIcon: const Icon(
+                Icons.alternate_email,
+                color: Colors.black54,
+              )
+          ),
+        ),
+          
+      ],
+    );          
+  }
+
+  Widget _passwordField(){
+    return  Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Text("Senha",
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold
+          ),
+        ),
+        SizedBox(height: 5,),
+        TextField(
+          controller: _controllerSenha,
+          obscureText: _obscureText,
+          keyboardType: TextInputType.emailAddress,
+          style: TextStyle(fontSize: SizeConfig.blockSizeHorizontal*3.3),
+          decoration: InputDecoration(
+              contentPadding: EdgeInsets.fromLTRB(25, 16, 32, 16),
+              hintText: "Insira sua senha aqui",                            
+              filled: true,
+              fillColor: Colors.white,
+              border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(20)
+              ),
+              prefixIcon: IconButton(
+                    icon : Icon(_obscureText ? LineAwesomeIcons.eye : LineAwesomeIcons.eye_slash),
+                    onPressed: _passwordText,
+                    color: Colors.black54,
+              ),
+          ),
+        ),
+      ],
+    );   
+    
+    
+    
+  }
+  @override
+  Widget build(BuildContext context) {
+    SizeConfig().init(context);
+    return Scaffold(
+      body: AnnotatedRegion<SystemUiOverlayStyle>(
+        value: SystemUiOverlayStyle.light,
+         child: GestureDetector(
+          onTap: ()=> FocusScope.of(context).unfocus(),
+          child: Stack(
+            children: <Widget>[
+              Container(
+                height: double.infinity,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      Color(0xFF73AEF5),
+                      Color(0xFF61A4F1),
+                      Color(0xFF478DE0),
+                      Color(0xFF398AE5),
+                    ],
+                    stops: [0.1, 0.4, 0.7, 0.9],
+                  ),
+                ),
+              ),
+              Container(
+                child: SingleChildScrollView(
+                  physics: AlwaysScrollableScrollPhysics(),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 40,
+                    vertical: 120
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Image.asset('images/seven-small.png'),
+                      SizedBox(height: 30,),
+                      
+                      _emailField(),
+                      SizedBox(height: 30,),
+               
+                      _passwordField(),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: <Widget>[
+                           _rememberMeCheckbox(),
+                           _forgotPassword(),
+                        ],
+                       ),
+                       SizedBox(height: 10,),
+                      _loginButton(),
+                      SizedBox(height: 10,),
+                      _signUpButton(),
+                      SizedBox(height: 8,),
+                      _signInWithText(),
+                      _socialButtonRow(),
+                    ],
+                  ),
+                ),
+              )
+            ],
+          ),
+          
+        ),
+      ),
+    );
+    
+    }
+}
