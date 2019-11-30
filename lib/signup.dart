@@ -1,4 +1,6 @@
+import 'package:circular_check_box/circular_check_box.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_app/model/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -113,31 +115,318 @@ class _SingUpState extends State<SingUp> {
       });
     }
   
-  @override
+ 
+  Widget _nameField(){
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Padding(
+          padding: EdgeInsets.only(left: 10),
+          child: Text("Nome",
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold
+          ),
+          ),
+        ),
+        SizedBox(height: 5,),
+        TextField(
+          controller: _controllerNome,
+          autofocus: true,
+          keyboardType: TextInputType.text,
+          style: TextStyle(fontSize: SizeConfig.blockSizeHorizontal*3.3),
+          decoration: InputDecoration(
+              contentPadding: EdgeInsets.fromLTRB(25, 16, 32, 16),
+              hintText: "Insira seu nome",
+              filled: true,
+              fillColor: Colors.white,
+              border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(20)
+              ),
+              prefixIcon: Icon(
+                Icons.account_circle,
+                color: Colors.black54
+              )
+          ),
+        ),
+      ]
+    );
+  }
+
+
+  Widget _emailField(){
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Padding(
+          padding: EdgeInsets.only(left: 10),
+          child: Text("E-mail",
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold
+          ),
+          ),
+        ),
+        SizedBox(height: 5,),
+        TextField(
+          controller: _controllerEmail,
+          autofocus: false,
+          keyboardType: TextInputType.emailAddress,
+          style: TextStyle(fontSize: SizeConfig.blockSizeHorizontal*3.3),
+          decoration: InputDecoration(
+              contentPadding: EdgeInsets.fromLTRB(25, 16, 32, 16),
+              hintText: "Insira seu e-mail",
+              filled: true,
+              fillColor: Colors.white,
+              border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(20)
+              ),
+              prefixIcon: Icon(
+                Icons.alternate_email,
+                color: Colors.black54
+              )
+          ),
+        ),
+          
+      ],
+    );
+  }
+
+
+  Widget _passwordField(){
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+          Padding(
+            padding: EdgeInsets.only(left: 10),
+            child:  Text("Senha",
+              style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold
+              ),
+            ),
+          ),
+          SizedBox(height: 5,),
+          TextField(
+            controller: _controllerSenha,
+            keyboardType: TextInputType.emailAddress,
+            style: TextStyle(fontSize: SizeConfig.blockSizeHorizontal*3.3),
+            decoration: InputDecoration(
+                contentPadding: EdgeInsets.fromLTRB(25, 16, 32, 16),
+                hintText: "Insira sua senha",
+                filled: true,
+                fillColor: Colors.white,
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(32)
+                ),
+                prefixIcon: IconButton(
+                  icon : Icon(_obscureText ? LineAwesomeIcons.eye : LineAwesomeIcons.eye_slash),
+                  color: Colors.black45,
+                  onPressed: _passwordText,
+                ),
+            ),
+            obscureText: _obscureText,
+          ),
+      ],
+    );
+  }
+
+
+  Widget _confirmPassword(){
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Padding(
+          padding: EdgeInsets.only(left: 10),
+          child:  Text("Confirmar senha",
+              style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold
+              ),
+          ), 
+        ),
+        SizedBox(height: 5,),
+        TextField(
+            controller: _controllerConfirmarsenha,
+            keyboardType: TextInputType.emailAddress,
+            style: TextStyle(fontSize: SizeConfig.blockSizeHorizontal*3.3),
+            decoration: InputDecoration(
+                contentPadding: EdgeInsets.fromLTRB(25, 16, 32, 16),
+                hintText: "Insira novamente a senha",
+                filled: true,
+                fillColor: Colors.white,
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(32)
+                ),
+                prefixIcon: IconButton(
+                  icon : Icon(_obscureText ? LineAwesomeIcons.eye : LineAwesomeIcons.eye_slash),
+                  color: Colors.black45,
+                  onPressed: _passwordText,
+                ),
+            ),
+            obscureText: _obscureText,
+          ),  
+      ],
+    );
+  }
+
+  Widget _checkBox(){
+    return 
+      // CHECK BOX
+      Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        Theme(
+          data: ThemeData(unselectedWidgetColor: Colors.white),
+          child: CircularCheckBox(
+          activeColor: Colors.blueGrey,
+          value: _isSelectedM, 
+          onChanged: (bool value){
+            setState(() {
+              _isSelectedM = value;
+              _isSelectedF = false;
+              if(_isSelectedM == false){
+                _isSelectedF = true;
+              }
+            });
+          },
+        ),
+        ),
+        Text("Masculino",
+          style: TextStyle(
+            fontSize: SizeConfig.blockSizeHorizontal*3.3,
+            fontWeight: FontWeight.bold,
+            color: Colors.white
+          ),
+        ),
+        Theme(
+          data: ThemeData(unselectedWidgetColor: Colors.white),
+          child: CircularCheckBox(
+          activeColor: Colors.blueGrey,
+          value: _isSelectedF, 
+          onChanged: (bool value){
+            setState(() {
+              _isSelectedF = value;
+              _isSelectedM = false;
+              if(_isSelectedF == false){
+                _isSelectedM = true;
+              }
+            });
+          },
+        ),
+        ),
+        Text("Feminino",
+          style: TextStyle(
+            fontSize: SizeConfig.blockSizeHorizontal*3.3,
+            fontWeight: FontWeight.bold,
+            color: Colors.white
+
+          ),
+        ),
+      ],
+   
+  
+    );
+  }
+
+  Widget _signUpButton(){
+    return Container(
+      width: double.infinity,
+      child: RaisedButton(
+        child: Text(
+            "CADASTRAR",
+          style: TextStyle(
+            color: Color(0xFF527DAA), 
+            fontSize: SizeConfig.blockSizeHorizontal*4,
+            fontWeight: FontWeight.bold,
+            letterSpacing: 1.5
+          ),
+        ),
+          color: Colors.white,
+          padding: EdgeInsets.fromLTRB(32, 16, 32, 16),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(32),
+          ),
+          onPressed: (){
+            _validateFields();
+            if(_erroMessage != ''){
+              showDialog(
+                context : context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: Text(_erroMessage),
+                      titleTextStyle: TextStyle(
+                        color : Colors.lightBlue,
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      content: Text("Por favor, corrija o campo e tente novamente."),
+                      actions: <Widget>[
+                        FlatButton(
+                          splashColor: Colors.lightBlueAccent.shade400,
+                          child: Text(
+                            "FECHAR",
+                            style: TextStyle(
+                              color: Colors.grey,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            ),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                            if(_erroMessage == "As senhas não são compatíveis"){
+                              _controllerConfirmarsenha.text = "";
+                            }
+                            else if(_erroMessage == "A senha deve conter 6 ou mais caracteres"){
+                              _controllerConfirmarsenha.text = "";
+                            }
+                          },
+                        ),
+                      ],
+                    );
+                  }
+              );
+            }
+          }
+      )
+    );
+  }
+   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return Scaffold(
-      appBar: AppBar(
-        title: Text(""),
-        backgroundColor: Colors.black87,
-      ),
-      body: Stack(
-        children: <Widget>[
+       body: AnnotatedRegion<SystemUiOverlayStyle>(
+        value: SystemUiOverlayStyle.light,
+         child: GestureDetector(
+          onTap: ()=> FocusScope.of(context).unfocus(),
+          child: Stack(
+            children: <Widget>[
+            Container(
+            height: double.infinity,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      Color(0xFF73AEF5),
+                      Color(0xFF61A4F1),
+                      Color(0xFF478DE0),
+                      Color(0xFF398AE5),
+                    ],
+                    stops: [0.1, 0.4, 0.7, 0.9],
+                  ),
+                ),
+              ),
           Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [Colors.black87, Colors.grey],
-              )
-            ),
-          ),                
-          Container(
-            padding: EdgeInsets.all(16),
             child: Center(
               child: SingleChildScrollView(
+                physics: AlwaysScrollableScrollPhysics(),
+                padding: EdgeInsets.symmetric(
+                  horizontal: 40,
+                  vertical: 120,
+                ),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Padding(
                       padding: EdgeInsets.only(bottom:32),
@@ -147,203 +436,31 @@ class _SingUpState extends State<SingUp> {
                         color: Colors.lightBlueAccent,
                       ),
                     ),
-                    TextField(
-                      controller: _controllerNome,
-                      autofocus: true,
-                      keyboardType: TextInputType.text,
-                      style: TextStyle(fontSize: SizeConfig.blockSizeHorizontal*3.3),
-                      decoration: InputDecoration(
-                          contentPadding: EdgeInsets.fromLTRB(25, 16, 32, 16),
-                          hintText: "Nome",
-                          filled: true,
-                          fillColor: Colors.white,
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(32)
-                          ),
-                          prefixIcon: Icon(
-                            Icons.account_circle,
-                            color: Colors.black54
-                          )
-                      ),
-                    ),
+                    //FIELD NOME
+                    _nameField(),
                     SizedBox(
                       height: 10,
                     ),
-                    //NOME
-                    TextField(
-                      controller: _controllerEmail,
-                      autofocus: false,
-                      keyboardType: TextInputType.emailAddress,
-                      style: TextStyle(fontSize: SizeConfig.blockSizeHorizontal*3.3),
-                      decoration: InputDecoration(
-                          contentPadding: EdgeInsets.fromLTRB(25, 16, 32, 16),
-                          hintText: "E-mail",
-                          filled: true,
-                          fillColor: Colors.white,
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(32)
-                          ),
-                          prefixIcon: Icon(
-                            Icons.alternate_email,
-                            color: Colors.black54
-                          )
-                      ),
-                    ),
+                    //FIELD EMAIL
+                    _emailField(),
                     SizedBox(
                       height: 10,
                     ),
-                    TextField(
-                      controller: _controllerSenha,
-                      keyboardType: TextInputType.emailAddress,
-                      style: TextStyle(fontSize: SizeConfig.blockSizeHorizontal*3.3),
-                      decoration: InputDecoration(
-                          contentPadding: EdgeInsets.fromLTRB(25, 16, 32, 16),
-                          hintText: "Senha",
-                          filled: true,
-                          fillColor: Colors.white,
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(32)
-                          ),
-                          prefixIcon: IconButton(
-                            icon : Icon(_obscureText ? LineAwesomeIcons.eye : LineAwesomeIcons.eye_slash),
-                            color: Colors.black45,
-                            onPressed: _passwordText,
-                          ),
-                      ),
-                      obscureText: _obscureText,
-                    ),
+                    //FIELD SENHA
+                    _passwordField(),
                     SizedBox(
                       height: 10,
                     ),
-                    TextField(
-                      controller: _controllerConfirmarsenha,
-                      keyboardType: TextInputType.emailAddress,
-                      style: TextStyle(fontSize: SizeConfig.blockSizeHorizontal*3.3),
-                      decoration: InputDecoration(
-                          contentPadding: EdgeInsets.fromLTRB(25, 16, 32, 16),
-                          hintText: "Confirmar senha",
-                          filled: true,
-                          fillColor: Colors.white,
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(32)
-                          ),
-                          prefixIcon: IconButton(
-                            icon : Icon(_obscureText ? LineAwesomeIcons.eye : LineAwesomeIcons.eye_slash),
-                            color: Colors.black45,
-                            onPressed: _passwordText,
-                          ),
-                      ),
-                      obscureText: _obscureText,
-                    ),
+                    //FIELD CONFIRMAR SENHA
+                   _confirmPassword(),
                     SizedBox(
                       height: 15,
-                    ),                 
-                    Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white60,
-                        borderRadius: BorderRadius.circular(32),
-                        
-                      ),
-                      child:Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Checkbox(
-                          activeColor: Colors.lightBlueAccent,
-                          value: _isSelectedM, 
-                          onChanged: (bool value){
-                            setState(() {
-                              _isSelectedM = value;
-                              _isSelectedF = false;
-                              if(_isSelectedM == false){
-                                _isSelectedF = true;
-                              }
-                            });
-                          },
-                        ),
-                        Text("Masculino",
-                          style: TextStyle(
-                            fontSize: SizeConfig.blockSizeHorizontal*3.3,
-                            fontWeight: FontWeight.w700
-                          ),
-                        ),
-                        Checkbox(
-                          activeColor: Colors.lightBlueAccent,
-                          value: _isSelectedF, 
-                          onChanged: (bool value){
-                            setState(() {
-                              _isSelectedF = value;
-                              _isSelectedM = false;
-                              if(_isSelectedF == false){
-                                _isSelectedM = true;
-                              }
-                            });
-                          },
-                        ),
-                        Text("Feminino",
-                          style: TextStyle(
-                            fontSize: SizeConfig.blockSizeHorizontal*3.3,
-                            fontWeight: FontWeight.w700
+                    ),   
+                    _checkBox(),              
+                    
 
-                          ),
-                        ),
-                      ],
-                    ),
-                  
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(top: 16, bottom: 10),
-                      child: RaisedButton(
-                        child: Text(
-                            "Cadastrar",
-                          style: TextStyle(color: Colors.white, fontSize: 20),
-                        ),
-                          color: Color(0xff1ebbd8),
-                          padding: EdgeInsets.fromLTRB(32, 16, 32, 16),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(32),
-                          ),
-                          onPressed: (){
-                            _validateFields();
-                            if(_erroMessage != ''){
-                              showDialog(
-                                context : context,
-                                  builder: (BuildContext context) {
-                                    return AlertDialog(
-                                      title: Text(_erroMessage),
-                                      titleTextStyle: TextStyle(
-                                        color : Colors.lightBlue,
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                      content: Text("Por favor, corrija o campo e tente novamente."),
-                                      actions: <Widget>[
-                                        FlatButton(
-                                          splashColor: Colors.lightBlueAccent.shade400,
-                                          child: Text(
-                                            "FECHAR",
-                                            style: TextStyle(
-                                              color: Colors.grey,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                            ),
-                                          onPressed: () {
-                                            Navigator.of(context).pop();
-                                            if(_erroMessage == "As senhas não são compatíveis"){
-                                              _controllerConfirmarsenha.text = "";
-                                            }
-                                            else if(_erroMessage == "A senha deve conter 6 ou mais caracteres"){
-                                              _controllerConfirmarsenha.text = "";
-                                            }
-                                          },
-                                        ),
-                                      ],
-                                    );
-                                  }
-                              );
-                            }
-                          }
-                      )
-                    )
+                    //BOTAO CADASTRAR
+                    _signUpButton()
                   ],
                 ),
               ),
@@ -351,6 +468,8 @@ class _SingUpState extends State<SingUp> {
           ),
         ],
       ),
+    )
+    )
     );
   }
 }
