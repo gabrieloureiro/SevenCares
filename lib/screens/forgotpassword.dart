@@ -63,7 +63,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
         ),
         Scaffold(
           appBar: AppBar(
-            title: Text("Recuperar Senha",),
+            title: Text("Recuperar senha",),
             backgroundColor: Colors.black87,
           ),
           body: Container( 
@@ -85,7 +85,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                 keyboardType: TextInputType.emailAddress,
                 style: TextStyle(fontSize: SizeConfig.blockSizeHorizontal*3.3),
                 decoration: InputDecoration(
-                  contentPadding: EdgeInsets.fromLTRB(15, 16, 32, 16),
+                  contentPadding: EdgeInsets.fromLTRB(25, 16, 32, 16),
                   hintText: "E-mail",
                   filled: true,
                   fillColor: Colors.white,
@@ -93,9 +93,9 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                     borderRadius: BorderRadius.circular(32),
                                 
                     ),
-                    prefixIcon: const Icon(
+                    suffixIcon: const Icon(
                       Icons.alternate_email,
-                      color: Colors.black54,
+                      color: Color(0xff38c4d8),
                     )
                   ),
               ),
@@ -103,12 +103,15 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                 padding: EdgeInsets.only(top: 16, bottom: 10),
                 child: RaisedButton(
                   child: Text(
-                      "Recuperar",
-                    style: TextStyle(color: Colors.white, 
-                    fontSize: SizeConfig.blockSizeHorizontal*4,
-                    fontFamily: "TitilliumWeb"),
+                      "RECUPERAR",
+                    style: TextStyle(
+                      color: Colors.white, 
+                      fontSize: SizeConfig.blockSizeHorizontal*4,
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: 1.5
+                    ),
                   ),
-                    color: Color(0xff1ebbd8),
+                    color: Color(0xff38c4d8),
                     padding: EdgeInsets.fromLTRB(32, 16, 32, 16),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(32),

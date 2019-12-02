@@ -5,7 +5,7 @@ import 'package:flutter_app/routes.dart';
 final ThemeData temaPadrao = ThemeData(
   primaryColor: Color(0xff37474f),
   accentColor: Color(0xff546e7a),
-  fontFamily: "TitilliumWeb"
+  //fontFamily: "TitilliumWeb"
 );
 
 void main() => runApp(MaterialApp(

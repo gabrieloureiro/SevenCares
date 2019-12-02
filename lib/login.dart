@@ -94,7 +94,7 @@ class _LoginState extends State<Login> {
       return Column(
         children: <Widget>[
           Text(
-            '- OU -',
+            '',
             style: TextStyle(
               color: Colors.white,
               fontWeight: FontWeight.w400,
@@ -115,8 +115,8 @@ class _LoginState extends State<Login> {
       return GestureDetector(
         onTap: onTap,
         child: Container(
-          height: 60.0,
-          width: 60.0,
+          height: 45.0,
+          width: 45.0,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             color: Colors.white,
@@ -167,14 +167,14 @@ class _LoginState extends State<Login> {
             text: TextSpan(
               children: [
                 TextSpan(
-                  text: "Não possui conta ?",
+                  text: "Não possui conta?\t",
                   style: TextStyle(color: Colors.white,
                   fontSize: 15.0
    
                   ) 
                 ),
                 TextSpan(
-                  text: " Cadastre-se !",
+                  text: "Cadastre-se!",
                   style: TextStyle(color: Colors.white,
                   fontSize: 15.0,
                   fontWeight: FontWeight.bold                  
@@ -192,7 +192,7 @@ class _LoginState extends State<Login> {
         child: FlatButton(
           padding: EdgeInsets.only(right: 0),
           child: Text(
-            "Esqueceu a senha ?",                               
+            "Esqueceu a senha?",                               
           style: TextStyle(
           fontSize: 13,
           color: Colors.white,
@@ -216,7 +216,7 @@ class _LoginState extends State<Login> {
             data: ThemeData(unselectedWidgetColor: Colors.white),
             child: CircularCheckBox(
               value: _rememberMe,
-              activeColor: Colors.blueGrey,
+              activeColor: Color(0xff38c4d8),
               onChanged: (value) {
                 setState(() {
                   _rememberMe = value;
@@ -244,13 +244,13 @@ class _LoginState extends State<Login> {
           child: Text(
               "ENTRAR",
             style: TextStyle(
-            color: Color(0xFF527DAA), 
+            color: Colors.white, 
             fontSize: SizeConfig.blockSizeHorizontal*4,
             letterSpacing: 1.5,
             fontWeight: FontWeight.bold
             ),
           ),
-          color: Colors.white,
+          color: Color(0xff38c4d8),
           padding: EdgeInsets.fromLTRB(32, 16, 32, 16),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(32),
@@ -265,10 +265,13 @@ class _LoginState extends State<Login> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text("E-mail",
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold
+        Padding(
+          padding: EdgeInsets.only(left: 10),
+          child:Text("E-mail",
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold
+            ),
           ),
         ),
         SizedBox(height: 10,),
@@ -285,9 +288,9 @@ class _LoginState extends State<Login> {
               border:OutlineInputBorder(
                 borderRadius: BorderRadius.circular(20)
               ),                                                                                      
-              prefixIcon: const Icon(
+              suffixIcon: const Icon(
                 Icons.alternate_email,
-                color: Colors.black54,
+                color: Color(0xff38c4d8),
               )
           ),
         ),
@@ -300,10 +303,13 @@ class _LoginState extends State<Login> {
     return  Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text("Senha",
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold
+        Padding(
+          padding: EdgeInsets.only(left: 10),
+          child:Text("Senha",
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold
+            ),
           ),
         ),
         SizedBox(height: 5,),
@@ -320,10 +326,10 @@ class _LoginState extends State<Login> {
               border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(20)
               ),
-              prefixIcon: IconButton(
+              suffixIcon: IconButton(
                     icon : Icon(_obscureText ? LineAwesomeIcons.eye : LineAwesomeIcons.eye_slash),
                     onPressed: _passwordText,
-                    color: Colors.black54,
+                    color: Color(0xff38c4d8),
               ),
           ),
         ),
@@ -343,20 +349,13 @@ class _LoginState extends State<Login> {
           onTap: ()=> FocusScope.of(context).unfocus(),
           child: Stack(
             children: <Widget>[
-              Container(
-                height: double.infinity,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      Color(0xFF73AEF5),
-                      Color(0xFF61A4F1),
-                      Color(0xFF478DE0),
-                      Color(0xFF398AE5),
-                    ],
-                    stops: [0.1, 0.4, 0.7, 0.9],
+              SizedBox.expand(
+                child: FittedBox(
+                  fit: BoxFit.cover,
+                  child: SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height,
+                    child: VideoPlayer(_controllerVideo),
                   ),
                 ),
               ),
@@ -370,7 +369,7 @@ class _LoginState extends State<Login> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Image.asset('images/seven-small.png'),
+                      Image.asset('images/logo-s7.png'),
                       SizedBox(height: 30,),
                       
                       _emailField(),

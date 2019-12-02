@@ -141,11 +141,11 @@ class _SingUpState extends State<SingUp> {
               filled: true,
               fillColor: Colors.white,
               border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(20)
+                  borderRadius: BorderRadius.circular(20),                 
               ),
-              prefixIcon: Icon(
+              suffixIcon: Icon(
                 Icons.account_circle,
-                color: Colors.black54
+                color: Color(0xff38c4d8)
               )
           ),
         ),
@@ -181,9 +181,9 @@ class _SingUpState extends State<SingUp> {
               border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(20)
               ),
-              prefixIcon: Icon(
+              suffixIcon: Icon(
                 Icons.alternate_email,
-                color: Colors.black54
+                color: Color(0xff38c4d8)
               )
           ),
         ),
@@ -219,9 +219,9 @@ class _SingUpState extends State<SingUp> {
                 border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(32)
                 ),
-                prefixIcon: IconButton(
+                suffixIcon: IconButton(
                   icon : Icon(_obscureText ? LineAwesomeIcons.eye : LineAwesomeIcons.eye_slash),
-                  color: Colors.black45,
+                  color: Color(0xff38c4d8),
                   onPressed: _passwordText,
                 ),
             ),
@@ -258,9 +258,9 @@ class _SingUpState extends State<SingUp> {
                 border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(32)
                 ),
-                prefixIcon: IconButton(
+                suffixIcon: IconButton(
                   icon : Icon(_obscureText ? LineAwesomeIcons.eye : LineAwesomeIcons.eye_slash),
-                  color: Colors.black45,
+                  color: Color(0xff38c4d8),
                   onPressed: _passwordText,
                 ),
             ),
@@ -279,7 +279,7 @@ class _SingUpState extends State<SingUp> {
         Theme(
           data: ThemeData(unselectedWidgetColor: Colors.white),
           child: CircularCheckBox(
-          activeColor: Colors.blueGrey,
+          activeColor: Color(0xff38c4d8),
           value: _isSelectedM, 
           onChanged: (bool value){
             setState(() {
@@ -302,7 +302,7 @@ class _SingUpState extends State<SingUp> {
         Theme(
           data: ThemeData(unselectedWidgetColor: Colors.white),
           child: CircularCheckBox(
-          activeColor: Colors.blueGrey,
+          activeColor: Color(0xff38c4d8),
           value: _isSelectedF, 
           onChanged: (bool value){
             setState(() {
@@ -336,13 +336,13 @@ class _SingUpState extends State<SingUp> {
         child: Text(
             "CADASTRAR",
           style: TextStyle(
-            color: Color(0xFF527DAA), 
+            color: Colors.white, 
             fontSize: SizeConfig.blockSizeHorizontal*4,
             fontWeight: FontWeight.bold,
             letterSpacing: 1.5
           ),
         ),
-          color: Colors.white,
+          color: Color(0xff38c4d8),
           padding: EdgeInsets.fromLTRB(32, 16, 32, 16),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(32),
@@ -363,7 +363,7 @@ class _SingUpState extends State<SingUp> {
                       content: Text("Por favor, corrija o campo e tente novamente."),
                       actions: <Widget>[
                         FlatButton(
-                          splashColor: Colors.lightBlueAccent.shade400,
+                          splashColor: Color(0xff38c4d8),
                           child: Text(
                             "FECHAR",
                             style: TextStyle(
@@ -394,6 +394,10 @@ class _SingUpState extends State<SingUp> {
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return Scaffold(
+      appBar: AppBar(
+        title: Text("Cadastro"),
+        backgroundColor: Colors.black,
+      ),
        body: AnnotatedRegion<SystemUiOverlayStyle>(
         value: SystemUiOverlayStyle.light,
          child: GestureDetector(
@@ -401,39 +405,31 @@ class _SingUpState extends State<SingUp> {
           child: Stack(
             children: <Widget>[
             Container(
-            height: double.infinity,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      Color(0xFF73AEF5),
-                      Color(0xFF61A4F1),
-                      Color(0xFF478DE0),
-                      Color(0xFF398AE5),
-                    ],
-                    stops: [0.1, 0.4, 0.7, 0.9],
-                  ),
-                ),
-              ),
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [Colors.black87, Colors.grey],
+              )
+            ),
+          ),  
           Container(
             child: Center(
               child: SingleChildScrollView(
                 physics: AlwaysScrollableScrollPhysics(),
                 padding: EdgeInsets.symmetric(
                   horizontal: 40,
-                  vertical: 120,
+                  vertical: 40,
                 ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Padding(
-                      padding: EdgeInsets.only(bottom:32),
+                      padding: EdgeInsets.only(bottom:0),
                       child: Image.asset("images/user.png",
-                        width: SizeConfig.blockSizeHorizontal*15,
+                        width: SizeConfig.blockSizeHorizontal*30,
                         height: SizeConfig.blockSizeVertical*15,
-                        color: Colors.lightBlueAccent,
+                        color: Color(0xff38c4d8),
                       ),
                     ),
                     //FIELD NOME
