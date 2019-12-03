@@ -23,13 +23,13 @@ class _FeedState extends State<Feed> {
                 ),
                 alignment: Alignment.topCenter,
               ),
-               Image.asset(
-                  "images/bglogin.gif",
-                    fit: BoxFit.cover,
-                    height: double.maxFinite,
-                    width: double.maxFinite,
-                    alignment: Alignment.center,
-              ),
+              //  Image.asset(
+              //     "images/bglogin.gif",
+              //       fit: BoxFit.cover,
+              //       height: double.maxFinite,
+              //       width: double.maxFinite,
+              //       alignment: Alignment.center,
+              // ),
             ],            
     );
   }

@@ -12,22 +12,27 @@ class Routes {
         return MaterialPageRoute(
             builder: (_) => Login()
         );
+        break;
       case "/signup" :
         return MaterialPageRoute(
             builder: (_) => SingUp()
         );
+        break;
       case "/inicio" :
         return MaterialPageRoute(
             builder: (_) => Home()
         );
+        break;
       case "/login" : 
         return MaterialPageRoute(
           builder: (_) => Login()
         );
+        break;
       case "/forgot" : 
         return MaterialPageRoute(
           builder: (_) => ForgotPassword()
         );
+        break;
       default:
         _routeError();
     }
