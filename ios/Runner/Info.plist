@@ -21,11 +21,15 @@
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>
+	<key>NSAppTransportSecurity</key>
+	<key>NSAllowsArbitraryLoads</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
+	<key>CFBundleURLTypes</key> <array> <dict> <key>CFBundleURLSchemes</key> <array> <string>fb418026962417705</string> </array> </dict> </array> <key>FacebookAppID</key> <string>418026962417705</string> <key>FacebookDisplayName</key> <string>Seven Cares</string>
+	<key>LSApplicationQueriesSchemes</key> <array> <string>fbapi</string> <string>fb-messenger-share-api</string> <string>fbauth2</string> <string>fbshareextension</string> </array>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
@@ -41,5 +45,16 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Permitir que o aplicativo acesse Fotos?</string>
+
+	<key>NSCameraUsageDescription</key>
+	<string>Permitir que o aplicativo acesse a Camera?</string>
+
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Permitir que o aplicativo acesse o microfone?</string>
+
+
 </dict>
 </plist>
