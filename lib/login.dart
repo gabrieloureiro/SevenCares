@@ -362,6 +362,12 @@ class _LoginState extends State<Login> {
                 ),
               ),
               Container(
+                decoration: BoxDecoration(
+                  color: Color(0xff212121).withOpacity(0.6)
+                ),
+                alignment: Alignment.topCenter,
+              ),
+              Container(
                 child: SingleChildScrollView(
                   physics: AlwaysScrollableScrollPhysics(),
                   padding: EdgeInsets.symmetric(
