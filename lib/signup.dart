@@ -59,7 +59,7 @@ class _SingUpState extends State<SingUp> {
               user.name = name;
               user.email = email;
               user.password = password;
-              user.userType = gender;
+              user.gender = gender;
 
             _userSignUp( user );
             _erroMessage = '';
