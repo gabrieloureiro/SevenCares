@@ -19,7 +19,7 @@ class _SingUpState extends State<SingUp> {
   TextEditingController _controllerEmail = TextEditingController();
   TextEditingController _controllerSenha = TextEditingController();
   TextEditingController _controllerConfirmarsenha = TextEditingController();
-  String _erroMessage = '';
+  String _errorMessage = '';
   bool _obscureText = true;
   bool _isSelectedM = false;
   bool _isSelectedF = false;
@@ -49,7 +49,7 @@ class _SingUpState extends State<SingUp> {
 
       if(email.isNotEmpty && email.contains("@") && !email.contains(" ")){
 
-        if(password.isNotEmpty && password.length > 6)  {
+        if(password.isNotEmpty && password.length > 6 && !password.contains(" "))  {
 
           if(password == confirmPassword){
 
@@ -62,32 +62,34 @@ class _SingUpState extends State<SingUp> {
               user.gender = gender;
 
             _userSignUp( user );
-            _erroMessage = '';
+
+            _errorMessage = '';
+            
             }else{
               setState(() {
-                _erroMessage = "Marque uma das opções";
+                _errorMessage = "Marque uma das opções";
               });
             }
           }else{
             setState(() {
-              _erroMessage = "As senhas não são compatíveis";
+              _errorMessage = "As senhas não são compatíveis";
             });
           }
         }else{
           setState(() {
-            _erroMessage = "A senha deve conter 6 ou mais caracteres";
+            _errorMessage = "A senha deve conter 6 ou mais caracteres";
           });
         }
 
       }else{
         setState(() {
-          _erroMessage = "Endereço de e-mail inválido ou já utilizado";
+          _errorMessage = "Endereço de e-mail inválido ou já utilizado";
         });
       }
 
     }else{
       setState(() {
-        _erroMessage = "Insira o seu nome";
+        _errorMessage = "Insira o seu nome";
       });
     }
     //CADASTRANDO user NO FIREBASE
@@ -111,7 +113,7 @@ class _SingUpState extends State<SingUp> {
         
 
       }).catchError((e){
-        _erroMessage = "Erro ao cadastrar user, verifique o email e a senha";
+        _errorMessage = "Erro ao cadastrar user, verifique o email e a senha";
       });
     }
   
@@ -349,12 +351,12 @@ class _SingUpState extends State<SingUp> {
           ),
           onPressed: (){
             _validateFields();
-            if(_erroMessage != ''){
+            if(_errorMessage != ''){
               showDialog(
                 context : context,
                   builder: (BuildContext context) {
                     return AlertDialog(
-                      title: Text(_erroMessage),
+                      title: Text(_errorMessage),
                       titleTextStyle: TextStyle(
                         color : Colors.lightBlue,
                         fontSize: 15,
@@ -373,10 +375,10 @@ class _SingUpState extends State<SingUp> {
                             ),
                           onPressed: () {
                             Navigator.of(context).pop();
-                            if(_erroMessage == "As senhas não são compatíveis"){
+                            if(_errorMessage == "As senhas não são compatíveis"){
                               _controllerConfirmarsenha.text = "";
                             }
-                            else if(_erroMessage == "A senha deve conter 6 ou mais caracteres"){
+                            else if(_errorMessage == "A senha deve conter 6 ou mais caracteres"){
                               _controllerConfirmarsenha.text = "";
                             }
                           },
@@ -396,7 +398,7 @@ class _SingUpState extends State<SingUp> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Cadastro"),
-        backgroundColor: Colors.black,
+        backgroundColor: Colors.black87,
       ),
        body: AnnotatedRegion<SystemUiOverlayStyle>(
         value: SystemUiOverlayStyle.light,

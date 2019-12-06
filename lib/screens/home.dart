@@ -165,7 +165,7 @@ class _HomeState extends State<HomeScreen>
                                     },
                                     child: CircleAvatar(
                                       backgroundImage:
-                                          ExactAssetImage('images/gabriel.jfif'),
+                                          ExactAssetImage('images/gabriel.jpeg'),
                                       minRadius: 40,
                                       maxRadius: 40,                     
                                     ),

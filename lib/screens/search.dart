@@ -55,7 +55,15 @@ class _SearchState extends State<Search> {
               StreamBuilder(
                 stream: Firestore.instance.collection("user").snapshots(),
                 builder: (context, snapshot){
-                  if(!snapshot.hasData) return const Text("Loading...");
+                if(!snapshot.hasData) 
+                  return const 
+                    Text("Loading...",
+                      style: TextStyle(
+                        color : Colors.white,
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    );
                   return ListView.builder(
                     itemExtent: 80,
                     itemCount: snapshot.data.documents.length,

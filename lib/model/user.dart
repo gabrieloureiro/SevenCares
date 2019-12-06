@@ -22,6 +22,14 @@ class User{
     return map;
   }
 
+  Map<String, dynamic> toMapProfile(){
+
+    Map<String, dynamic> mapProfile = {
+    };
+
+    return mapProfile;
+  }
+
   String get userType => _userType;
 
   set userType(String value) {
