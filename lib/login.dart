@@ -46,13 +46,64 @@ class _LoginState extends State<Login> {
           _erroMessage = '';
         }else{
           setState(() {
-            _erroMessage = "A senha deve conter 6 ou mais caracteres";
+            showDialog(
+              context: context,
+              builder: (context){
+                return AlertDialog(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20)
+                  ),
+                  title: Text("Insira uma senha válida"),
+                  actions: <Widget>[
+                    FlatButton(
+                      onPressed: (){
+                        Navigator.pop(context);
+                      },
+                      child: Text("OK",
+                        style: TextStyle(
+                          color: Colors.blueAccent
+                        ),
+                        
+                      ),
+                      shape: CircleBorder(),
+                    )
+                  ]);
+              }
+              
+            );
+
+
+
           });
         }
 
       }else{
         setState(() {
-          _erroMessage = "Endereço de e-mail inválido ou já utilizado";
+          showDialog(
+            context: context,
+            builder: (context){
+              return AlertDialog(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20)
+                ),
+                title: Text("Insira um e-mail válido"),
+                actions: <Widget>[
+                  FlatButton(
+                    onPressed: (){
+                      Navigator.pop(context);
+                    },
+                    child: Text("OK",
+                      style: TextStyle(
+                        color: Colors.blueAccent
+                      ),
+                      
+                    ),
+                    shape: CircleBorder(),
+                  )
+                ]);
+            }
+            
+          );
         });
       }
    

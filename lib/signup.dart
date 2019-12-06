@@ -49,7 +49,7 @@ class _SingUpState extends State<SingUp> {
 
       if(email.isNotEmpty && email.contains("@") && !email.contains(" ")){
 
-        if(password.isNotEmpty && password.length > 6)  {
+        if(password.isNotEmpty && password.length >= 6)  {
 
           if(password == confirmPassword){
 
@@ -65,29 +65,155 @@ class _SingUpState extends State<SingUp> {
             _erroMessage = '';
             }else{
               setState(() {
-                _erroMessage = "Marque uma das opções";
-              });
+              showDialog(
+                context: context,
+                builder: (context){
+                  return AlertDialog(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20)
+                    ),
+                    title: Text("Marque alguma das caixas"),
+                    actions: <Widget>[
+                      FlatButton(
+                        onPressed: (){
+                          Navigator.pop(context);
+                        },
+                        child: Text("OK",
+                          style: TextStyle(
+                            color: Colors.blueAccent
+                          ),
+                          
+                        ),
+                        shape: CircleBorder(),
+                      )
+                    ]);
+                }
+                
+              );
+            });
             }
           }else{
             setState(() {
-              _erroMessage = "As senhas não são compatíveis";
+            showDialog(
+              context: context,
+              builder: (context){
+                return AlertDialog(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20)
+                  ),
+                  title: Text("As senhas não são compatíveis"),
+                  actions: <Widget>[
+                    FlatButton(
+                      onPressed: (){
+                        Navigator.pop(context);
+                      },
+                      child: Text("OK",
+                        style: TextStyle(
+                          color: Colors.blueAccent
+                        ),
+                        
+                      ),
+                      shape: CircleBorder(),
+                    )
+                  ]);
+              }
+              
+            );
+
+
             });
           }
         }else{
           setState(() {
-            _erroMessage = "A senha deve conter 6 ou mais caracteres";
+            showDialog(
+              context: context,
+              builder: (context){
+                return AlertDialog(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20)
+                  ),
+                  title: Text("Insira uma senha válida"),
+                  actions: <Widget>[
+                    FlatButton(
+                      onPressed: (){
+                        Navigator.pop(context);
+                      },
+                      child: Text("OK",
+                        style: TextStyle(
+                          color: Colors.blueAccent
+                        ),
+                        
+                      ),
+                      shape: CircleBorder(),
+                    )
+                  ]);
+              }
+              
+            );
+
+
           });
         }
 
       }else{
         setState(() {
-          _erroMessage = "Endereço de e-mail inválido ou já utilizado";
+          showDialog(
+              context: context,
+              builder: (context){
+                return AlertDialog(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20)
+                  ),
+                  title: Text("Insira um e-mail válido"),
+                  actions: <Widget>[
+                    FlatButton(
+                      onPressed: (){
+                        Navigator.pop(context);
+                      },
+                      child: Text("OK",
+                        style: TextStyle(
+                          color: Colors.blueAccent
+                        ),
+                        
+                      ),
+                      shape: CircleBorder(),
+                    )
+                  ]);
+              }
+              
+            );
+
+
         });
       }
 
     }else{
       setState(() {
-        _erroMessage = "Insira o seu nome";
+        showDialog(
+          context: context,
+          builder: (context){
+            return AlertDialog(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20)
+              ),
+              title: Text("Insira seu nome"),
+              actions: <Widget>[
+                FlatButton(
+                  onPressed: (){
+                    Navigator.pop(context);
+                  },
+                  child: Text("OK",
+                    style: TextStyle(
+                      color: Colors.blueAccent
+                    ),
+                    
+                  ),
+                  shape: CircleBorder(),
+                )
+              ]);
+          }
+          
+        );
       });
     }
     //CADASTRANDO user NO FIREBASE
@@ -224,6 +350,13 @@ class _SingUpState extends State<SingUp> {
                   color: Color(0xff38c4d8),
                   onPressed: _passwordText,
                 ),
+                
+                prefixIcon: IconButton(
+                  icon : Icon(LineAwesomeIcons.question_circle),
+                  color: Colors.black38,
+                  tooltip: "A senha deve conter no mínimo 6 caracteres",
+                  onPressed: (){ },
+                )
             ),
             obscureText: _obscureText,
           ),
