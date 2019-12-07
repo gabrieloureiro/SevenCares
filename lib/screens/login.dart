@@ -1,4 +1,3 @@
-import 'package:circular_check_box/circular_check_box.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_app/model/user.dart';
@@ -244,7 +243,6 @@ class _LoginState extends State<Login> {
   //             },
   //           ),
   //         ),
-  //         //TODO implementar rememberME
   //         Text(
   //           'Lembre-se de mim',
   //           style: TextStyle(
@@ -307,8 +305,8 @@ class _LoginState extends State<Login> {
               fillColor: Colors.white,
               border:OutlineInputBorder(
                 borderRadius: BorderRadius.circular(20)
-              ),                                                                                      
-              suffixIcon: const Icon(
+              ),
+              suffixIcon: Icon(
                 Icons.alternate_email,
                 color: Color(0xff38c4d8),
               )

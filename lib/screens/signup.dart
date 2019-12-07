@@ -434,30 +434,28 @@ class _SingUpState extends State<SingUp> {
                         color: Color(0xff38c4d8),
                       ),
                     ),
-                    //FIELD NOME
+                    // NAME FIELD 
                     _nameField(),
                     SizedBox(
                       height: 10,
                     ),
-                    //FIELD EMAIL
+                    //EMAIL FIELD 
                     _emailField(),
                     SizedBox(
                       height: 10,
                     ),
-                    //FIELD SENHA
+                    //PASSWORD FIELD 
                     _passwordField(),
                     SizedBox(
                       height: 10,
                     ),
-                    //FIELD CONFIRMAR SENHA
+                    //CONFIRM PASSWORD FIELD 
                    _confirmPassword(),
                     SizedBox(
                       height: 15,
                     ),   
                     _checkBox(),              
-                    
-
-                    //BOTAO CADASTRAR
+                    //BUTTON SIGNUP
                     _signUpButton()
                   ],
                 ),

@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/screens/login.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import '../login.dart';
 import '../settings.dart';
 import 'feed.dart';
 import 'fitness.dart';
@@ -55,9 +55,8 @@ class _HomeState extends State<HomeScreen>
   _logOutUser() async{
     FirebaseAuth auth = FirebaseAuth.instance;
     await auth.signOut();
-    Navigator.push(context, MaterialPageRoute(
-      builder: (context) => Login())
-    );
+    Navigator.pushReplacementNamed(context, "/login"); 
+
   }  
   @override
   Widget build(BuildContext context) {

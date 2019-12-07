@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/screens/forgotpassword.dart';
 import 'package:flutter_app/screens/home.dart';
-import 'package:flutter_app/signup.dart';
-import 'package:flutter_app/login.dart';
+import 'package:flutter_app/screens/login.dart';
+import 'package:flutter_app/screens/signup.dart';
 class Routes {
 
   static Route<dynamic> generateRoutes(RouteSettings settings){
@@ -36,6 +36,7 @@ class Routes {
       default:
         _routeError();
     }
+    
 
   }
 
