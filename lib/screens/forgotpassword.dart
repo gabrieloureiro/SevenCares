@@ -15,8 +15,9 @@ class _ForgotPasswordState extends State<ForgotPassword> {
 
   
 
-  _forgotPassword(User user){
+  _forgotPassword(User user){ 
       FirebaseAuth auth = FirebaseAuth.instance;
+      auth.setLanguageCode("pt-br");
       auth.sendPasswordResetEmail(
         email: user.email,
       ).then((firebaseUser){

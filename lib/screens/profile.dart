@@ -5,8 +5,8 @@ import 'package:flutter_app/model/size_config.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
-// import 'package:cloud_firestore/cloud_firestore.dart';
-// import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 
 class Profile extends StatefulWidget {
@@ -14,6 +14,18 @@ class Profile extends StatefulWidget {
  
   @override
   _ProfileState createState() => _ProfileState();
+}
+
+Future _recoveryData() async{
+  FirebaseAuth auth = FirebaseAuth.instance;
+  FirebaseUser userLoggedIn = await auth.currentUser();
+  Firestore db = Firestore.instance;
+
+  setState(){
+    // _nome = auth.userLoggedIn()
+    // .then((firebaseUser){ //.then para caso salvemos o user, salvar no bd
+    //     db.collection('user').document(firebaseUser.userLoggedIn.uid).);
+  }
 }
 
 class _ProfileState extends State<Profile> {

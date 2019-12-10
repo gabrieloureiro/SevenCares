@@ -4,6 +4,7 @@ class User{
   String _name;
   String _email;
   String _password;
+  String _gender;
   String _userType;
 
 
@@ -14,17 +15,31 @@ class User{
     Map<String, dynamic> map = {
       "name": this.name,
       "email" : this.email,
-      "userType" : this.userType,
+      "gender" : this.gender,
+      "userType" : this._userType
     };
 
     return map;
   }
 
+  Map<String, dynamic> toMapProfile(){
+
+    Map<String, dynamic> mapProfile = {
+    };
+
+    return mapProfile;
+  }
 
   String get userType => _userType;
 
   set userType(String value) {
     _userType = value;
+  }
+
+  String get gender => _gender;
+
+  set gender(String value) {
+    _gender = value;
   }
 
   String get password => _password;

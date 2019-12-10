@@ -1,9 +1,9 @@
-import 'package:circular_check_box/circular_check_box.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_app/model/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_app/model/size_config.dart';
+import 'package:flutter_app/screens/home.dart';
 import 'package:video_player/video_player.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
 
@@ -18,9 +18,8 @@ class _LoginState extends State<Login> {
   TextEditingController _controllerEmail = TextEditingController();
   TextEditingController _controllerSenha = TextEditingController();
   VideoPlayerController _controllerVideo;
-  String _erroMessage = '';
+  String _errorMessage = '';
   bool _obscureText = true;
-  bool _rememberMe = false;
 
 
    void _passwordText(){
@@ -43,16 +42,18 @@ class _LoginState extends State<Login> {
           user.password = password;
           
           _userLogin(user);
-          _erroMessage = '';
+
+          _errorMessage = '';
+
         }else{
           setState(() {
-            _erroMessage = "A senha deve conter 6 ou mais caracteres";
+            _errorMessage = "A senha deve conter 6 ou mais caracteres";
           });
         }
 
       }else{
         setState(() {
-          _erroMessage = "Endereço de e-mail inválido ou já utilizado";
+          _errorMessage = "Endereço de e-mail inválido ou já utilizado";
         });
       }
    
@@ -64,14 +65,27 @@ class _LoginState extends State<Login> {
         email: user.email,
         password: user.password,
       ).then((firebaseUser){
-       Navigator.pushReplacementNamed(context, "/inicio"); 
+       Navigator.push(context, MaterialPageRoute(
+        builder: (context) => HomeScreen())
+      ); 
       }).catchError((e){
-        _erroMessage = "Erro ao autenticar usuário! Verifique o e-mail e a senha";
+        _errorMessage = "Erro ao autenticar usuário! Verifique o e-mail e a senha";
       });
+    }
+
+    Future _verifyUserLoggedIn() async{
+      FirebaseAuth auth = FirebaseAuth.instance;
+      FirebaseUser userLoggedIn = await auth.currentUser();
+      if(userLoggedIn != null){
+        Navigator.push(context, MaterialPageRoute(
+          builder: (context) => HomeScreen())
+        );
+      }
     }
 
     @override
     void initState() {
+    _verifyUserLoggedIn();
     super.initState();
     _controllerVideo = VideoPlayerController.asset(
         //'https://firebasestorage.googleapis.com/v0/b/data-7-1b8b7.appspot.com/o/ACADEMIA-SEVEN-CARE_2.mp4?alt=media&token=3239ba64-4b69-453b-bcab-649f5d0b69fd')
@@ -208,37 +222,39 @@ class _LoginState extends State<Login> {
     );
                   
   }
-  Widget _rememberMeCheckbox() {
-    return Container(
-      alignment: Alignment.centerRight,
-      height: 20.0,
-      child: Row(
-        children: <Widget>[
-          Theme(
-            data: ThemeData(unselectedWidgetColor: Colors.white),
-            child: CircularCheckBox(
-              value: _rememberMe,
-              activeColor: Color(0xff38c4d8),
-              onChanged: (value) {
-                setState(() {
-                  _rememberMe = value;
-                });
-              },
-            ),
-          ),
-          //TODO implementar rememberME
-          Text(
-            'Lembre-se de mim',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 13,
-              fontWeight: FontWeight.bold,
-                        ),
-          ),
-        ],
-      ),
-    );
-  }
+  // Widget _rememberMeCheckbox() {
+  //   return Container(
+  //     alignment: Alignment.centerRight,
+  //     height: 20.0,
+  //     child: Row(
+  //       children: <Widget>[
+  //         Theme(
+  //           data: ThemeData(unselectedWidgetColor: Colors.white),
+  //           child: CircularCheckBox(
+  //             value: _rememberMe,
+  //             activeColor: Color(0xff38c4d8),
+  //             onChanged: (bool value) {
+  //               setState(() {
+  //                 _rememberMe = value;
+  //                 if(_rememberMe == true){
+  //                   _verifyUserLoggedIn();
+  //                 }
+  //               });
+  //             },
+  //           ),
+  //         ),
+  //         Text(
+  //           'Lembre-se de mim',
+  //           style: TextStyle(
+  //             color: Colors.white,
+  //             fontSize: 13,
+  //             fontWeight: FontWeight.bold,
+  //                       ),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
   Widget _loginButton(){
     return Container(
       width: double.infinity,
@@ -289,8 +305,8 @@ class _LoginState extends State<Login> {
               fillColor: Colors.white,
               border:OutlineInputBorder(
                 borderRadius: BorderRadius.circular(20)
-              ),                                                                                      
-              suffixIcon: const Icon(
+              ),
+              suffixIcon: Icon(
                 Icons.alternate_email,
                 color: Color(0xff38c4d8),
               )
@@ -363,7 +379,7 @@ class _LoginState extends State<Login> {
               ),
               Container(
                 decoration: BoxDecoration(
-                  color: Color(0xff212121).withOpacity(0.8)
+                  color: Color(0xff212121).withOpacity(0.6)
                 ),
                 alignment: Alignment.topCenter,
               ),
@@ -387,7 +403,7 @@ class _LoginState extends State<Login> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: <Widget>[
-                           _rememberMeCheckbox(),
+                           //_rememberMeCheckbox(),
                            _forgotPassword(),
                         ],
                        ),
