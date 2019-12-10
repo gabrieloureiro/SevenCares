@@ -60,28 +60,28 @@ class _LoginState extends State<Login> {
 
   }
   _userLogin(User user){
-      FirebaseAuth auth = FirebaseAuth.instance;
-      auth.signInWithEmailAndPassword(
-        email: user.email,
-        password: user.password,
-      ).then((firebaseUser){
-       Navigator.push(context, MaterialPageRoute(
-        builder: (context) => HomeScreen())
-      ); 
-      }).catchError((e){
-        _errorMessage = "Erro ao autenticar usuário! Verifique o e-mail e a senha";
-      });
-    }
+    FirebaseAuth auth = FirebaseAuth.instance;
+    auth.signInWithEmailAndPassword(
+      email: user.email,
+      password: user.password,
+    ).then((firebaseUser){
+      Navigator.push(context, MaterialPageRoute(
+      builder: (context) => HomeScreen())
+    ); 
+    }).catchError((e){
+      _errorMessage = "Erro ao autenticar usuário! Verifique o e-mail e a senha";
+    });
+  }
 
-    Future _verifyUserLoggedIn() async{
-      FirebaseAuth auth = FirebaseAuth.instance;
-      FirebaseUser userLoggedIn = await auth.currentUser();
-      if(userLoggedIn != null){
-        Navigator.push(context, MaterialPageRoute(
-          builder: (context) => HomeScreen())
-        );
-      }
+  Future _verifyUserLoggedIn() async{
+    FirebaseAuth auth = FirebaseAuth.instance;
+    FirebaseUser userLoggedIn = await auth.currentUser();
+    if(userLoggedIn != null){
+      Navigator.push(context, MaterialPageRoute(
+        builder: (context) => HomeScreen())
+      );
     }
+  }
 
     @override
     void initState() {
