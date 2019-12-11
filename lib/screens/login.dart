@@ -60,56 +60,28 @@ class _LoginState extends State<Login> {
 
   }
   _userLogin(User user){
-      FirebaseAuth auth = FirebaseAuth.instance;
-      auth.signInWithEmailAndPassword(
-        email: user.email,
-        password: user.password,
-      ).then((firebaseUser){
-       Navigator.push(context, MaterialPageRoute(
-        builder: (context) => HomeScreen())
-      ); 
-      }).catchError((e){
-        showDialog(
-                context : context,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      title: Text(_errorMessage),
-                      titleTextStyle: TextStyle(
-                        color : Colors.lightBlue,
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      content: Text("Por favor, corrija o campo e tente novamente."),
-                      actions: <Widget>[
-                        FlatButton(
-                          splashColor: Color(0xff38c4d8),
-                          child: Text(
-                            "FECHAR",
-                            style: TextStyle(
-                              color: Colors.grey,
-                              fontWeight: FontWeight.bold,
-                            ),
-                            ),
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
-                        ),
-                      ],
-                    );
-                  }
-              );
-      });
-    }
+    FirebaseAuth auth = FirebaseAuth.instance;
+    auth.signInWithEmailAndPassword(
+      email: user.email,
+      password: user.password,
+    ).then((firebaseUser){
+      Navigator.push(context, MaterialPageRoute(
+      builder: (context) => HomeScreen())
+    ); 
+    }).catchError((e){
+      _errorMessage = "Erro ao autenticar usuário! Verifique o e-mail e a senha";
+    });
+  }
 
-    Future _verifyUserLoggedIn() async{
-      FirebaseAuth auth = FirebaseAuth.instance;
-      FirebaseUser userLoggedIn = await auth.currentUser();
-      if(userLoggedIn != null){
-        Navigator.push(context, MaterialPageRoute(
-          builder: (context) => HomeScreen())
-        );
-      }
+  Future _verifyUserLoggedIn() async{
+    FirebaseAuth auth = FirebaseAuth.instance;
+    FirebaseUser userLoggedIn = await auth.currentUser();
+    if(userLoggedIn != null){
+      Navigator.push(context, MaterialPageRoute(
+        builder: (context) => HomeScreen())
+      );
     }
+  }
 
     @override
     void initState() {
