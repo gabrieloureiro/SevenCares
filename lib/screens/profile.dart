@@ -16,21 +16,24 @@ class Profile extends StatefulWidget {
   _ProfileState createState() => _ProfileState();
 }
 
-Future _recoveryData() async{
-  FirebaseAuth auth = FirebaseAuth.instance;
-  FirebaseUser userLoggedIn = await auth.currentUser();
-  Firestore db = Firestore.instance;
-
-  setState(){
-    // _nome = auth.userLoggedIn()
-    // .then((firebaseUser){ //.then para caso salvemos o user, salvar no bd
-    //     db.collection('user').document(firebaseUser.userLoggedIn.uid).);
-  }
-}
 
 class _ProfileState extends State<Profile> {
-
+  String _name;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  FirebaseUser user;
   File _image;
+  @override
+  void initState() { 
+    super.initState();
+    initUser();
+  }
+
+  initUser() async {
+    user = await _auth.currentUser();
+    setState(() {
+       _name = user.displayName;
+    });
+  }
 
   Future _recuperarImagem(bool ofCamera) async {
 
@@ -252,13 +255,11 @@ class _ProfileState extends State<Profile> {
                 SizedBox(
                   height: SizeConfig.blockSizeVertical*2.5,
                 ),
-                Text("Seven Cares User", // SE NÃO ESTIVER LOGADO NO FACEBOOK
+                Text("$_name",
                 style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 17
-                  ),
-                ),
+                  color: Colors.blue,
+                  fontSize: 20,
+                ),),
                 SizedBox(
                   height: SizeConfig.blockSizeVertical*2.5,
                 ),

@@ -69,7 +69,35 @@ class _LoginState extends State<Login> {
         builder: (context) => HomeScreen())
       ); 
       }).catchError((e){
-        _errorMessage = "Erro ao autenticar usuário! Verifique o e-mail e a senha";
+        showDialog(
+                context : context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: Text(_errorMessage),
+                      titleTextStyle: TextStyle(
+                        color : Colors.lightBlue,
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      content: Text("Por favor, corrija o campo e tente novamente."),
+                      actions: <Widget>[
+                        FlatButton(
+                          splashColor: Color(0xff38c4d8),
+                          child: Text(
+                            "FECHAR",
+                            style: TextStyle(
+                              color: Colors.grey,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            ),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                      ],
+                    );
+                  }
+              );
       });
     }
 
