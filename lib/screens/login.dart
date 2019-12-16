@@ -65,6 +65,9 @@ class _LoginState extends State<Login> {
       email: user.email,
       password: user.password,
     ).then((firebaseUser){
+      var userUpdateInfo = UserUpdateInfo();
+        userUpdateInfo.displayName = user.name;
+        userUpdateInfo.photoUrl = "";
       Navigator.push(context, MaterialPageRoute(
       builder: (context) => HomeScreen())
     ); 

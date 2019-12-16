@@ -17,27 +17,28 @@ class Profile extends StatefulWidget {
   _ProfileState createState() => _ProfileState();
 }
 
-Future _verifyUserLoggedIn() async{
-  FirebaseAuth auth = FirebaseAuth.instance;
-  FirebaseUser userLoggedIn = await auth.currentUser();
-  Firestore db = Firestore.instance;
-  if(userLoggedIn != null){
-    db.collection('user')
-    .document(userLoggedIn.uid);
-  }
-  return null;
-}
+// Future _verifyUserLoggedIn() async{
+//   FirebaseAuth auth = FirebaseAuth.instance;
+//   FirebaseUser userLoggedIn = await auth.currentUser();
+//   Firestore db = Firestore.instance;
+//   if(userLoggedIn != null){
+//     db.collection('user')
+//     .document(userLoggedIn.uid);
+//   }
+//   return null;
+// }
 
 class _ProfileState extends State<Profile> {
   
   File _image;
 
- 
 
   @override
   void initState() { 
     super.initState();
   }
+
+  
 
   Future _recuperarImagem(bool ofCamera) async {
     File _selectedImage;
@@ -311,18 +312,19 @@ class _ProfileState extends State<Profile> {
           SizedBox(
             height: SizeConfig.blockSizeVertical*2.5,
           ),
-          StreamBuilder(
-            stream:
-                Firestore.instance.collection('user').snapshots(),
-            builder: (context, snapshot) {
-              if (!snapshot.hasData) {
-                return CircularProgressIndicator();
+          FutureBuilder(
+            future: FirebaseAuth.instance.currentUser(),
+            builder: (context, AsyncSnapshot<FirebaseUser> snapshot) {
+              if (snapshot.hasData) {
+                User user;
+                Firestore db = Firestore.instance;
+                return Text(db.collection('user').document(snapshot.data.uid).get().toString());
               }
-              return Text(
-                snapshot.data.documents['uid']['name'],
-                style: TextStyle(fontSize: 25.0),
-              );             
-          }), 
+              else {
+                return Text('Loading...');
+              }
+            },
+          ),
           SizedBox(
             height: SizeConfig.blockSizeVertical*2.5,
           ),
