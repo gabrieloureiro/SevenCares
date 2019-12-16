@@ -6,6 +6,7 @@ class User{
   String _password;
   String _gender;
   String _userType;
+  int _checkin;
 
 
   User();
@@ -16,18 +17,17 @@ class User{
       "name": this.name,
       "email" : this.email,
       "gender" : this.gender,
-      "userType" : this._userType
+      "userType" : this._userType,
+      "check-ins" : this._checkin
     };
 
     return map;
   }
 
-  Map<String, dynamic> toMapProfile(){
+  int get checkIn => _checkin;
 
-    Map<String, dynamic> mapProfile = {
-    };
-
-    return mapProfile;
+  set checkIn(int value) {
+    _checkin = value;
   }
 
   String get userType => _userType;
