@@ -53,16 +53,16 @@ class _HomeState extends State<HomeScreen>
     );
   }
 
-  Future _verifyUserLoggedIn() async{
-    FirebaseAuth auth = FirebaseAuth.instance;
-    FirebaseUser userLoggedIn = await auth.currentUser();
-    Firestore db = Firestore.instance;
-    if(userLoggedIn != null){
-      db.collection('user')
-      .document(userLoggedIn.uid)
-      .setData({});
-    }
-  }
+  // Future _verifyUserLoggedIn() async{
+  //   FirebaseAuth auth = FirebaseAuth.instance;
+  //   FirebaseUser userLoggedIn = await auth.currentUser();
+  //   Firestore db = Firestore.instance;
+  //   if(userLoggedIn != null){
+  //     db.collection('user')
+  //     .document(userLoggedIn.uid)
+  //     .setData({});
+  //   }
+  // }
 
 
   _logOutUser() async{
@@ -239,6 +239,7 @@ class _HomeState extends State<HomeScreen>
 
   Widget _bottomTabs(){
     return BottomAppBar(
+      elevation: 10,
       color: Colors.black87,
       child: TabBar(
               controller: _tabController,
@@ -270,6 +271,7 @@ class _HomeState extends State<HomeScreen>
   Widget _coreHome(){
     return Scaffold(
       appBar: AppBar(
+        elevation: 10,
         title: Image.asset(
           "images/logo-s7.png",
           width: 109,

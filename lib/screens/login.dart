@@ -68,7 +68,7 @@ class _LoginState extends State<Login> {
       var userUpdateInfo = UserUpdateInfo();
         userUpdateInfo.displayName = user.name;
         userUpdateInfo.photoUrl = "";
-      Navigator.pushReplacement(context, MaterialPageRoute(
+      Navigator.push(context, MaterialPageRoute(
       builder: (context) => HomeScreen())
     ); 
     }).catchError((e){

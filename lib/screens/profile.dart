@@ -293,7 +293,6 @@ class _ProfileState extends State<Profile> {
                 showDialog(
                   context : context,
                     builder: (BuildContext context) {
-                      _getName();
                       return _alertDialogCamera();
                     }
                 );
