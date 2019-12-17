@@ -68,8 +68,9 @@ class _HomeState extends State<HomeScreen>
   _logOutUser() async{
     FirebaseAuth auth = FirebaseAuth.instance;
     await auth.signOut();
-    Navigator.pushReplacementNamed(context, "/login"); 
-
+    Navigator.pushReplacement(context, MaterialPageRoute(
+      builder: (context) => Login()
+    )); 
   }  
 
   Widget _drawerRight(){

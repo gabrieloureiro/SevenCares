@@ -20,8 +20,8 @@ class _ProfileState extends State<Profile> {
   
   File _image;
   String _idUser;
-  
-
+  String _urlImagemRecuparada; 
+  bool uploadingImage = false;
 
   @override
   void initState() { 
@@ -39,8 +39,9 @@ class _ProfileState extends State<Profile> {
       .get();
     Map<String, dynamic> _data = snapshot.data;
     String _name = _data['name'];
-
-    //print(_name);
+      if(_data["ImageUrl"] != null){
+        _urlImagemRecuparada = _data["ImageUrl"];
+      }
     return await Future(() => _name);
   
 }
@@ -61,6 +62,10 @@ class _ProfileState extends State<Profile> {
     }
     setState(() {
       _image = _selectedImage;
+      if(_image != null){
+        uploadingImage = true;
+        _uploadImage();
+      }
     });
   }
 
@@ -69,9 +74,38 @@ class _ProfileState extends State<Profile> {
     StorageReference root = storage.ref();
     StorageReference file = root
     .child('profile_pictures')
-    .child("profile1.jfif");
-    file.putFile(_image);
+    .child(_idUser + ".jfif");
+    StorageUploadTask task = file.putFile(_image);
+  
+    task.events.listen((StorageTaskEvent storageEvent){
+      if(storageEvent.type == StorageTaskEventType.progress){
+        setState(() {
+          uploadingImage =true;
+        });
+      }else if(storageEvent.type == StorageTaskEventType.success){
+        uploadingImage = false;
+      }
+    });
+    task.onComplete.then((StorageTaskSnapshot snapshot){
+      _recuperarUrl(snapshot);
+    });
   }
+
+  Future _recuperarUrl(StorageTaskSnapshot snapshot) async{
+    String url = await snapshot.ref.getDownloadURL();
+    _attUrlImageFirestore(url);
+    setState(() {
+      _urlImagemRecuparada = url;
+    });
+  }
+  _attUrlImageFirestore(String url){
+    Firestore db = Firestore.instance;
+    Map<String, dynamic> attData = {
+      "ImageUrl" : url
+    };
+    db.collection("user").document(_idUser).updateData( attData );
+  }
+  
 
   Widget _status(){
     return Row(
@@ -281,25 +315,31 @@ class _ProfileState extends State<Profile> {
           SizedBox(
             height: SizeConfig.blockSizeVertical*2.5,
           ),
-          _image == null               
-          ? CircleAvatar(
-            foregroundColor: Colors.lightBlueAccent.shade400,
-            backgroundColor: Colors.lightBlueAccent,
-            backgroundImage: ExactAssetImage('images/maleuser.png'),
-              minRadius: 100,
-              maxRadius: 100,
-            child: GestureDetector(
-              onTap: (){
-                showDialog(
-                  context : context,
-                    builder: (BuildContext context) {
-                      return _alertDialogCamera();
-                    }
-                );
-              }
-            ),
-          )
-          : CircleAvatar(
+          uploadingImage ? CircularProgressIndicator() 
+          : Container()
+          ,CircleAvatar(
+              foregroundColor: Colors.lightBlueAccent.shade400,
+              radius: 100,
+              backgroundColor: Colors.grey,
+              backgroundImage: _urlImagemRecuparada != null
+                ? NetworkImage(_urlImagemRecuparada)
+                  : null
+          ),
+
+          FlatButton(
+            child: Text("Îmagem"),
+            onPressed: (){
+              
+                      showDialog(
+                        context : context,
+                          builder: (BuildContext context) {
+                            return _alertDialogCamera();
+                          }
+                      );
+                  
+            },
+          ),
+         /*  : CircleAvatar(
             foregroundColor: Colors.lightBlueAccent.shade400,
             backgroundColor: Colors.lightBlueAccent,
             backgroundImage: FileImage(_image),
@@ -315,7 +355,7 @@ class _ProfileState extends State<Profile> {
                 );
               }
             ),
-          ),
+          ), */
           SizedBox(
             height: SizeConfig.blockSizeVertical*2.5,
           ),
@@ -345,6 +385,26 @@ class _ProfileState extends State<Profile> {
       ],  
     ),
   );
+  }
+  Widget avatar(){
+    return CircleAvatar(
+                  foregroundColor: Colors.lightBlueAccent.shade400,
+                  backgroundColor: Colors.lightBlueAccent,
+                  backgroundImage: ExactAssetImage('images/maleuser.png'),
+                    minRadius: 100,
+                    maxRadius: 100,
+                  child: GestureDetector(
+                    onTap: (){
+                      showDialog(
+                        context : context,
+                          builder: (BuildContext context) {
+                            return _alertDialogCamera();
+                          }
+                      );
+                    }
+                  ),
+                );
+          
   }
 
   Widget _profileDown(){

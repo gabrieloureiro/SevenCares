@@ -3,6 +3,7 @@ import 'package:flutter_app/screens/forgotpassword.dart';
 import 'package:flutter_app/screens/home.dart';
 import 'package:flutter_app/screens/login.dart';
 import 'package:flutter_app/screens/signup.dart';
+import 'package:flutter_app/undefinedView.dart';
 class Routes {
 
   static Route<dynamic> generateRoutes(RouteSettings settings){
@@ -34,7 +35,7 @@ class Routes {
         );
         break;
       default:
-        _routeError();
+        return MaterialPageRoute(builder: (context) => UndefinedView(name: settings.name,));
     }
     
 

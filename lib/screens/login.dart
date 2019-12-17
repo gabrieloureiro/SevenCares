@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_app/model/user.dart';
@@ -72,7 +73,7 @@ class _LoginState extends State<Login> {
       builder: (context) => HomeScreen())
     ); 
     }).catchError((e){
-      _errorMessage = "Erro ao autenticar usuário! Verifique o e-mail e a senha";
+        return _erroMessage();
     });
   }
 
@@ -107,6 +108,27 @@ class _LoginState extends State<Login> {
     _controllerVideo.dispose();
 
     super.dispose();
+  }
+  Widget _erroMessage(){
+    return RaisedButton(
+      onPressed: (){
+        showDialog(
+          builder: (BuildContext context) {
+           return AlertDialog(
+             content: Text("Error no login"),
+             actions: <Widget>[
+               FlatButton(
+                 child: Text("Fechar"),
+                 onPressed: (){
+                   Navigator.of(context).pop();
+                 },
+               )
+             ],
+           );
+         }, context: null
+       );
+      },
+    ); 
   }
 
   Widget _signInWithText(){
@@ -356,10 +378,26 @@ class _LoginState extends State<Login> {
         ),
       ],
     );   
-    
-    
-    
   }
+  Widget guestUser(){
+      return Container(
+            alignment: Alignment.centerRight,
+              child: FlatButton(
+                padding: EdgeInsets.only(right: 0),
+                child: Text(
+                  "Entrar como convidado(a)?",                               
+                style: TextStyle(
+                fontSize: 13,
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+                ),
+              ),
+              onPressed: (){
+                Navigator.pushNamed(context, "/inicio");
+              },
+              )
+          );
+    }
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
@@ -406,7 +444,7 @@ class _LoginState extends State<Login> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: <Widget>[
-                           //_rememberMeCheckbox(),
+                           guestUser(),
                            _forgotPassword(),
                         ],
                        ),
