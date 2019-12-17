@@ -36,6 +36,8 @@ class _SingUpState extends State<SingUp> {
     String password = _controllerSenha.text;
     String confirmPassword = _controllerConfirmarsenha.text;
     String gender = "";
+    int checkIn;
+    String userType = "Aluno";
 
     //VALIDACAO DOS CAMPOS
     if(_isSelectedM == true){
@@ -55,15 +57,17 @@ class _SingUpState extends State<SingUp> {
 
             if(gender.isNotEmpty){
 
-              User user = User();
-              user.name = name;
-              user.email = email;
-              user.password = password;
-              user.gender = gender;
+                User user = User();
+                user.name = name;
+                user.email = email;
+                user.password = password;
+                user.gender = gender;
+                user.userType = userType;
+                user.checkIn = checkIn;
 
-            _userSignUp( user );
+              _userSignUp( user );
 
-            _errorMessage = '';
+              _errorMessage = '';
             
             }else{
               setState(() {
