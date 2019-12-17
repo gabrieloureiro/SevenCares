@@ -322,7 +322,6 @@ class _ProfileState extends State<Profile> {
           ),
           FutureBuilder(
             future: _getName(),
-            initialData: "Loading...",
             builder: (context, AsyncSnapshot<String> snapshotName) {
               if (snapshotName.hasData) {
                 return Text(snapshotName.data,
@@ -334,7 +333,9 @@ class _ProfileState extends State<Profile> {
                 );
               }
               else {
-                return CircularProgressIndicator();
+                return CircularProgressIndicator(
+                  backgroundColor: Color(0xff38c4d8),
+                );
               }
             },
           ),
