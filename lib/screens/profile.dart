@@ -17,26 +17,34 @@ class Profile extends StatefulWidget {
   _ProfileState createState() => _ProfileState();
 }
 
-// Future _verifyUserLoggedIn() async{
-//   FirebaseAuth auth = FirebaseAuth.instance;
-//   FirebaseUser userLoggedIn = await auth.currentUser();
-//   Firestore db = Firestore.instance;
-//   if(userLoggedIn != null){
-//     db.collection('user')
-//     .document(userLoggedIn.uid);
-//   }
-//   return null;
-// }
-
 class _ProfileState extends State<Profile> {
   
   File _image;
+  String _idUser;
+  
 
 
   @override
   void initState() { 
     super.initState();
+    _getName();
   }
+
+  Future<String> _getName() async{
+    FirebaseAuth auth = FirebaseAuth.instance;
+    FirebaseUser userLoggedIn = await auth.currentUser();
+    _idUser = userLoggedIn.uid;
+    Firestore db = Firestore.instance;
+    DocumentSnapshot snapshot = await db.collection('user')
+      .document(_idUser)
+      .get();
+    Map<String, dynamic> _data = snapshot.data;
+    String _name = _data['name'];
+
+    //print(_name);
+    return await Future(() => _name);
+  
+}
 
   
 
@@ -286,6 +294,7 @@ class _ProfileState extends State<Profile> {
                 showDialog(
                   context : context,
                     builder: (BuildContext context) {
+                      _getName();
                       return _alertDialogCamera();
                     }
                 );
@@ -313,15 +322,20 @@ class _ProfileState extends State<Profile> {
             height: SizeConfig.blockSizeVertical*2.5,
           ),
           FutureBuilder(
-            future: FirebaseAuth.instance.currentUser(),
-            builder: (context, AsyncSnapshot<FirebaseUser> snapshot) {
-              if (snapshot.hasData) {
-                User user;
-                Firestore db = Firestore.instance;
-                return Text(db.collection('user').document(snapshot.data.uid).get().toString());
+            future: _getName(),
+            initialData: "Loading...",
+            builder: (context, AsyncSnapshot<String> snapshotName) {
+              if (snapshotName.hasData) {
+                return Text(snapshotName.data,
+                  style: TextStyle(
+                    color : Colors.white,
+                    fontSize: 17,
+                    fontWeight: FontWeight.bold,
+                  ),
+                );
               }
               else {
-                return Text('Loading...');
+                return CircularProgressIndicator();
               }
             },
           ),

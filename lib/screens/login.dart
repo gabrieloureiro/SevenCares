@@ -68,7 +68,7 @@ class _LoginState extends State<Login> {
       var userUpdateInfo = UserUpdateInfo();
         userUpdateInfo.displayName = user.name;
         userUpdateInfo.photoUrl = "";
-      Navigator.push(context, MaterialPageRoute(
+      Navigator.pushReplacement(context, MaterialPageRoute(
       builder: (context) => HomeScreen())
     ); 
     }).catchError((e){
@@ -80,7 +80,7 @@ class _LoginState extends State<Login> {
     FirebaseAuth auth = FirebaseAuth.instance;
     FirebaseUser userLoggedIn = await auth.currentUser();
     if(userLoggedIn != null){
-      Navigator.push(context, MaterialPageRoute(
+      Navigator.pushReplacement(context, MaterialPageRoute(
         builder: (context) => HomeScreen())
       );
     }
