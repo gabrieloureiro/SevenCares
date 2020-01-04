@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Search extends StatefulWidget {
   Search({Key key}) : super(key: key);
@@ -10,6 +11,15 @@ class Search extends StatefulWidget {
 }
  
 class _SearchState extends State<Search> {
+
+  _launchURL(String url) async {
+    String url1 = url;
+    if (await canLaunch(url1)) {
+      await launch(url1);
+    } else {
+      throw 'Não foi possível acessar $url1';
+    }
+  }
 
   Widget _buildListItem(BuildContext context, DocumentSnapshot document){
     return ListTile(
@@ -49,7 +59,62 @@ class _SearchState extends State<Search> {
         ],
       ),
       onTap: (){
-        Navigator.pushNamed(context, "/profileView");
+        showDialog(
+          context : context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Padding(
+                padding: EdgeInsets.fromLTRB(50,0,50,0),
+                child: Text(document["name"],
+                  style: TextStyle(
+                    color : Colors.lightBlue,
+                    fontSize: 19,
+                    fontWeight: FontWeight.bold,
+                  ),
+                )
+              ),
+              content: SingleChildScrollView(
+                child: ListBody(
+                  children: <Widget>[
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Padding(
+                          padding: EdgeInsets.only(left:10),
+                        ),
+                        CircleAvatar(
+                          backgroundImage:
+                            NetworkImage(document['imgUrl']),
+                          minRadius: 40,
+                          maxRadius: 40,   
+                        ),                  
+                        Row(
+                          children: <Widget>[
+                            Text('Convidar para treinar'),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              actions: <Widget>[
+                FlatButton(
+                  child: Text(
+                    "FECHAR",
+                    style: TextStyle(
+                      color: Colors.grey,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    ),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            );
+          });
       },
     );
   }

@@ -16,7 +16,7 @@ class Api {
       "&publishedAfter=2017-01-01T00:00:00Z"
       "&key=$YOUTUBE_KEY_API"
       "&channelId=$ID_CHANNEL"
-      "&q=$srch"
+      "&q=dicas"
     );
 
     if(response.statusCode == 200){
