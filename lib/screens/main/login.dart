@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_app/model/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_app/model/size_config.dart';
-import 'package:flutter_app/screens/home.dart';
+import 'package:flutter_app/screens/main/home.dart';
 import 'package:video_player/video_player.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
 

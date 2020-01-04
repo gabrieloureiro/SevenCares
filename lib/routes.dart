@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/screens/forgotpassword.dart';
-import 'package:flutter_app/screens/home.dart';
-import 'package:flutter_app/screens/login.dart';
-import 'package:flutter_app/screens/signup.dart';
+import 'package:flutter_app/screens/main/forgotpassword.dart';
+import 'package:flutter_app/screens/main/home.dart';
+import 'package:flutter_app/screens/main/login.dart';
+import 'package:flutter_app/screens/main/signup.dart';
 import 'package:flutter_app/undefinedView.dart';
 class Routes {
 

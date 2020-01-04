@@ -20,8 +20,9 @@ class _ProfileState extends State<Profile> {
   
   File _image;
   String _idUser;
-  String _urlImagemRecuparada; 
+  String _urlImgRecuperada; 
   bool uploadingImage = false;
+  String gen;
 
   @override
   void initState() { 
@@ -30,6 +31,7 @@ class _ProfileState extends State<Profile> {
   }
 
   Future<String> _getName() async{
+
     FirebaseAuth auth = FirebaseAuth.instance;
     FirebaseUser userLoggedIn = await auth.currentUser();
     _idUser = userLoggedIn.uid;
@@ -37,16 +39,45 @@ class _ProfileState extends State<Profile> {
     DocumentSnapshot snapshot = await db.collection('user')
       .document(_idUser)
       .get();
+
     Map<String, dynamic> _data = snapshot.data;
     String _name = _data['name'];
-      if(_data["ImageUrl"] != null){
-        _urlImagemRecuparada = _data["ImageUrl"];
-      }
     return await Future(() => _name);
-  
 }
 
+Future<String> _getUrlImg() async{
+
+    FirebaseAuth auth = FirebaseAuth.instance;
+    FirebaseUser userLoggedIn = await auth.currentUser();
+    _idUser = userLoggedIn.uid;
+    Firestore db = Firestore.instance;
+    DocumentSnapshot snapshot = await db.collection('user')
+      .document(_idUser)
+      .get();
+
+    Map<String, dynamic> _data = snapshot.data;
+    String _urlImg = _data['imgUrl'];
+
+    return await Future(() => _urlImg);
+    
+}
+
+Future<String> _getGender() async{
+
+    FirebaseAuth auth = FirebaseAuth.instance;
+    FirebaseUser userLoggedIn = await auth.currentUser();
+    _idUser = userLoggedIn.uid;
+    Firestore db = Firestore.instance;
+    DocumentSnapshot snapshot = await db.collection('user')
+      .document(_idUser)
+      .get();
+
+    Map<String, dynamic> _data = snapshot.data;
+    String _gender = _data['gender'];
+
+    return await Future(() => _gender);
   
+}
 
   Future _recuperarImagem(bool ofCamera) async {
     File _selectedImage;
@@ -74,7 +105,7 @@ class _ProfileState extends State<Profile> {
     StorageReference root = storage.ref();
     StorageReference file = root
     .child('profile_pictures')
-    .child(_idUser + ".jfif");
+    .child(_idUser + ".jpeg");
     StorageUploadTask task = file.putFile(_image);
   
     task.events.listen((StorageTaskEvent storageEvent){
@@ -95,15 +126,16 @@ class _ProfileState extends State<Profile> {
     String url = await snapshot.ref.getDownloadURL();
     _attUrlImageFirestore(url);
     setState(() {
-      _urlImagemRecuparada = url;
+      _urlImgRecuperada = url;
     });
   }
+
   _attUrlImageFirestore(String url){
     Firestore db = Firestore.instance;
     Map<String, dynamic> attData = {
-      "ImageUrl" : url
+      "imgUrl" : url
     };
-    db.collection("user").document(_idUser).updateData( attData );
+    db.collection("user").document(_idUser).updateData(attData);
   }
   
 
@@ -315,47 +347,99 @@ class _ProfileState extends State<Profile> {
           SizedBox(
             height: SizeConfig.blockSizeVertical*2.5,
           ),
-          uploadingImage ? CircularProgressIndicator() 
-          : Container()
-          ,CircleAvatar(
-              foregroundColor: Colors.lightBlueAccent.shade400,
-              radius: 100,
-              backgroundColor: Colors.grey,
-              backgroundImage: _urlImagemRecuparada != null
-                ? NetworkImage(_urlImagemRecuparada)
-                  : null
-          ),
-
-          FlatButton(
-            child: Text("Îmagem"),
-            onPressed: (){
-              
-                      showDialog(
-                        context : context,
-                          builder: (BuildContext context) {
-                            return _alertDialogCamera();
-                          }
-                      );
-                  
-            },
-          ),
-         /*  : CircleAvatar(
-            foregroundColor: Colors.lightBlueAccent.shade400,
-            backgroundColor: Colors.lightBlueAccent,
-            backgroundImage: FileImage(_image),
-              minRadius: 100,
-              maxRadius: 100,
-            child: GestureDetector(
-              onTap: (){
-                showDialog(
-                  context : context,
-                    builder: (BuildContext context) {
-                      return _alertDialogCamera();
+          FutureBuilder(
+            future: _getUrlImg(),
+            builder: (context, AsyncSnapshot<String> imgurl) {
+              if (!imgurl.hasData) {
+                if (imgurl.connectionState == ConnectionState.done || imgurl.connectionState == ConnectionState.active){
+                  return CircleAvatar(
+                    foregroundColor: Colors.lightBlueAccent.shade400,
+                    backgroundColor: Colors.lightBlueAccent,
+                    backgroundImage: NetworkImage(imgurl.data),
+                      minRadius: 100,
+                      maxRadius: 100,
+                    child: GestureDetector(
+                      onTap: (){
+                        showDialog(
+                          context : context,
+                            builder: (BuildContext context) {
+                              return _alertDialogCamera();
+                            }
+                        );
+                      }
+                    ),
+                  );
+                }
+                else if (imgurl.connectionState == ConnectionState.waiting) {
+                  return Text('Carregando...',
+                    style: TextStyle(
+                        color : Colors.white,
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                    ),
+                  );
+                }
+              }
+              else {   
+                return FutureBuilder(
+                  future: _getGender(),
+                  builder: (context, AsyncSnapshot<String> snapshot) {
+                    if (snapshot.connectionState == ConnectionState.done) {
+                      if (snapshot.hasData && snapshot.data == 'Masculino'){
+                        return CircleAvatar(
+                          foregroundColor: Colors.lightBlueAccent.shade400,
+                          backgroundColor: Colors.lightBlueAccent,
+                          backgroundImage: ExactAssetImage('images/maleuser.png'),
+                            minRadius: 100,
+                            maxRadius: 100,
+                          child: GestureDetector(
+                            onTap: (){
+                              showDialog(
+                                context : context,
+                                  builder: (BuildContext context) {
+                                    return _alertDialogCamera();
+                                  }
+                              );
+                            }
+                          ),
+                        );
+                      }
+                      else if (snapshot.hasData && snapshot.data == 'Feminino') {
+                        return CircleAvatar(
+                          foregroundColor: Colors.lightBlueAccent.shade400,
+                          backgroundColor: Colors.lightBlueAccent,
+                          backgroundImage: ExactAssetImage('images/femaleuser.png'),
+                            minRadius: 100,
+                            maxRadius: 100,
+                          child: GestureDetector(
+                            onTap: (){
+                              showDialog(
+                                context : context,
+                                  builder: (BuildContext context) {
+                                    return _alertDialogCamera();
+                                  }
+                              );
+                            }
+                          ),
+                        );
+                      }
                     }
+                    else if (snapshot.connectionState == ConnectionState.waiting){
+                      return Text('Carregando...',
+                        style: TextStyle(
+                            color : Colors.white,
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                        ),
+                      );
+                    }
+                    return null;
+                  },
                 );
               }
-            ),
-          ), */
+              return null;
+            }
+          ),
           SizedBox(
             height: SizeConfig.blockSizeVertical*2.5,
           ),
@@ -385,26 +469,6 @@ class _ProfileState extends State<Profile> {
       ],  
     ),
   );
-  }
-  Widget avatar(){
-    return CircleAvatar(
-                  foregroundColor: Colors.lightBlueAccent.shade400,
-                  backgroundColor: Colors.lightBlueAccent,
-                  backgroundImage: ExactAssetImage('images/maleuser.png'),
-                    minRadius: 100,
-                    maxRadius: 100,
-                  child: GestureDetector(
-                    onTap: (){
-                      showDialog(
-                        context : context,
-                          builder: (BuildContext context) {
-                            return _alertDialogCamera();
-                          }
-                      );
-                    }
-                  ),
-                );
-          
   }
 
   Widget _profileDown(){
