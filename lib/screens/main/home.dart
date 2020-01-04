@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/screens/main/login.dart';
 import 'package:flutter_app/model/user.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import '../../settings.dart';
+import '../sub/settings.dart';
 import 'feed.dart';
 import 'fitness.dart';
 import 'newsletter.dart';

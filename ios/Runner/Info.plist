@@ -55,6 +55,12 @@
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Permitir que o aplicativo acesse o microfone?</string>
 
+	<key>NSAppTransportSecurity</key>
+	<dict>
+	<key>NSAllowsArbitraryLoads</key>
+	<true/>
+	</dict>
+
 
 </dict>
 </plist>

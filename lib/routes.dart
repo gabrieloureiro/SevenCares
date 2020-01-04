@@ -3,6 +3,7 @@ import 'package:flutter_app/screens/main/forgotpassword.dart';
 import 'package:flutter_app/screens/main/home.dart';
 import 'package:flutter_app/screens/main/login.dart';
 import 'package:flutter_app/screens/main/signup.dart';
+import 'package:flutter_app/screens/sub/profileuser.dart';
 import 'package:flutter_app/undefinedView.dart';
 class Routes {
 
@@ -13,25 +14,25 @@ class Routes {
         return MaterialPageRoute(
             builder: (_) => Login()
         );
-        break;
       case "/signup" :
         return MaterialPageRoute(
             builder: (_) => SingUp()
         );
-        break;
       case "/inicio" :
         return MaterialPageRoute(
             builder: (_) => Home()
         );
-        break;
       case "/login" : 
         return MaterialPageRoute(
           builder: (_) => Login()
         );
-        break;
       case "/forgot" : 
         return MaterialPageRoute(
           builder: (_) => ForgotPassword()
+        );
+      case "/profileView" : 
+        return MaterialPageRoute(
+          builder: (_) => ProfileView()
         );
         break;
       default:

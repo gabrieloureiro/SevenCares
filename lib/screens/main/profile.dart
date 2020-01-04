@@ -238,7 +238,7 @@ Future<String> _getGender() async{
     ),
     Column(
       children: <Widget>[ 
-        Text("Medalhas",
+        Text("Sequência",
           style: TextStyle(
             color : Colors.white,
             fontSize: 16,
