@@ -41,16 +41,16 @@ class _NewsletterState extends State<Newsletter> {
     return Stack(
       alignment: Alignment.bottomRight,
       children: <Widget>[
-        Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [Colors.black54, Colors.grey],
-            )
-          ),
-          alignment: Alignment.topCenter,
-        ),
+        // Container(
+        //   decoration: BoxDecoration(
+        //     gradient: LinearGradient(
+        //       begin: Alignment.topCenter,
+        //       end: Alignment.bottomCenter,
+        //       colors: [Colors.black54, Colors.grey],
+        //     )
+        //   ),
+        //   alignment: Alignment.topCenter,
+        // ),
         Padding(
           padding: EdgeInsets.all(16),
           child: FutureBuilder<List<Video>>(

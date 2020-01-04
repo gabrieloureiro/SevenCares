@@ -350,7 +350,7 @@ Future<String> _getGender() async{
           FutureBuilder(
             future: _getUrlImg(),
             builder: (context, AsyncSnapshot<String> imgurl) {
-              if (!imgurl.hasData) {
+              if (imgurl.hasData) {
                 if (imgurl.connectionState == ConnectionState.done || imgurl.connectionState == ConnectionState.active){
                   return CircleAvatar(
                     foregroundColor: Colors.lightBlueAccent.shade400,
@@ -457,7 +457,8 @@ Future<String> _getGender() async{
               }
               else {
                 return CircularProgressIndicator(
-                  backgroundColor: Color(0xff38c4d8),
+                  //backgroundColor: Color(0xff38c4d8),
+                  backgroundColor: Colors.white,
                 );
               }
             },
@@ -597,16 +598,16 @@ Future<String> _getGender() async{
                 height: SizeConfig.blockSizeVertical*4.5,
               ),
               IconButton(
-                icon: Image.asset("images/car.png"),
+                icon: Image.asset("images/spotify.png"),
                 iconSize: SizeConfig.blockSizeHorizontal*10,
-                tooltip: "Estacionamento",
+                tooltip: "Spotify",
                 splashColor: Colors.lightBlueAccent.shade400,
                 color: Colors.grey,
                 onPressed: () {
                   // _loginWithFB();
                 },
               ),
-              Text("Estacionamento",
+              Text("Spotify",
                 style: TextStyle(
                 color: Colors.black54,
                 fontWeight: FontWeight.bold,
