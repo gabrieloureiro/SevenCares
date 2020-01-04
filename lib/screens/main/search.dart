@@ -16,20 +16,35 @@ class _SearchState extends State<Search> {
       title: Row(
         children: <Widget>[
           Expanded(
-            child: Text(
-              document['name'],
-              style:Theme.of(context).textTheme.title,    
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[ 
+                Text(
+                  document['name'],
+                  style: TextStyle(
+                    color : Colors.black87,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),    
+                ),
+                Text(
+                  document['userType'],
+                  style: TextStyle(
+                    color : Colors.black87,
+                    fontSize: 13,
+                  ),    
+                ),
+              ],
             ),
           ),
-          Container(
-            decoration: const BoxDecoration(
-              color: Colors.lightBlueAccent,
-            ),
+          Padding (
             padding: const EdgeInsets.all(10),
-            child: Text(
-              document['userType'],
-              style: Theme.of(context).textTheme.subtitle,
-            ),
+            child: CircleAvatar(
+              backgroundImage: NetworkImage(document['imgUrl']),
+                minRadius: 30,
+                maxRadius: 30,
+            )
           )
         ],
       ),
@@ -42,16 +57,16 @@ class _SearchState extends State<Search> {
     return Stack(
       alignment: Alignment.center,
             children: <Widget>[
-              Container(
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [Colors.black87, Colors.grey],
-                  )
-                ),
-                alignment: Alignment.topCenter,
-              ),
+              // Container(
+              //   decoration: BoxDecoration(
+              //     gradient: LinearGradient(
+              //       begin: Alignment.topCenter,
+              //       end: Alignment.bottomCenter,
+              //       colors: [Colors.black87, Colors.grey],
+              //     )
+              //   ),
+              //   alignment: Alignment.topCenter,
+              // ),
               StreamBuilder(
                 stream: Firestore.instance.collection("user").snapshots(),
                 builder: (context, snapshot){
@@ -64,8 +79,8 @@ class _SearchState extends State<Search> {
                         fontWeight: FontWeight.bold,
                       ),
                     );
-                  return ListView.builder(
-                    itemExtent: 80,
+                  return ListView.separated(
+                    separatorBuilder: (context, index) => Divider(height: 2, color: Colors.grey),
                     itemCount: snapshot.data.documents.length,
                     itemBuilder: (context,index)=>_buildListItem(context,snapshot.data.documents[index]),
                   );

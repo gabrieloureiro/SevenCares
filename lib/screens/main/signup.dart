@@ -38,13 +38,16 @@ class _SingUpState extends State<SingUp> {
     String gender = "";
     int checkIn;
     String userType = "Aluno";
+    String imgUrl;
 
     //VALIDACAO DOS CAMPOS
     if(_isSelectedM == true){
       gender = "Masculino";
+      imgUrl = "https://firebasestorage.googleapis.com/v0/b/seven7cares.appspot.com/o/profile_pictures%2Fmaleuser.png?alt=media&token=fe9b3d3a-5afc-4e2a-b28c-6383a33753f3";
     }
     else if(_isSelectedF == true){
       gender = "Feminino";
+      imgUrl = "https://firebasestorage.googleapis.com/v0/b/seven7cares.appspot.com/o/profile_pictures%2Ffemaleuser.png?alt=media&token=cbd3fbcb-0fcc-42f2-a93b-b2976ddceac0";
     }
 
     if(name.isNotEmpty){
@@ -64,6 +67,7 @@ class _SingUpState extends State<SingUp> {
                 user.gender = gender;
                 user.userType = userType;
                 user.checkIn = checkIn;
+                user.imgUrl = imgUrl;
 
               _userSignUp( user );
 

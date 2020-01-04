@@ -95,7 +95,7 @@ class _NewsletterState extends State<Newsletter> {
                           ],
                         );
                       },
-                      separatorBuilder: (context, index) => Divider(height: SizeConfig.blockSizeVertical*2.5, color: Colors.white),
+                      separatorBuilder: (context, index) => Divider(height: SizeConfig.blockSizeVertical*2.5, color: Colors.grey),
                       itemCount: snapshot.data.length,
                     );
                   }
@@ -106,6 +106,7 @@ class _NewsletterState extends State<Newsletter> {
                   }
                   break;
               }
+              return null;
             },
           ),
         ),

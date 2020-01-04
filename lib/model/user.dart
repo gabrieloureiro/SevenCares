@@ -7,6 +7,7 @@ class User{
   String _gender;
   String _userType;
   int _checkin;
+  String _imgUrl;
 
 
   User();
@@ -18,10 +19,17 @@ class User{
       "email" : this.email,
       "gender" : this.gender,
       "userType" : this._userType,
-      "check-ins" : this._checkin
+      "check-ins" : this._checkin,
+      "imgUrl" : this._imgUrl
     };
 
     return map;
+  }
+
+  String get imgUrl => _imgUrl;
+
+  set imgUrl(String value) {
+    _imgUrl = value;
   }
 
   int get checkIn => _checkin;
