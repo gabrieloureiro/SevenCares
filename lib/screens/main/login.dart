@@ -7,6 +7,7 @@ import 'package:flutter_app/model/size_config.dart';
 import 'package:flutter_app/screens/main/home.dart';
 import 'package:video_player/video_player.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 
 
@@ -62,6 +63,7 @@ class _LoginState extends State<Login> {
   }
   _userLogin(User user){
     FirebaseAuth auth = FirebaseAuth.instance;
+    Firestore db = Firestore.instance;
     auth.signInWithEmailAndPassword(
       email: user.email,
       password: user.password,
@@ -69,7 +71,7 @@ class _LoginState extends State<Login> {
       var userUpdateInfo = UserUpdateInfo();
         userUpdateInfo.displayName = user.name;
         userUpdateInfo.photoUrl = "";
-      Navigator.push(context, MaterialPageRoute(
+      Navigator.pushReplacement(context, MaterialPageRoute(
       builder: (context) => HomeScreen())
     ); 
     }).catchError((e){
@@ -89,7 +91,7 @@ class _LoginState extends State<Login> {
 
     @override
     void initState() {
-    _verifyUserLoggedIn();
+    //_verifyUserLoggedIn();
     super.initState();
     _controllerVideo = VideoPlayerController.asset(
         //'https://firebasestorage.googleapis.com/v0/b/data-7-1b8b7.appspot.com/o/ACADEMIA-SEVEN-CARE_2.mp4?alt=media&token=3239ba64-4b69-453b-bcab-649f5d0b69fd')

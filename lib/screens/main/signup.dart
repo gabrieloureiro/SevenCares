@@ -113,7 +113,55 @@ class _SingUpState extends State<SingUp> {
         password: user.password,
       ).then((firebaseUser){ //.then para caso salvemos o user, salvar no bd
         db.collection('user').document(firebaseUser.user.uid). //colecao com users
-        setData(user.toMap()); //setdata -> dados que quero salvar
+        setData(user.toMap());
+        db.collection('user').document(firebaseUser.user.uid).collection('train').document('chest').setData({});
+        db.collection('user').document(firebaseUser.user.uid).collection('train').document('biceps').setData({});
+        db.collection('user').document(firebaseUser.user.uid).collection('train').document('forearm').setData({});
+        db.collection('user').document(firebaseUser.user.uid).collection('train').document('triceps').setData({});
+        db.collection('user').document(firebaseUser.user.uid).collection('train').document('shoulder').setData({});
+        db.collection('user').document(firebaseUser.user.uid).collection('train').document('back').setData({});
+        db.collection('user').document(firebaseUser.user.uid).collection('train').document('abs').setData({});
+        db.collection('user').document(firebaseUser.user.uid).collection('train').document('legs').setData({});
+        // 'Supino Reto': 
+        //  {
+        //    'reps': 0,
+        //    'sets':0,
+        //    'halter': false,
+        //  },
+        // 'Supino Inclinado': 
+        //  {
+        //    'reps': 0,
+        //    'sets':0,
+        //    'halter': false,
+        //  },
+        //  'Supino Declinado': 
+        //  {
+        //    'reps': 0,
+        //    'sets':0,
+        //    'halter': false,
+        //  },
+        //  'Crossover': 
+        //  {
+        //    'reps': 0,
+        //    'sets':0,
+        //    'variation': 
+        //    {
+        //      'upchest': false,
+        //      'midchest': true,
+        //      'lowchest': false
+        //    }
+        //  },
+        //  'Crucifixo': 
+        //  {
+        //    'reps': 0,
+        //    'sets':0,
+        //  },
+        //  'Supino Declinado': 
+        //  {
+        //    'reps': 0,
+        //    'sets':0,
+        //    'halter': false,
+        //  }, //setdata -> dados que quero salvar
         Navigator.pushNamedAndRemoveUntil(
               context, 
               '/inicio', 

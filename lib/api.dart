@@ -12,7 +12,7 @@ class Api {
     http.Response response = await http.get(URL1 + "search" 
       "?part=snippet"
       "&type=video"
-      "&maxResults=50"
+      "&maxResults=10"
       "&publishedAfter=2017-01-01T00:00:00Z"
       "&key=$YOUTUBE_KEY_API"
       "&channelId=$ID_CHANNEL"

@@ -232,7 +232,7 @@ class _HomeState extends State<HomeScreen>
         Newsletter(),
         Search(),
         Feed(),
-        Fitness(),
+        Train(),
         Profile(),
       ],
     );

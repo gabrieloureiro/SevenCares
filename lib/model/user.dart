@@ -10,6 +10,7 @@ class User{
   String _imgUrl;
 
 
+
   User();
 
   Map<String, dynamic> toMap(){
@@ -20,7 +21,7 @@ class User{
       "gender" : this.gender,
       "userType" : this._userType,
       "check-ins" : this._checkin,
-      "imgUrl" : this._imgUrl
+      "imgUrl" : this._imgUrl,
     };
 
     return map;

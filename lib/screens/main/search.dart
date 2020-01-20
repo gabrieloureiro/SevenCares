@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter_app/model/size_config.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Search extends StatefulWidget {
@@ -22,7 +23,7 @@ class _SearchState extends State<Search> {
   }
 
   Widget _buildListItem(BuildContext context, DocumentSnapshot document){
-    return ListTile(
+    return ListTile( 
       title: Row(
         children: <Widget>[
           Expanded(
@@ -63,15 +64,23 @@ class _SearchState extends State<Search> {
           context : context,
           builder: (BuildContext context) {
             return AlertDialog(
-              title: Padding(
-                padding: EdgeInsets.fromLTRB(50,0,50,0),
-                child: Text(document["name"],
-                  style: TextStyle(
-                    color : Colors.lightBlue,
-                    fontSize: 19,
-                    fontWeight: FontWeight.bold,
+              title: Row(
+                children: <Widget>[                           
+                  CircleAvatar(
+                      backgroundImage:
+                        NetworkImage(document['imgUrl']),
+                      minRadius: 25,
+                      maxRadius: 25,   
                   ),
-                )
+                  SizedBox(width: SizeConfig.blockSizeHorizontal*2.5),
+                  Text(document["name"],
+                    style: TextStyle(
+                      color : Colors.lightBlue,
+                      fontSize: 19,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
               ),
               content: SingleChildScrollView(
                 child: ListBody(
@@ -82,13 +91,7 @@ class _SearchState extends State<Search> {
                       children: <Widget>[
                         Padding(
                           padding: EdgeInsets.only(left:10),
-                        ),
-                        CircleAvatar(
-                          backgroundImage:
-                            NetworkImage(document['imgUrl']),
-                          minRadius: 40,
-                          maxRadius: 40,   
-                        ),                  
+                        ),               
                         Row(
                           children: <Widget>[
                             Text('Convidar para treinar'),
@@ -121,6 +124,7 @@ class _SearchState extends State<Search> {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     return Stack(
       alignment: Alignment.center,
             children: <Widget>[
@@ -135,17 +139,14 @@ class _SearchState extends State<Search> {
               //   alignment: Alignment.topCenter,
               // ),
               StreamBuilder(
+                
                 stream: Firestore.instance.collection("user").snapshots(),
                 builder: (context, snapshot){
-                if(!snapshot.hasData) 
-                  return const 
-                    Text("Loading...",
-                      style: TextStyle(
-                        color : Colors.white,
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    );
+                if(!snapshot.hasData)
+                  return CircularProgressIndicator(
+                  //backgroundColor: Color(0xff38c4d8),
+                  backgroundColor: Colors.white,
+                ); 
                   return ListView.separated(
                     separatorBuilder: (context, index) => Divider(height: 2, color: Colors.grey),
                     itemCount: snapshot.data.documents.length,
